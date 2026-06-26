@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger)
 const SOCIAL_LINKS = [
   { label: 'LinkedIn ↗', href: 'https://www.linkedin.com/in/abhishekkininge/' },
   { label: 'GitHub ↗',   href: 'https://github.com/Starquake82' },
-  { label: 'Topmate ↗',  href: 'https://topmate.io/' },
 ]
 
 function SplitWords({ text, className }: { text: string; className?: string }) {
@@ -61,14 +60,17 @@ export default function Contact() {
 
           <div className="contact-body" style={{ opacity: 0 }}>
             <a
-              href="mailto:hello@abhishekak.site"
+              href="mailto:san.abhishek@gmail.com"
               data-cursor="hover"
-              style={{ ...mono, fontSize: '14px', color: 'var(--accent)', textDecoration: 'none', display: 'inline-block', marginBottom: '16px', transition: 'opacity 0.2s' }}
+              style={{ ...mono, fontSize: '14px', color: 'var(--accent)', textDecoration: 'none', display: 'inline-block', marginBottom: '8px', transition: 'opacity 0.2s' }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.textDecoration = 'underline' }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.textDecoration = 'none' }}
             >
-              hello@abhishekak.site
+              san.abhishek@gmail.com
             </a>
+            <p style={{ ...mono, fontSize: '14px', color: 'var(--muted)', marginBottom: '16px' }}>
+              +91 85520 31448
+            </p>
             <p style={{ ...mono, fontSize: '11px', letterSpacing: '0.5px', color: 'var(--muted)', marginBottom: '40px' }}>
               Pune, India · Open to remote
             </p>
@@ -108,7 +110,7 @@ export default function Contact() {
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '20px clamp(24px,5vw,60px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
         <span style={{ ...mono, fontSize: '10px', letterSpacing: '0.3px', color: 'var(--subtle)' }}>
-          © 2025 Abhishek Anil Kininge
+          © 2026 Abhishek Anil Kininge
         </span>
         <span style={{ ...mono, fontSize: '10px', letterSpacing: '0.3px', color: 'var(--subtle)' }}>
           Built with Claude Code · abhishekak.site

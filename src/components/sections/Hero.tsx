@@ -170,7 +170,7 @@ export default function Hero() {
         </div>
 
         {/* Name */}
-        <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px, 8vw, 88px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.0 }}>
+        <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(36px, 7vw, 88px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.0, overflowWrap: 'break-word', overflow: 'visible' }}>
           <SplitChars text="Abhishek" className="name-1" />
           <span style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <SplitChars text="Anil Kininge" className="name-2" />
@@ -224,13 +224,6 @@ export default function Hero() {
         <span style={{ ...mono, fontSize: '9px', letterSpacing: '1.5px', color: 'var(--subtle)', textTransform: 'uppercase' }}>SCROLL</span>
       </div>
 
-      {/* Ticker strip */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, borderTop: '1px solid var(--border)', padding: '14px clamp(24px,4vw,40px)', display: 'flex', alignItems: 'center', gap: '16px', zIndex: 1 }}>
-        <span style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'var(--subtle)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>FEATURED ·</span>
-        <span style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'var(--muted)', textTransform: 'uppercase' }}>
-          IDDAC &nbsp;·&nbsp; MAVEN AIRLINES &nbsp;·&nbsp; FINBRIDGE &nbsp;·&nbsp; JIH HEALTHCARE
-        </span>
-      </div>
     </section>
   )
 }

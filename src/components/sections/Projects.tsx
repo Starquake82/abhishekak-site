@@ -27,7 +27,7 @@ const PROJECTS = [
     name: 'Maven Airlines Power BI Dashboard',
     desc: 'Multi-page Power BI report with custom DAX measures, dimensional data model, and executive-level KPI views.',
     tags: ['Data Modelling', 'DAX', 'Power BI'],
-    badge: 'Coming soon',
+    badge: null,
     link: '#',
   },
   {
@@ -35,7 +35,7 @@ const PROJECTS = [
     name: 'FinBridge LOS — Credit Decision Module',
     desc: 'Phase 1 BRD and process design for a loan origination system credit decision module in a lending operations context.',
     tags: ['Lending Operations', 'BRD', 'Phase 1'],
-    badge: 'In progress',
+    badge: null,
     link: '#',
   },
 ]
@@ -79,8 +79,10 @@ export default function Projects() {
               key={i}
               className="project-card"
               style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--border)',
+                background: 'rgba(17,17,17,0.55)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '12px',
                 padding: 'clamp(24px,3vw,36px)',
                 opacity: 0,

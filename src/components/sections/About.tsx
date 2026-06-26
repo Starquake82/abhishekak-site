@@ -85,12 +85,13 @@ export default function About() {
             The discipline of<br />structured diagnosis.
           </h2>
           <p style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', lineHeight: 1.8, maxWidth: '560px', marginBottom: '20px' }}>
-            Senior BA/BI professional with 15 years across government analytics, BFSI,
-            textiles, and specialty ingredients. Currently building JIH Healthcare —
-            a B2B import venture for L-Ergothioneine and Matcha from Japan.
+            Senior BA/BI hybrid with 15+ years spanning textiles manufacturing, BFSI intelligence, government analytics, and specialty ingredient imports. Textile Engineer by training, business analyst by practice, BI practitioner by decision.
+          </p>
+          <p style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', lineHeight: 1.8, maxWidth: '560px', marginBottom: '20px' }}>
+            Built and delivered analytics infrastructure for a ₹855L Maharashtra government programme covering tribal districts across the state. Drove process improvements across Brintons Carpets&rsquo; manufacturing operations in the Americas, APAC, Europe, and Australia. Currently targeting senior BA/BI hybrid roles while building JIH Healthcare — India&rsquo;s B2B specialty ingredient import venture for L-Ergothioneine and Matcha sourced from Japan.
           </p>
           <p style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', lineHeight: 1.8, maxWidth: '560px' }}>
-            The throughline: diagnosing what&rsquo;s actually wrong before prescribing solutions.
+            The throughline: structured diagnosis. Breaking complex, messy situations into what&rsquo;s actually wrong — before anyone touches a solution.
           </p>
         </div>
 
