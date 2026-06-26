@@ -1,0 +1,119 @@
+'use client'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const SOCIAL_LINKS = [
+  { label: 'LinkedIn ↗', href: 'https://www.linkedin.com/in/abhishekkininge/' },
+  { label: 'GitHub ↗',   href: 'https://github.com/Starquake82' },
+  { label: 'Topmate ↗',  href: 'https://topmate.io/' },
+]
+
+function SplitWords({ text, className }: { text: string; className?: string }) {
+  return (
+    <span className={className} style={{ display: 'block' }}>
+      {text.split(' ').map((word, i) => (
+        <span key={i} style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.25em' }}>
+          <span className="contact-word" style={{ display: 'inline-block', opacity: 0 }}>{word}</span>
+        </span>
+      ))}
+    </span>
+  )
+}
+
+export default function Contact() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    gsap.fromTo(
+      '.contact-word',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.7, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 72%', once: true },
+      }
+    )
+    gsap.fromTo(
+      '.contact-body',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.3, scrollTrigger: { trigger: el, start: 'top 72%', once: true } }
+    )
+  }, [])
+
+  const mono = { fontFamily: 'var(--font-jetbrains)' } as const
+
+  return (
+    <>
+      <section
+        id="contact"
+        ref={sectionRef}
+        style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
+      >
+        <div style={{ maxWidth: '900px' }}>
+          <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,8vw,80px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.05, marginBottom: '48px' }}>
+            <SplitWords text="Let's" />
+            <SplitWords text="work together." />
+          </div>
+
+          <div className="contact-body" style={{ opacity: 0 }}>
+            <a
+              href="mailto:hello@abhishekak.site"
+              data-cursor="hover"
+              style={{ ...mono, fontSize: '14px', color: 'var(--accent)', textDecoration: 'none', display: 'inline-block', marginBottom: '16px', transition: 'opacity 0.2s' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.textDecoration = 'underline' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.textDecoration = 'none' }}
+            >
+              hello@abhishekak.site
+            </a>
+            <p style={{ ...mono, fontSize: '11px', letterSpacing: '0.5px', color: 'var(--muted)', marginBottom: '40px' }}>
+              Pune, India · Open to remote
+            </p>
+
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {SOCIAL_LINKS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  style={{
+                    ...mono, fontSize: '11px', letterSpacing: '0.5px', color: 'var(--muted)',
+                    textDecoration: 'none', border: '1px solid var(--border)',
+                    padding: '10px 18px', borderRadius: '6px', transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.borderColor = 'rgba(255,90,0,0.4)'
+                    el.style.color = 'var(--text)'
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.borderColor = 'var(--border)'
+                    el.style.color = 'var(--muted)'
+                  }}
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: '1px solid var(--border)', padding: '20px clamp(24px,5vw,60px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <span style={{ ...mono, fontSize: '10px', letterSpacing: '0.3px', color: 'var(--subtle)' }}>
+          © 2025 Abhishek Anil Kininge
+        </span>
+        <span style={{ ...mono, fontSize: '10px', letterSpacing: '0.3px', color: 'var(--subtle)' }}>
+          Built with Claude Code · abhishekak.site
+        </span>
+      </footer>
+    </>
+  )
+}
