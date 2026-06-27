@@ -206,7 +206,7 @@ export default function Hero() {
             View work →
           </a>
           <a
-            href="/Abhishek_Kininge_CV.pdf"
+            href="/CV/Abhishek_Kininge_CV.pdf"
             download
             data-cursor="hover"
             style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 24px', borderRadius: '6px', ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}

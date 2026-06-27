@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 const PROJECTS = [
   {
     id: 0,
-    category: 'BA CAPSTONE',
+    domain: 'LIBRARY SYSTEMS',
     name: 'BACentric — Library Management Portal',
     desc: 'Full-cycle business analysis deliverable covering requirements elicitation, BRD, and stakeholder sign-off for a library management system.',
     tags: ['Business Analysis', 'Requirements', 'BRD'],
@@ -17,7 +17,7 @@ const PROJECTS = [
   },
   {
     id: 1,
-    category: 'BA CAPSTONE',
+    domain: 'PROCUREMENT OPS',
     name: 'BACentric — Procurement Management Portal',
     desc: 'End-to-end procurement portal analysis with BPMN process maps, UAT planning, and traceability matrices.',
     tags: ['Process Design', 'UAT', 'BPMN'],
@@ -25,7 +25,7 @@ const PROJECTS = [
   },
   {
     id: 2,
-    category: 'BI',
+    domain: 'AVIATION ANALYTICS',
     name: 'Maven Airlines Power BI Dashboard',
     desc: 'Multi-page Power BI report with custom DAX measures, dimensional data model, and executive-level KPI views.',
     tags: ['Data Modelling', 'DAX', 'Power BI'],
@@ -33,7 +33,7 @@ const PROJECTS = [
   },
   {
     id: 3,
-    category: 'BA',
+    domain: 'BFSI · LENDING',
     name: 'FinBridge LOS — Credit Decision Module',
     desc: 'Phase 1 BRD and process design for a loan origination system credit decision module in a lending operations context.',
     tags: ['Lending Operations', 'BRD', 'Phase 1'],
@@ -41,27 +41,13 @@ const PROJECTS = [
   },
 ]
 
-const FLUTED_BG = `repeating-linear-gradient(
-  90deg,
-  rgba(255,255,255,0.02) 0px,
-  rgba(255,255,255,0.02) 4px,
-  rgba(255,255,255,0.22) 5px,
-  rgba(255,255,255,0.40) 6px,
-  rgba(255,255,255,0.22) 7px,
-  rgba(255,255,255,0.02) 8px,
-  rgba(255,255,255,0.02) 14px
-), rgba(255,255,255,0.05)`
+const CARD_BG = `linear-gradient(
+  135deg,
+  rgba(10,8,8,0.45) 0%,
+  rgba(10,8,8,0.30) 100%
+), rgba(255,255,255,0.06)`
 
-const FLUTED_BG_FAINT = `repeating-linear-gradient(
-  90deg,
-  rgba(255,255,255,0.01) 0px,
-  rgba(255,255,255,0.01) 4px,
-  rgba(255,255,255,0.10) 5px,
-  rgba(255,255,255,0.18) 6px,
-  rgba(255,255,255,0.10) 7px,
-  rgba(255,255,255,0.01) 8px,
-  rgba(255,255,255,0.01) 14px
-), rgba(255,255,255,0.03)`
+const SECTION_BG = '#0A0A0A'
 
 const TOTAL = PROJECTS.length
 
@@ -76,7 +62,7 @@ export default function Projects() {
   const getScrollAmount = useCallback(() => {
     const track = trackRef.current
     if (!track) return 0
-    return -(track.scrollWidth - window.innerWidth + 120)
+    return -(track.scrollWidth - window.innerWidth)
   }, [])
 
   const teardown = useCallback(() => {
@@ -103,7 +89,7 @@ export default function Projects() {
           pin: true,
           scrub: 1.2,
           start: 'top top',
-          end: () => `+=${Math.abs(getScrollAmount())}`,
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
           invalidateOnRefresh: true,
           onUpdate(self) {
             triggerRef.current = self
@@ -141,13 +127,19 @@ export default function Projects() {
     }
   }, [setupDesktop, teardown])
 
-  // Mobile: update dots via native scroll event
+  // Force ScrollTrigger to recalculate after fonts/layout settle
+  useEffect(() => {
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Mobile: update dots via native scroll
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
     const onScroll = () => {
       if (!isMobileRef.current) return
-      const cardW = window.innerWidth * 0.8 + 16
+      const cardW = 400 + 24
       setActiveCard(Math.min(Math.round(track.scrollLeft / cardW), TOTAL - 1))
     }
     track.addEventListener('scroll', onScroll, { passive: true })
@@ -159,7 +151,7 @@ export default function Projects() {
     if (isMobileRef.current) {
       const track = trackRef.current
       if (!track) return
-      track.scrollTo({ left: clamped * (window.innerWidth * 0.8 + 16), behavior: 'smooth' })
+      track.scrollTo({ left: clamped * (400 + 24), behavior: 'smooth' })
       return
     }
     const trigger = triggerRef.current
@@ -175,12 +167,8 @@ export default function Projects() {
     <section
       id="work-projects"
       ref={sectionRef}
-      style={{
-        background: `radial-gradient(ellipse at 60% 50%, rgba(255,90,0,0.06) 0%, transparent 70%), var(--bg)`,
-        paddingTop: '100px',
-        paddingBottom: 0,
-      }}
       className="projects-section"
+      style={{ background: SECTION_BG, paddingTop: '100px', paddingBottom: 0, overflow: 'hidden' }}
     >
       {/* Header */}
       <div style={{ padding: '0 clamp(24px,5vw,60px)', marginBottom: '48px' }}>
@@ -199,80 +187,93 @@ export default function Projects() {
       <div
         ref={trackRef}
         className="cards-track"
-        style={{ display: 'flex', gap: '24px', paddingLeft: '60px', paddingRight: '60px', willChange: 'transform' }}
+        style={{
+          display: 'flex',
+          gap: '24px',
+          paddingLeft: '60px',
+          paddingRight: '60px',
+          width: 'max-content',
+          willChange: 'transform',
+        }}
       >
         {PROJECTS.map((p, i) => (
           <div
             key={p.id}
             className="project-card"
             style={{
-              background: FLUTED_BG,
-              backdropFilter: 'blur(16px) brightness(1.08)',
-              WebkitBackdropFilter: 'blur(16px) brightness(1.08)',
-              border: '1px solid rgba(255,255,255,0.20)',
-              borderRadius: '16px',
-              padding: '28px',
-              width: '340px',
-              minWidth: '340px',
-              flexShrink: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-              transition: 'border-color 0.25s ease, transform 0.25s ease',
+              background:          CARD_BG,
+              backdropFilter:      'blur(24px) saturate(1.5)',
+              WebkitBackdropFilter:'blur(24px) saturate(1.5)',
+              border:              '1px solid rgba(255,255,255,0.10)',
+              borderRadius:        '16px',
+              padding:             '28px',
+              width:               '400px',
+              minWidth:            '400px',
+              minHeight:           '320px',
+              flexShrink:          0,
+              position:            'relative',
+              overflow:            'hidden',
+              transition:          'transform 0.3s ease',
             }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget
-              el.style.borderColor = 'rgba(255,90,0,0.40)'
-              el.style.transform   = 'translateY(-3px)'
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget
-              el.style.borderColor = 'rgba(255,255,255,0.20)'
-              el.style.transform   = 'translateY(0)'
-            }}
+            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)' }}
           >
-            {/* Counter */}
-            <div style={{ ...mono, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(242,240,235,0.20)' }}>
-              {String(i + 1).padStart(2, '0')} / {String(TOTAL).padStart(2, '0')}
+            {/* Backlit glow — fades in on hover via CSS */}
+            <div className="card-backlight" />
+
+            {/* Content sits above the backlight */}
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+
+              {/* Domain label */}
+              <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: '#FF5A00', marginBottom: '12px' }}>
+                {p.domain}
+              </div>
+
+              {/* Project name */}
+              <h3 style={{ fontFamily: 'var(--font-fraunces)', fontSize: '22px', fontWeight: 400, color: 'var(--text)', lineHeight: 1.25, overflowWrap: 'break-word', marginBottom: 0 }}>
+                {p.name}
+              </h3>
+
+              {/* Separator */}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.14)', margin: '14px 0', width: '100%' }} />
+
+              {/* Description */}
+              <p style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'var(--muted)', lineHeight: 1.7, overflowWrap: 'break-word', margin: 0 }}>
+                {p.desc}
+              </p>
+
+              {/* Tags — pushed to bottom */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto', paddingTop: '18px' }}>
+                {p.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    style={{
+                      ...mono,
+                      fontSize:        '10px',
+                      letterSpacing:   '0.5px',
+                      color:           'rgba(242,240,235,0.70)',
+                      background:      'rgba(255,255,255,0.07)',
+                      border:          '1px solid rgba(255,255,255,0.12)',
+                      borderRadius:    '4px',
+                      padding:         '4px 10px',
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* View link */}
+              <a
+                href={p.link}
+                data-cursor="hover"
+                style={{ ...mono, fontSize: '12px', color: 'var(--accent)', textDecoration: 'none', paddingTop: '16px', transition: 'opacity 0.2s', display: 'inline-block' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1' }}
+              >
+                View →
+              </a>
             </div>
-
-            {/* Category */}
-            <div style={{ ...mono, fontSize: '10px', letterSpacing: '1px', color: 'var(--accent)', textTransform: 'uppercase' }}>
-              {p.category}
-            </div>
-
-            {/* Name */}
-            <h3 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(17px,1.8vw,22px)', fontWeight: 400, color: 'var(--text)', lineHeight: 1.2, overflowWrap: 'break-word' }}>
-              {p.name}
-            </h3>
-
-            {/* Divider */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', margin: '2px 0' }} />
-
-            {/* Description */}
-            <p style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'var(--muted)', lineHeight: 1.7, overflowWrap: 'break-word' }}>
-              {p.desc}
-            </p>
-
-            {/* Tags */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '4px' }}>
-              {p.tags.map((tag) => (
-                <span key={tag} style={{ ...mono, fontSize: '10px', color: 'var(--muted)', border: '1px solid rgba(255,255,255,0.08)', padding: '4px 10px', borderRadius: '100px' }}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* View link */}
-            <a
-              href={p.link}
-              data-cursor="hover"
-              style={{ ...mono, fontSize: '12px', color: 'var(--accent)', textDecoration: 'none', marginTop: 'auto', paddingTop: '14px', transition: 'opacity 0.2s', display: 'inline-block' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1' }}
-            >
-              View →
-            </a>
           </div>
         ))}
       </div>
@@ -300,7 +301,7 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Arrows — hidden on mobile via CSS */}
+        {/* Arrows — hidden on mobile */}
         <div className="arrow-buttons" style={{ display: 'flex', gap: '10px' }}>
           {([{ label: '←', delta: -1 }, { label: '→', delta: 1 }] as const).map(({ label, delta }) => {
             const disabled = delta === -1 ? activeCard === 0 : activeCard === TOTAL - 1
@@ -311,21 +312,21 @@ export default function Projects() {
                 disabled={disabled}
                 aria-label={delta === -1 ? 'Previous project' : 'Next project'}
                 style={{
-                  width:         '34px',
-                  height:        '34px',
-                  borderRadius:  '50%',
-                  background:    FLUTED_BG_FAINT,
-                  backdropFilter:'blur(8px)',
-                  border:        '1px solid rgba(255,255,255,0.12)',
-                  color:         disabled ? 'rgba(242,240,235,0.22)' : 'rgba(242,240,235,0.55)',
-                  fontSize:      '14px',
-                  cursor:        disabled ? 'not-allowed' : 'pointer',
-                  opacity:       disabled ? 0.22 : 1,
-                  transition:    'all 0.2s ease',
-                  display:       'flex',
-                  alignItems:    'center',
-                  justifyContent:'center',
-                  flexShrink:    0,
+                  width:          '34px',
+                  height:         '34px',
+                  borderRadius:   '50%',
+                  background:     'rgba(255,255,255,0.06)',
+                  backdropFilter: 'blur(8px)',
+                  border:         '1px solid rgba(255,255,255,0.12)',
+                  color:          disabled ? 'rgba(242,240,235,0.22)' : 'rgba(242,240,235,0.55)',
+                  fontSize:       '14px',
+                  cursor:         disabled ? 'not-allowed' : 'pointer',
+                  opacity:        disabled ? 0.22 : 1,
+                  transition:     'all 0.2s ease',
+                  display:        'flex',
+                  alignItems:     'center',
+                  justifyContent: 'center',
+                  flexShrink:     0,
                 }}
                 onMouseEnter={(e) => {
                   if (disabled) return
@@ -348,16 +349,32 @@ export default function Projects() {
       </div>
 
       <style>{`
-        /* Desktop: clip overflow so off-screen cards stay hidden */
-        @media (min-width: 768px) {
-          .projects-section { overflow: hidden; }
+        /* Backlit frosted glass — warm light from behind the card surface */
+        .card-backlight {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse 120% 120% at 50% 50%,
+            rgba(255, 248, 225, 0.22) 0%,
+            rgba(255, 244, 210, 0.12) 40%,
+            transparent 70%
+          );
+          opacity: 0;
+          transition: opacity 0.5s ease;
         }
-        /* Mobile: native horizontal scroll snap */
+        .project-card:hover .card-backlight {
+          opacity: 1;
+        }
+
+        /* Mobile: native scroll snap */
         @media (max-width: 767px) {
           .cards-track {
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
+            width: 100vw !important;
             padding-left: 24px !important;
             padding-right: 24px !important;
             transform: none !important;
