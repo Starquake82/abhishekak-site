@@ -43,21 +43,25 @@ const PROJECTS = [
 
 const FLUTED_BG = `repeating-linear-gradient(
   90deg,
-  rgba(255,255,255,0.13) 0px,
-  rgba(255,255,255,0.05) 5px,
-  rgba(255,255,255,0.00) 10px,
-  rgba(255,255,255,0.05) 15px,
-  rgba(255,255,255,0.13) 20px
-), rgba(22,18,18,0.72)`
+  rgba(255,255,255,0.02) 0px,
+  rgba(255,255,255,0.02) 4px,
+  rgba(255,255,255,0.22) 5px,
+  rgba(255,255,255,0.40) 6px,
+  rgba(255,255,255,0.22) 7px,
+  rgba(255,255,255,0.02) 8px,
+  rgba(255,255,255,0.02) 14px
+), rgba(255,255,255,0.05)`
 
 const FLUTED_BG_FAINT = `repeating-linear-gradient(
   90deg,
-  rgba(255,255,255,0.06) 0px,
-  rgba(255,255,255,0.02) 5px,
-  rgba(255,255,255,0.00) 10px,
-  rgba(255,255,255,0.02) 15px,
-  rgba(255,255,255,0.06) 20px
-), rgba(22,18,18,0.55)`
+  rgba(255,255,255,0.01) 0px,
+  rgba(255,255,255,0.01) 4px,
+  rgba(255,255,255,0.10) 5px,
+  rgba(255,255,255,0.18) 6px,
+  rgba(255,255,255,0.10) 7px,
+  rgba(255,255,255,0.01) 8px,
+  rgba(255,255,255,0.01) 14px
+), rgba(255,255,255,0.03)`
 
 const TOTAL = PROJECTS.length
 
@@ -171,7 +175,11 @@ export default function Projects() {
     <section
       id="work-projects"
       ref={sectionRef}
-      style={{ background: 'var(--bg)', paddingTop: '100px', paddingBottom: 0 }}
+      style={{
+        background: `radial-gradient(ellipse at 60% 50%, rgba(255,90,0,0.06) 0%, transparent 70%), var(--bg)`,
+        paddingTop: '100px',
+        paddingBottom: 0,
+      }}
       className="projects-section"
     >
       {/* Header */}
@@ -199,10 +207,10 @@ export default function Projects() {
             className="project-card"
             style={{
               background: FLUTED_BG,
-              backdropFilter: 'blur(18px)',
-              WebkitBackdropFilter: 'blur(18px)',
-              border: '1px solid rgba(255,255,255,0.11)',
-              borderRadius: '14px',
+              backdropFilter: 'blur(16px) brightness(1.08)',
+              WebkitBackdropFilter: 'blur(16px) brightness(1.08)',
+              border: '1px solid rgba(255,255,255,0.20)',
+              borderRadius: '16px',
               padding: '28px',
               width: '340px',
               minWidth: '340px',
@@ -219,7 +227,7 @@ export default function Projects() {
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget
-              el.style.borderColor = 'rgba(255,255,255,0.11)'
+              el.style.borderColor = 'rgba(255,255,255,0.20)'
               el.style.transform   = 'translateY(0)'
             }}
           >
