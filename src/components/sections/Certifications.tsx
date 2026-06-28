@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
@@ -103,13 +103,9 @@ const CATEGORIES: Category[] = [
 ]
 
 function CertCard({ cert }: { cert: Cert }) {
-  const [hovered, setHovered] = useState(false)
-
   return (
     <div
       className="cert-card"
-      onMouseEnter={() => { console.log('[CertCard] mouseenter:', cert.name); setHovered(true) }}
-      onMouseLeave={() => setHovered(false)}
       style={{
         position:             'relative',
         overflow:             'hidden',
@@ -118,14 +114,13 @@ function CertCard({ cert }: { cert: Cert }) {
         background:           'rgba(17,17,17,0.6)',
         backdropFilter:       'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
-        border:               '1px solid',
-        borderColor:          hovered ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.07)',
+        border:               '1px solid rgba(255,255,255,0.07)',
         borderRadius:         '12px',
         padding:              '20px 16px',
         display:              'flex',
         flexDirection:        'column',
         cursor:               'default',
-        transition:           'border-color 0.3s ease',
+        transition:           'border-color 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       {/* Warm backlit hover glow */}
@@ -135,8 +130,7 @@ function CertCard({ cert }: { cert: Cert }) {
         zIndex:        0,
         pointerEvents: 'none',
         background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.12) 0%, rgba(255,244,210,0.05) 40%, transparent 70%)',
-        opacity:      hovered ? 1 : 0,
-        transition:   'opacity 0.5s ease',
+        opacity:      0,
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -145,13 +139,12 @@ function CertCard({ cert }: { cert: Cert }) {
           <img
             src={cert.img}
             alt={cert.name}
+            className="cert-img"
             style={{
-              width:      '64px',
-              height:     '64px',
-              objectFit:  'contain',
-              display:    'block',
-              filter:     hovered ? 'none' : 'grayscale(100%) brightness(1.8)',
-              transition: 'filter 300ms ease',
+              width:     '64px',
+              height:    '64px',
+              objectFit: 'contain',
+              display:   'block',
             }}
           />
         </div>
@@ -343,6 +336,17 @@ export default function Certifications() {
 
       <style>{`
         .cert-card-anim { opacity: 0; }
+        img.cert-img {
+          filter: grayscale(100%) brightness(1.8);
+          transition: filter 300ms ease;
+        }
+        .cert-card:hover img.cert-img {
+          filter: none;
+        }
+        .cert-card:hover {
+          border-color: rgba(255,255,255,0.15) !important;
+          box-shadow: 0 0 32px rgba(255,90,0,0.08);
+        }
         @media (max-width: 767px) {
           .cert-card { width: 140px !important; }
         }
