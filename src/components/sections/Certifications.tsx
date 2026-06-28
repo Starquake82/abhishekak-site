@@ -108,7 +108,7 @@ function CertCard({ cert }: { cert: Cert }) {
   return (
     <div
       className="cert-card"
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => { console.log('[CertCard] mouseenter:', cert.name); setHovered(true) }}
       onMouseLeave={() => setHovered(false)}
       style={{
         position:             'relative',
@@ -231,15 +231,15 @@ export default function Certifications() {
           scrollTrigger: { trigger: el, start: 'top 75%', once: true } }
       )
 
-      // Initialise all cards invisible before their trigger fires
-      gsap.set(el.querySelectorAll('.cert-card'), { opacity: 0, y: 28 })
+      // Initialise all card wrappers invisible before their trigger fires
+      gsap.set(el.querySelectorAll('.cert-card-anim'), { opacity: 0, y: 28 })
 
       CATEGORIES.forEach((cat) => {
         const catEl = el.querySelector(`.cat-${cat.id}`)
         if (!catEl) return
 
         const labelEl = catEl.querySelector('.cat-label')
-        const cards   = catEl.querySelectorAll('.cert-card')
+        const cards   = catEl.querySelectorAll('.cert-card-anim')
         const xFrom   = cat.align === 'left' ? -60 : 60
 
         gsap.fromTo(
@@ -328,7 +328,9 @@ export default function Certifications() {
                 marginBottom:   '4px',
               }}>
                 {cat.certs.map((cert, i) => (
-                  <CertCard key={i} cert={cert} />
+                  <div key={i} className="cert-card-anim">
+                    <CertCard cert={cert} />
+                  </div>
                 ))}
               </div>
 
@@ -340,7 +342,7 @@ export default function Certifications() {
       ))}
 
       <style>{`
-        .cert-card { opacity: 0; }
+        .cert-card-anim { opacity: 0; }
         @media (max-width: 767px) {
           .cert-card { width: 140px !important; }
         }
