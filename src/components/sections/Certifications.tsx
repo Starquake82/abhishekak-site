@@ -6,24 +6,26 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const ROW1 = [
-  { src: '/Badges/Google Ai Professional Certificate - Static.png', label: 'Google AI' },
+  { src: '/Badges/Google Ai Professional Certificate - Static.png', label: 'Google AI Professional' },
+  { src: '/Badges/Maven Analytics - Power BI Desktop.png',          label: 'Maven — Power BI Desktop' },
+  { src: '/Badges/Maven Analytics - Power BI Service.png',          label: 'Maven — Power BI Service' },
+  { src: '/Badges/Maven Analytics - Advanced DAX.png',              label: 'Maven — Advanced DAX' },
+  { src: '/Badges/Maven Analytics - MySQL Data Analysis.png',       label: 'Maven — MySQL Analysis' },
   { src: '/Badges/mckinsey-org-forward-program (1).png',            label: 'McKinsey Forward' },
-  { src: '/Badges/Maven Analytics - Power BI Desktop.png',          label: 'Maven Power BI' },
-  { src: '/Badges/Maven Analytics - Power BI Service.png',          label: 'Maven BI Service' },
-  { src: '/Badges/Maven Analytics - Advanced DAX.png',              label: 'Advanced DAX' },
-  { src: '/Badges/Maven Analytics - MySQL Data Analysis.png',       label: 'MySQL Analytics' },
-  { src: '/Badges/diagramming-foundations (1).png',                 label: 'Diagramming' },
+  { src: '/Badges/diagramming-foundations (1).png',                 label: 'Diagramming Foundations' },
 ]
 
 const ROW2 = [
-  { src: '/Logos/ibm (1).png',           label: 'IBM' },
-  { src: '/Logos/atlassian.png',         label: 'Atlassian' },
-  { src: '/Logos/Microsoft PowerBI.png', label: 'Microsoft' },
-  { src: '/Logos/BACentric.png',         label: 'BACentric' },
-  { src: '/Logos/Maven Analytics.png',   label: 'Maven Analytics' },
-  { src: '/Logos/NISM2.png',             label: 'NISM' },
-  { src: '/Logos/scrum inc logo.png',    label: 'Scrum Inc' },
-  { src: '/Logos/Deloitte-Logo.png',     label: 'Deloitte' },
+  { src: '/Logos/bacentric.png',      label: 'Advanced BA' },
+  { src: '/Logos/ibm.png',            label: 'IBM — GenAI for BA' },
+  { src: '/Logos/microsoft.png',      label: 'Microsoft — Career Essentials BA' },
+  { src: '/Logos/microsoft.png',      label: 'Microsoft — Copilot Studio' },
+  { src: '/Logos/atlassian.png',      label: 'Atlassian Agile PM' },
+  { src: '/Logos/scrum-inc.png',      label: 'Registered Scrum Basics' },
+  { src: '/Logos/deloitte.png',       label: 'Deloitte Simulation' },
+  { src: '/Logos/nism.png',           label: 'NISM Series VIII' },
+  { src: '/Logos/opine-group.png',    label: 'Opine — BI & Analytics' },
+  { src: '/Logos/maven-analytics.png', label: 'Maven Analytics' },
 ]
 
 function CertItem({ src, label }: { src: string; label: string }) {
@@ -31,18 +33,18 @@ function CertItem({ src, label }: { src: string; label: string }) {
     <div
       className="cert-item"
       style={{
-        display:        'flex',
-        flexDirection:  'column',
-        alignItems:     'center',
-        gap:            '10px',
-        padding:        '14px 18px',
-        border:         '1px solid rgba(255,255,255,0.07)',
-        borderRadius:   '10px',
-        flexShrink:     0,
-        cursor:         'default',
-        background:     'rgba(255,255,255,0.02)',
-        transition:     'border-color 0.3s ease',
-        width:          '110px',
+        display:       'flex',
+        flexDirection: 'column',
+        alignItems:    'center',
+        gap:           '10px',
+        padding:       '14px 18px',
+        border:        '1px solid rgba(255,255,255,0.07)',
+        borderRadius:  '10px',
+        flexShrink:    0,
+        cursor:        'default',
+        background:    'rgba(255,255,255,0.02)',
+        transition:    'border-color 0.3s ease',
+        width:         '110px',
       }}
       onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,90,0,0.25)' }}
       onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)' }}
@@ -54,13 +56,14 @@ function CertItem({ src, label }: { src: string; label: string }) {
         style={{ width: '60px', height: '60px', objectFit: 'contain', display: 'block' }}
       />
       <span style={{
-        fontFamily:  'var(--font-jetbrains)',
-        fontSize:    '9px',
+        fontFamily:    'var(--font-jetbrains)',
+        fontSize:      '9px',
         letterSpacing: '0.3px',
-        color:       'rgba(242,240,235,0.40)',
-        textAlign:   'center',
-        lineHeight:  1.3,
-        whiteSpace:  'nowrap',
+        color:         'rgba(242,240,235,0.40)',
+        textAlign:     'center',
+        lineHeight:    1.3,
+        whiteSpace:    'normal',
+        wordBreak:     'break-word',
       }}>
         {label}
       </span>
