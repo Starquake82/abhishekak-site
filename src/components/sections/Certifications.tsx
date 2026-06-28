@@ -21,7 +21,7 @@ const CATEGORIES: Category[] = [
     id:       'ba',
     label:    'BUSINESS ANALYSIS',
     align:    'left',
-    glowRgba: 'rgba(242,193,46,0.08)',
+    glowRgba: 'rgba(242,193,46,0.18)',
     speed:    55,
     certs: [
       { name: 'Advanced Business Analysis',                                       issuer: 'BACentric', img: '/Logos/bacentric.png' },
@@ -39,7 +39,7 @@ const CATEGORIES: Category[] = [
     id:       'bi',
     label:    'BUSINESS INTELLIGENCE',
     align:    'right',
-    glowRgba: 'rgba(107,68,212,0.08)',
+    glowRgba: 'rgba(107,68,212,0.18)',
     speed:    42,
     certs: [
       { name: 'Power BI Desktop',                    issuer: 'Maven Analytics', img: '/Badges/Maven Analytics - Power BI Desktop.png' },
@@ -57,7 +57,7 @@ const CATEGORIES: Category[] = [
     id:       'ai',
     label:    'ARTIFICIAL INTELLIGENCE',
     align:    'left',
-    glowRgba: 'rgba(138,138,138,0.08)',
+    glowRgba: 'rgba(138,138,138,0.15)',
     speed:    32,
     certs: [
       { name: 'Google AI Professional Certificate',                          issuer: 'Google',    img: '/Badges/Google Ai Professional Certificate - Static.png' },
@@ -73,7 +73,7 @@ const CATEGORIES: Category[] = [
     id:       'ls',
     label:    'LEADERSHIP & STRATEGY',
     align:    'right',
-    glowRgba: 'rgba(43,127,212,0.08)',
+    glowRgba: 'rgba(43,127,212,0.18)',
     speed:    38,
     certs: [
       { name: 'McKinsey Forward Program',  issuer: 'McKinsey & Company',      img: '/Badges/mckinsey-org-forward-program (1).png' },
@@ -89,7 +89,7 @@ const CATEGORIES: Category[] = [
     id:       'mbf',
     label:    'MARKETS, BUSINESS & FINANCE',
     align:    'left',
-    glowRgba: 'rgba(46,204,113,0.08)',
+    glowRgba: 'rgba(46,204,113,0.18)',
     speed:    30,
     certs: [
       { name: 'NISM-Series VIII: Equity Derivatives Certification', issuer: 'NISM',     img: '/Logos/nism.png' },
@@ -336,6 +336,22 @@ export default function Certifications() {
 
       <style>{`
         .cert-card-anim { opacity: 0; }
+
+        #certs .cert-card img.cert-img {
+          filter: grayscale(100%) brightness(1.8);
+          transition: filter 300ms ease;
+        }
+
+        #certs .cert-card:hover img.cert-img {
+          filter: none;
+        }
+
+        #certs .cert-card:hover {
+          border-color: rgba(255,255,255,0.18) !important;
+          box-shadow: 0 0 32px rgba(255,90,0,0.10);
+          transition: border-color 300ms ease, box-shadow 300ms ease;
+        }
+
         @media (max-width: 767px) {
           .cert-card { width: 140px !important; }
         }

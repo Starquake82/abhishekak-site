@@ -130,18 +130,3 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
-/* ── Cert card hover ── */
-img.cert-img {
-  filter: grayscale(100%) brightness(1.8);
-  transition: filter 300ms ease;
-}
-
-.cert-card:hover img.cert-img {
-  filter: none;
-}
-
-.cert-card:hover {
-  border-color: rgba(255,255,255,0.15) !important;
-  box-shadow: 0 0 32px rgba(255,90,0,0.08);
-  transition: border-color 300ms ease, box-shadow 300ms ease;
-}
