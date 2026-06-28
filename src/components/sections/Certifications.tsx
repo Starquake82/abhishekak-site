@@ -103,28 +103,8 @@ const CATEGORIES: Category[] = [
 ]
 
 function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const imgRef  = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    const card = cardRef.current
-    const img  = imgRef.current
-    if (!card || !img) return
-
-    const enter = () => { img.style.filter = 'none' }
-    const leave = () => { img.style.filter = 'grayscale(100%) brightness(1.8)' }
-
-    card.addEventListener('mouseenter', enter)
-    card.addEventListener('mouseleave', leave)
-    return () => {
-      card.removeEventListener('mouseenter', enter)
-      card.removeEventListener('mouseleave', leave)
-    }
-  }, [])
-
   return (
     <div
-      ref={cardRef}
       className="cert-card"
       style={{
         position:             'relative',
@@ -157,17 +137,13 @@ function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
         {/* Image */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '14px' }}>
           <img
-            ref={imgRef}
             src={cert.img}
             alt={cert.name}
-            className="cert-img"
             style={{
-              width:      '64px',
-              height:     '64px',
-              objectFit:  'contain',
-              display:    'block',
-              filter:     'grayscale(100%) brightness(1.8)',
-              transition: 'filter 300ms ease',
+              width:     '64px',
+              height:    '64px',
+              objectFit: 'contain',
+              display:   'block',
             }}
           />
         </div>
