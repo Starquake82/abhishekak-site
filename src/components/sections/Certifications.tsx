@@ -145,8 +145,14 @@ function CertCard({ cert }: { cert: Cert }) {
           <img
             src={cert.img}
             alt={cert.name}
-            className="cert-img"
-            style={{ width: '64px', height: '64px', objectFit: 'contain', display: 'block' }}
+            style={{
+              width:      '64px',
+              height:     '64px',
+              objectFit:  'contain',
+              display:    'block',
+              filter:     hovered ? 'none' : 'grayscale(100%) brightness(1.8)',
+              transition: 'filter 300ms ease',
+            }}
           />
         </div>
 
@@ -335,11 +341,6 @@ export default function Certifications() {
 
       <style>{`
         .cert-card { opacity: 0; }
-        .cert-img {
-          filter: grayscale(100%) brightness(1.8);
-          transition: filter 300ms ease;
-        }
-        .cert-card:hover .cert-img { filter: none; }
         @media (max-width: 767px) {
           .cert-card { width: 140px !important; }
         }
