@@ -102,9 +102,29 @@ const CATEGORIES: Category[] = [
   },
 ]
 
-function CertCard({ cert }: { cert: Cert }) {
+function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const imgRef  = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const img  = imgRef.current
+    if (!card || !img) return
+
+    const enter = () => { img.style.filter = 'none' }
+    const leave = () => { img.style.filter = 'grayscale(100%) brightness(1.8)' }
+
+    card.addEventListener('mouseenter', enter)
+    card.addEventListener('mouseleave', leave)
+    return () => {
+      card.removeEventListener('mouseenter', enter)
+      card.removeEventListener('mouseleave', leave)
+    }
+  }, [])
+
   return (
     <div
+      ref={cardRef}
       className="cert-card"
       style={{
         position:             'relative',
@@ -123,13 +143,13 @@ function CertCard({ cert }: { cert: Cert }) {
         transition:           'border-color 0.3s ease, box-shadow 0.3s ease',
       }}
     >
-      {/* Warm backlit hover glow */}
+      {/* Per-category ambient glow */}
       <div style={{
         position:     'absolute',
         inset:         0,
         zIndex:        0,
         pointerEvents: 'none',
-        background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.12) 0%, rgba(255,244,210,0.05) 40%, transparent 70%)',
+        background:   `radial-gradient(ellipse 120% 120% at 50% 50%, ${glowRgba} 0%, transparent 70%)`,
         opacity:      1,
       }} />
 
@@ -137,14 +157,17 @@ function CertCard({ cert }: { cert: Cert }) {
         {/* Image */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '14px' }}>
           <img
+            ref={imgRef}
             src={cert.img}
             alt={cert.name}
             className="cert-img"
             style={{
-              width:     '64px',
-              height:    '64px',
-              objectFit: 'contain',
-              display:   'block',
+              width:      '64px',
+              height:     '64px',
+              objectFit:  'contain',
+              display:    'block',
+              filter:     'grayscale(100%) brightness(1.8)',
+              transition: 'filter 300ms ease',
             }}
           />
         </div>
@@ -322,7 +345,7 @@ export default function Certifications() {
               }}>
                 {cat.certs.map((cert, i) => (
                   <div key={i} className="cert-card-anim">
-                    <CertCard cert={cert} />
+                    <CertCard cert={cert} glowRgba={cat.glowRgba} />
                   </div>
                 ))}
               </div>
@@ -336,15 +359,6 @@ export default function Certifications() {
 
       <style>{`
         .cert-card-anim { opacity: 0; }
-
-        #certs .cert-card img.cert-img {
-          filter: grayscale(100%) brightness(1.8);
-          transition: filter 300ms ease;
-        }
-
-        #certs .cert-card:hover img.cert-img {
-          filter: none;
-        }
 
         #certs .cert-card:hover {
           border-color: rgba(255,255,255,0.18) !important;
