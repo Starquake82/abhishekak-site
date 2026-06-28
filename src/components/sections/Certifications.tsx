@@ -130,7 +130,7 @@ function CertCard({ cert }: { cert: Cert }) {
         zIndex:        0,
         pointerEvents: 'none',
         background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.12) 0%, rgba(255,244,210,0.05) 40%, transparent 70%)',
-        opacity:      0,
+        opacity:      1,
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -336,17 +336,6 @@ export default function Certifications() {
 
       <style>{`
         .cert-card-anim { opacity: 0; }
-        img.cert-img {
-          filter: grayscale(100%) brightness(1.8);
-          transition: filter 300ms ease;
-        }
-        .cert-card:hover img.cert-img {
-          filter: none;
-        }
-        .cert-card:hover {
-          border-color: rgba(255,255,255,0.15) !important;
-          box-shadow: 0 0 32px rgba(255,90,0,0.08);
-        }
         @media (max-width: 767px) {
           .cert-card { width: 140px !important; }
         }
