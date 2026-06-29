@@ -68,9 +68,9 @@ export default function Nav() {
           justifyContent: 'space-between',
           padding:      '0 clamp(24px,4vw,60px)',
           height:       '72px',
-          background:   `radial-gradient(ellipse at 50% 120%, rgba(255,90,0,0.09) 0%, transparent 100%), rgba(17,17,17,0.90)`,
-          backdropFilter:       'blur(14px)',
-          WebkitBackdropFilter: 'blur(14px)',
+          background:   `radial-gradient(ellipse at 50% 120%, rgba(255,248,225,0.09) 0%, transparent 100%), rgba(17,17,17,0.90)`,
+          backdropFilter:       'blur(10.5px)',
+          WebkitBackdropFilter: 'blur(10.5px)',
           borderBottom: '1px solid rgba(255,255,255,0.07)',
         }}
       >
@@ -95,7 +95,7 @@ export default function Nav() {
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollTo(link.href) }}
                   data-cursor="hover"
-                  style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '1.2px', color: isActive ? 'var(--accent)' : 'var(--muted)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '12px', letterSpacing: '1.2px', color: isActive ? 'var(--accent)' : 'var(--muted)', textDecoration: 'none', transition: 'color 0.2s ease' }}
                 >
                   {link.label}
                 </a>
