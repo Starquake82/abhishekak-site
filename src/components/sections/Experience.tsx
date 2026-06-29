@@ -5,14 +5,17 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const NAV_H = 72
+const NAV_H    = 72
+const CARD_PAD = `${NAV_H + 16}px 32px 32px` // push content below nav on snap
 
 const CARDS = [
   {
-    role:       'Process Improvement Leader',
-    company:    'Brintons Carpets · India Design/Service Centre',
-    tenure:     'Jul 2010 – Apr 2013',
-    tags:       ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
+    logo:           '/Logos/brintons.png',
+    companyPrimary: 'Brintons Carpets',
+    companySub:     'India Design/Service Centre',
+    role:           'Process Improvement Leader',
+    tenure:         'Jul 2010 – Apr 2013',
+    tags:           ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
     highlights: [
       'Reduced Internal Badly Defective (IBD) levels by ~70% through structured RCA and SOP implementation',
       'Owned BOS KPI reporting framework — reported to GM and Executive Director, Group Operations',
@@ -27,10 +30,12 @@ const CARDS = [
     skills: ['RCA', 'SOP Development', 'KPI Reporting', 'Process Mapping', 'Change Management', 'Stakeholder Engagement', 'Kaizen'],
   },
   {
-    role:       'Business & Operations Manager',
-    company:    'Mahalaxmi Co-Op Yarn Processors Ltd. · Garment Division',
-    tenure:     'Jun 2013 – Mar 2015',
-    tags:       ['OPERATIONS', 'MANUFACTURING', 'GARMENTS'],
+    logo:           '/Logos/mahalaxmi.png',
+    companyPrimary: 'Mahalaxmi Co-Op Yarn Processors',
+    companySub:     'Garment Division',
+    role:           'Business & Operations Manager',
+    tenure:         'Jun 2013 – Mar 2015',
+    tags:           ['OPERATIONS', 'MANUFACTURING', 'GARMENTS'],
     highlights: [
       'Led machinery installation and commissioning for new production unit — Fit for Use authorisation',
       'Operational data analysis across output, defects, and delivery KPIs for a 50+ person unit',
@@ -44,10 +49,12 @@ const CARDS = [
     skills: ['Operations Management', 'Process Analysis', 'KPI Tracking', 'Manufacturing', 'Quality Control'],
   },
   {
-    role:       'Consultant',
-    company:    'TexCarp Consulting Pvt. Ltd.',
-    tenure:     'Jun 2015 – Jan 2016 (Part-time)',
-    tags:       ['CONSULTING', 'B2B', 'UK ENGAGEMENT'],
+    logo:           '/Logos/texcarp.png',
+    companyPrimary: 'TexCarp Consulting',
+    companySub:     'Part-time · UK Engagement',
+    role:           'Consultant',
+    tenure:         'Jun 2015 – Jan 2016',
+    tags:           ['CONSULTING', 'B2B', 'UK ENGAGEMENT'],
     highlights: [
       'Data collection design and analysis for UK-based B2B client engagement',
       'Requirements gathering and coordination for website redesign',
@@ -61,10 +68,12 @@ const CARDS = [
     skills: ['Requirements Gathering', 'Data Analysis', 'Client Engagement', 'Reporting', 'Digital Marketing'],
   },
   {
-    role:       'Business Intelligence Analyst',
-    company:    'Opine Group · Deployed at Sarvatra Technologies (BFSI/Fintech)',
-    tenure:     'May 2017 – Oct 2018',
-    tags:       ['BFSI', 'BI DELIVERY', 'FULL LIFECYCLE'],
+    logo:           '/Logos/opine-group.png',
+    companyPrimary: 'Opine Group',
+    companySub:     'Deployed at Sarvatra Technologies (BFSI/Fintech)',
+    role:           'Business Intelligence Analyst',
+    tenure:         'May 2017 – Oct 2018',
+    tags:           ['BFSI', 'BI DELIVERY', 'FULL LIFECYCLE'],
     highlights: [
       'Sole on-site BA and BI resource — independently owned full delivery lifecycle from requirements to sign-off',
       'Replaced fragmented manual reporting with a centralised SSRS dashboard — report generation reduced from hours to minutes',
@@ -79,10 +88,12 @@ const CARDS = [
     skills: ['Power BI', 'SQL', 'SSRS', 'SSIS', 'ETL', 'Dimensional Modelling', 'DAX', 'UAT', 'Requirements Elicitation', 'Gap Analysis'],
   },
   {
-    role:       'Sr. Project Consultant (Business Analyst)',
-    company:    'Savitribai Phule Pune University · Tribal Development Dept., Govt. of Maharashtra',
-    tenure:     'Nov 2018 – Aug 2021',
-    tags:       ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
+    logo:           '/Logos/sppu.png',
+    companyPrimary: 'Savitribai Phule Pune University',
+    companySub:     'Tribal Development Dept., Govt. of Maharashtra',
+    role:           'Sr. Project Consultant (Business Analyst)',
+    tenure:         'Nov 2018 – Aug 2021',
+    tags:           ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
     highlights: [
       '₹855.16L centrally-funded analytics initiative covering ~1 crore tribal beneficiaries across Maharashtra',
       '35+ government stakeholder touchpoints — Secretary and Commissioner level to 29 district project offices',
@@ -98,10 +109,12 @@ const CARDS = [
     skills: ['Business Analysis', 'Stakeholder Management', 'Requirements Elicitation', 'BRD', 'User Stories', 'KPI Definition', 'Dashboard Design', 'AS-IS / TO-BE', 'Vendor Coordination', 'Budget Governance'],
   },
   {
-    role:       'Independent Analyst & Consultant',
-    company:    'Self-Employed',
-    tenure:     'Feb 2021 – Present',
-    tags:       ['CONSULTING', 'POWER BI', 'AI-AUGMENTED'],
+    logo:           null, // rendered as "AK." text
+    companyPrimary: 'Independent Consulting',
+    companySub:     'Self-directed · Feb 2021 – Present',
+    role:           'Independent Analyst & Consultant',
+    tenure:         'Feb 2021 – Present',
+    tags:           ['CONSULTING', 'POWER BI', 'AI-AUGMENTED'],
     highlights: [
       'Power BI dashboards for JIH Healthcare — business metrics, vendor performance, and B2B outreach reporting',
       '10+ structured certifications across BA, BI, and AI — building current, market-aligned capability',
@@ -117,53 +130,74 @@ const CARDS = [
 ]
 
 function CardContent({ card }: { card: typeof CARDS[number] }) {
+  const [hovered, setHovered] = useState(false)
   const mono = { fontFamily: 'var(--font-jetbrains)' } as const
 
   return (
-    <div className="exp-card-inner" style={{ display: 'flex', flexDirection: 'column' }}>
-      {/* Company as heading (FIX 3) */}
-      <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(22px,2.5vw,30px)', fontWeight: 400, color: '#F2F0EB', marginBottom: '4px', lineHeight: 1.2 }}>
-        {card.company}
-      </div>
-      <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.30)', marginBottom: '12px' }}>{card.tenure}</div>
+    <div
+      className="exp-card-inner"
+      style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Hover backlit glow */}
+      <div style={{
+        position:     'absolute',
+        inset:         0,
+        zIndex:        0,
+        pointerEvents: 'none',
+        background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.10) 0%, rgba(255,248,225,0.04) 50%, transparent 100%)',
+        opacity:       hovered ? 1 : 0,
+        transition:   'opacity 400ms ease',
+      }} />
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
-        {card.tags.map((tag) => (
-          <span key={tag} style={{ ...mono, fontSize: '9px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
-            {tag}
-          </span>
-        ))}
-      </div>
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Company — primary line */}
+        <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(22px,2.5vw,30px)', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '4px' }}>
+          {card.companyPrimary}
+        </div>
+        {/* Company — secondary line */}
+        <div style={{ ...mono, fontSize: 'clamp(11px,1.2vw,13px)', color: 'rgba(242,240,235,0.45)', marginTop: '4px', marginBottom: '4px' }}>
+          {card.companySub}
+        </div>
+        <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.30)', marginBottom: '12px' }}>{card.tenure}</div>
 
-      {/* All bullets flat — highlights then detail (FIX 4) */}
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
-        {card.highlights.map((h, i) => (
-          <li key={`h-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-            <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '3px', fontSize: '10px' }}>▸</span>
-            <span style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.7 }}>{h}</span>
-          </li>
-        ))}
-        {card.detail.map((d, i) => (
-          <li key={`d-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-            <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>›</span>
-            <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
-          </li>
-        ))}
-      </ul>
-
-      {/* Skills line (FIX 7) */}
-      <div style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.35)', lineHeight: 1.6 }}>
-        <span style={{ color: 'var(--accent)' }}>SKILLS</span>
-        <span style={{ marginLeft: '8px' }}>
-          {card.skills.map((s, i) => (
-            <span key={i}>
-              {s}
-              {i < card.skills.length - 1 && (
-                <span style={{ color: '#FF5A00', margin: '0 6px' }}>·</span>
-              )}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+          {card.tags.map((tag) => (
+            <span key={tag} style={{ ...mono, fontSize: '9px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
+              {tag}
             </span>
           ))}
-        </span>
+        </div>
+
+        {/* All bullets flat */}
+        <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
+          {card.highlights.map((h, i) => (
+            <li key={`h-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '3px', fontSize: '10px' }}>▸</span>
+              <span style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.7 }}>{h}</span>
+            </li>
+          ))}
+          {card.detail.map((d, i) => (
+            <li key={`d-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>›</span>
+              <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Skills line */}
+        <div style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.35)', lineHeight: 1.6 }}>
+          <span style={{ color: 'var(--accent)' }}>SKILLS</span>
+          <span style={{ marginLeft: '8px' }}>
+            {card.skills.map((s, i) => (
+              <span key={i}>
+                {s}
+                {i < card.skills.length - 1 && <span style={{ color: '#FF5A00', margin: '0 6px' }}>·</span>}
+              </span>
+            ))}
+          </span>
+        </div>
       </div>
     </div>
   )
@@ -175,12 +209,11 @@ export default function Experience() {
   const cardRefs      = useRef<(HTMLDivElement | null)[]>([])
   const activeCardRef = useRef(0)
 
-  const [activeCard,  setActiveCard]  = useState(0)
-  const [shownCard,   setShownCard]   = useState(0)
-  const [showArrows,  setShowArrows]  = useState(false)
-  const [leftHovered, setLeftHovered] = useState(false)
+  const [activeCard, setActiveCard] = useState(0)
+  const [shownCard,  setShownCard]  = useState(0)
+  const [showArrows, setShowArrows] = useState(false)
 
-  // Fade left-panel text out → swap → fade in
+  // Fade left-panel content out → swap → fade in
   useEffect(() => {
     const el = leftInfoRef.current
     if (!el) { setShownCard(activeCard); return }
@@ -201,11 +234,9 @@ export default function Experience() {
     const isDesktop = window.innerWidth >= 768
 
     const animateCardIn = (inner: Element) => {
-      gsap.fromTo(
-        Array.from(inner.children),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }
-      )
+      const content = inner.querySelector('[data-card-content]')
+      const target  = content ? Array.from(content.children) : Array.from(inner.children)
+      gsap.fromTo(target, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' })
     }
 
     const ctx = gsap.context(() => {
@@ -247,7 +278,7 @@ export default function Experience() {
         ScrollTrigger.create({
           trigger: cardEl,
           start:   isDesktop ? 'top 40%' : 'top 80%',
-          onEnter: () => animateCardIn(inner),
+          onEnter:    () => animateCardIn(inner),
           ...(isDesktop ? { onEnterBack: () => animateCardIn(inner) } : {}),
         })
       })
@@ -280,11 +311,9 @@ export default function Experience() {
 
         <div style={{ display: 'flex' }}>
 
-          {/* ── LEFT PANEL (FIX 6: frosted glass + hover glow) ── */}
+          {/* ── LEFT PANEL ───────────────────────────────────── */}
           <div
             className="exp-left"
-            onMouseEnter={() => setLeftHovered(true)}
-            onMouseLeave={() => setLeftHovered(false)}
             style={{
               width:                '32%',
               position:             'sticky',
@@ -302,56 +331,60 @@ export default function Experience() {
               overflow:             'hidden',
             }}
           >
-            {/* Hover backlit glow */}
-            <div style={{
-              position:     'absolute',
-              inset:         0,
-              zIndex:        0,
-              pointerEvents: 'none',
-              background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.10) 0%, rgba(255,248,225,0.04) 50%, transparent 100%)',
-              opacity:       leftHovered ? 1 : 0,
-              transition:   'opacity 400ms ease',
-            }} />
+            <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
+              // 02 EXPERIENCE
+            </div>
 
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
-                // 02 EXPERIENCE
+            {/* Fading content block — logo, role, tenure */}
+            <div ref={leftInfoRef} style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: '48px', fontWeight: 400, color: 'rgba(242,240,235,0.15)', lineHeight: 1, marginBottom: '32px' }}>
+                {counter}
               </div>
 
-              <div ref={leftInfoRef} style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: '48px', fontWeight: 400, color: 'rgba(242,240,235,0.15)', lineHeight: 1, marginBottom: '32px' }}>
-                  {counter}
-                </div>
-                {/* FIX 2: show role title, not company */}
-                <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(22px,2.5vw,30px)', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '12px' }}>
-                  {displayData.role}
-                </div>
-                <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.35)' }}>
-                  {displayData.tenure}
-                </div>
-              </div>
-
-              {/* Dot indicators */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {CARDS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => goToCard(i)}
-                    aria-label={`Go to experience ${i + 1}`}
-                    style={{
-                      width:        '5px',
-                      height:       '5px',
-                      borderRadius: '50%',
-                      background:    i === activeCard ? '#FF5A00' : 'rgba(255,90,0,0.25)',
-                      border:       'none',
-                      padding:       0,
-                      cursor:       'pointer',
-                      flexShrink:    0,
-                      transition:   'background 0.3s ease',
-                    }}
+              {/* Logo or AK. wordmark */}
+              <div style={{ marginBottom: '12px' }}>
+                {displayData.logo ? (
+                  <img
+                    src={displayData.logo}
+                    alt={displayData.companyPrimary}
+                    style={{ width: '48px', height: '48px', objectFit: 'contain', display: 'block' }}
                   />
-                ))}
+                ) : (
+                  <span style={{ fontFamily: 'var(--font-fraunces)', fontSize: '24px', fontWeight: 400, color: '#FF5A00', lineHeight: 1 }}>
+                    AK<span style={{ color: '#FF5A00' }}>.</span>
+                  </span>
+                )}
               </div>
+
+              {/* Role title */}
+              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(18px,2vw,24px)', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.25, marginBottom: '10px' }}>
+                {displayData.role}
+              </div>
+              <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.35)' }}>
+                {displayData.tenure}
+              </div>
+            </div>
+
+            {/* Dot indicators */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {CARDS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goToCard(i)}
+                  aria-label={`Go to experience ${i + 1}`}
+                  style={{
+                    width:        '5px',
+                    height:       '5px',
+                    borderRadius: '50%',
+                    background:    i === activeCard ? '#FF5A00' : 'rgba(255,90,0,0.25)',
+                    border:       'none',
+                    padding:       0,
+                    cursor:       'pointer',
+                    flexShrink:    0,
+                    transition:   'background 0.3s ease',
+                  }}
+                />
+              ))}
             </div>
           </div>
 
@@ -364,7 +397,7 @@ export default function Experience() {
                 className="exp-card"
                 style={{
                   height:               '100vh',
-                  padding:              '32px 32px',  /* FIX 5 */
+                  padding:               CARD_PAD,
                   background:           'rgba(17,17,17,0.5)',
                   backdropFilter:       'blur(8px)',
                   WebkitBackdropFilter: 'blur(8px)',
@@ -372,7 +405,8 @@ export default function Experience() {
                   borderBottom:          i < CARDS.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
                   overflow:             'hidden',
                   boxSizing:            'border-box',
-                  scrollMarginTop:      `${NAV_H}px`,  /* FIX 1 */
+                  scrollMarginTop:      `${NAV_H}px`,
+                  position:             'relative',
                 }}
               >
                 <CardContent card={card} />
@@ -391,50 +425,39 @@ export default function Experience() {
           <button
             onClick={() => activeCard > 0 && goToCard(activeCard - 1)}
             style={{
-              ...mono,
-              fontSize:     '14px',
-              border:       '1px solid rgba(255,255,255,0.15)',
-              padding:      '6px 14px',
-              background:   'transparent',
-              color:        'rgba(242,240,235,0.6)',
-              cursor:        activeCard === 0 ? 'default' : 'pointer',
-              opacity:       activeCard === 0 ? 0.3 : 1,
-              borderRadius:  0,
-              transition:   'border-color 0.2s, opacity 0.2s',
+              ...mono, fontSize: '14px',
+              border: '1px solid rgba(255,255,255,0.15)', padding: '6px 14px',
+              background: 'transparent', color: 'rgba(242,240,235,0.6)',
+              cursor: activeCard === 0 ? 'default' : 'pointer',
+              opacity: activeCard === 0 ? 0.3 : 1,
+              borderRadius: 0, transition: 'border-color 0.2s, opacity 0.2s',
             }}
             onMouseEnter={(e) => { if (activeCard > 0) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)' }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)' }}
-          >
-            ←
-          </button>
+          >←</button>
           <button
             onClick={() => activeCard < CARDS.length - 1 && goToCard(activeCard + 1)}
             style={{
-              ...mono,
-              fontSize:     '14px',
-              border:       '1px solid rgba(255,255,255,0.15)',
-              padding:      '6px 14px',
-              background:   'transparent',
-              color:        'rgba(242,240,235,0.6)',
-              cursor:        activeCard === CARDS.length - 1 ? 'default' : 'pointer',
-              opacity:       activeCard === CARDS.length - 1 ? 0.3 : 1,
-              borderRadius:  0,
-              transition:   'border-color 0.2s, opacity 0.2s',
+              ...mono, fontSize: '14px',
+              border: '1px solid rgba(255,255,255,0.15)', padding: '6px 14px',
+              background: 'transparent', color: 'rgba(242,240,235,0.6)',
+              cursor: activeCard === CARDS.length - 1 ? 'default' : 'pointer',
+              opacity: activeCard === CARDS.length - 1 ? 0.3 : 1,
+              borderRadius: 0, transition: 'border-color 0.2s, opacity 0.2s',
             }}
             onMouseEnter={(e) => { if (activeCard < CARDS.length - 1) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)' }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)' }}
-          >
-            →
-          </button>
+          >→</button>
         </div>
       )}
 
       <style>{`
+        html { scroll-padding-top: ${NAV_H}px; }
         @media (max-width: 767px) {
           .exp-left         { display: none !important; }
           .exp-right        { width: 100% !important; }
           .exp-mobile-label { display: block !important; }
-          .exp-card         { height: auto !important; padding: 28px 20px !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+          .exp-card         { height: auto !important; padding: 28px 20px !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; scroll-margin-top: 0 !important; }
           .exp-arrows       { display: none !important; }
         }
       `}</style>
