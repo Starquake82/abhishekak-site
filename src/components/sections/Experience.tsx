@@ -134,22 +134,23 @@ function CardContent({ card }: { card: typeof CARDS[number] }) {
   const mono = { fontFamily: 'var(--font-jetbrains)' } as const
 
   return (
-    <div
-      className="exp-card-inner"
-      style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Hover backlit glow */}
-      <div style={{
-        position:     'absolute',
-        inset:         0,
-        zIndex:        0,
-        pointerEvents: 'none',
-        background:   'radial-gradient(ellipse 200% 200% at 50% 30%, rgba(255,248,225,0.07) 0%, rgba(255,248,225,0.03) 40%, transparent 70%)',
-        opacity:       hovered ? 1 : 0,
-        transition:   'opacity 500ms ease',
-      }} />
+    <div className="exp-card-inner">
+      {/* Content wrapper — glow is constrained to this, not the full 100vh card */}
+      <div
+        style={{ position: 'relative', width: '100%', padding: '32px 32px', boxSizing: 'border-box' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Hover backlit glow — covers content area only */}
+        <div style={{
+          position:     'absolute',
+          inset:         0,
+          zIndex:        0,
+          pointerEvents: 'none',
+          background:   'radial-gradient(ellipse 200% 200% at 50% 30%, rgba(255,248,225,0.07) 0%, rgba(255,248,225,0.03) 40%, transparent 70%)',
+          opacity:       hovered ? 1 : 0,
+          transition:   'opacity 500ms ease',
+        }} />
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Company — primary line */}
@@ -198,6 +199,7 @@ function CardContent({ card }: { card: typeof CARDS[number] }) {
             ))}
           </span>
         </div>
+      </div>
       </div>
     </div>
   )
@@ -397,7 +399,7 @@ export default function Experience() {
                 className="exp-card"
                 style={{
                   height:               '100vh',
-                  padding:               CARD_PAD,
+                  padding:               0,
                   background:           'rgba(17,17,17,0.5)',
                   backdropFilter:       'blur(8px)',
                   WebkitBackdropFilter: 'blur(8px)',
