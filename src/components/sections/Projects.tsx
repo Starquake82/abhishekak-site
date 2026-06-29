@@ -1,19 +1,20 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
+import Link from 'next/link'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const CARDS = [
-  { num: '01', type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA',           link: '/Projects/library-portal/BAC%20-%20Library%20Management%20Portal-Wireframes.pdf', newTab: true  },
-  { num: '02', type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',           name: 'Procurement Management Portal',                   descriptor: 'BA',           link: '#', newTab: false },
-  { num: '03', type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',  name: 'Maven AW Power BI Dashboard',                     descriptor: 'BI',           link: '#', newTab: false },
-  { num: '04', type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',            name: 'FinBridge LOS',                                   descriptor: 'BA · BFSI',    link: '#', newTab: false },
-  { num: '05', type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS', link: '/Projects/Case%20Studies/AK_CS_02_Brintons_Runner_Carpet.pdf',      newTab: true  },
-  { num: '06', type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS', link: '/Projects/Case%20Studies/AK_CS_01_Brintons_Leave_Encashment.pdf',  newTab: true  },
-  { num: '07', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI',      link: '/Projects/Case%20Studies/AK_CS_03_Opine_Sarvatra.pdf',             newTab: true  },
-  { num: '08', type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI',      link: '/Projects/Case%20Studies/AK_CS_04_IDDAC.pdf',                      newTab: true  },
+  { num: '01', slug: 'library-management-portal',  type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA'           },
+  { num: '02', slug: 'procurement-management-portal', type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',        name: 'Procurement Management Portal',                   descriptor: 'BA'           },
+  { num: '03', slug: 'maven-aw-dashboard',          type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',  name: 'Maven AW Power BI Dashboard',                     descriptor: 'BI'           },
+  { num: '04', slug: 'finbridge-los',               type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',            name: 'FinBridge LOS',                                   descriptor: 'BA · BFSI'    },
+  { num: '05', slug: 'brintons-runner-carpet',      type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS' },
+  { num: '06', slug: 'brintons-leave-encashment',   type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS' },
+  { num: '07', slug: 'finance-analytics-dashboard', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI'      },
+  { num: '08', slug: 'iddac',                       type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI'      },
 ]
 
 const TOTAL = CARDS.length
@@ -43,7 +44,7 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
-      {/* Hover backlit glow — dim at rest (0.04 effective), bright on hover (0.08) */}
+      {/* Hover backlit glow */}
       <div style={{
         position:      'absolute',
         inset:          0,
@@ -54,7 +55,7 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
         transition:    'opacity 500ms ease',
       }} />
 
-      {/* Large background number — bottom-anchored, z-index 0 */}
+      {/* Large background number */}
       <div style={{
         position:      'absolute',
         bottom:        '-10px',
@@ -72,7 +73,7 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
         {card.num}
       </div>
 
-      {/* Card content — z-index 1 */}
+      {/* Card content */}
       <div style={{
         position:      'relative',
         zIndex:         1,
@@ -92,7 +93,6 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
           </div>
         </div>
 
-        {/* Spacer pushes bottom content down */}
         <div style={{ flex: 1 }} />
 
         {/* Bottom: project name + descriptor + divider + view link */}
@@ -116,23 +116,18 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
             {card.descriptor}
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '14px' }}>
-            <a
-              href={card.link}
-              target={card.newTab ? '_blank' : undefined}
-              rel={card.newTab ? 'noopener noreferrer' : undefined}
-              onClick={(e) => { if (card.link === '#') e.preventDefault() }}
+            <span
               data-cursor="hover"
               style={{
                 ...mono,
-                fontSize:       '11px',
-                color:           hovered ? '#FF5A00' : 'rgba(242,240,235,0.30)',
-                textDecoration: 'none',
-                transition:     'color 300ms ease',
-                display:        'inline-block',
+                fontSize:    '11px',
+                color:        hovered ? '#FF5A00' : 'rgba(242,240,235,0.30)',
+                transition:  'color 300ms ease',
+                display:     'inline-block',
               }}
             >
               View →
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -217,7 +212,6 @@ export default function Projects() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Mobile: update counter via native scroll
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
@@ -264,7 +258,6 @@ export default function Projects() {
           zIndex:                10,
         }}
       >
-        {/* Spacer pushes content to lower portion of panel */}
         <div style={{ flex: 1 }} />
 
         <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: '#FF5A00', textTransform: 'uppercase', marginBottom: '20px' }}>
@@ -293,7 +286,6 @@ export default function Projects() {
           Portfolio projects and real-world case studies across BA, BI, and process improvement.
         </p>
 
-        {/* Counter — updates on scroll */}
         <div style={{ ...mono, fontSize: '12px', color: 'rgba(242,240,235,0.25)', letterSpacing: '0.5px' }}>
           {counter}
         </div>
@@ -324,13 +316,18 @@ export default function Projects() {
           }}
         >
           {CARDS.map((card, i) => (
-            <ProjectCard
+            <Link
               key={card.num}
-              card={card}
-              hovered={hoveredCard === i}
-              onEnter={() => setHoveredCard(i)}
-              onLeave={() => setHoveredCard(null)}
-            />
+              href={`/projects/${card.slug}`}
+              style={{ display: 'contents', textDecoration: 'none' }}
+            >
+              <ProjectCard
+                card={card}
+                hovered={hoveredCard === i}
+                onEnter={() => setHoveredCard(i)}
+                onLeave={() => setHoveredCard(null)}
+              />
+            </Link>
           ))}
         </div>
       </div>
