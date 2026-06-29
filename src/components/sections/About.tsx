@@ -88,7 +88,7 @@ export default function About() {
 
         {/* Left — text */}
         <div className="about-content" style={{ opacity: 0 }}>
-          <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '32px' }}>
+          <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '32px' }}>
             // 01 ABOUT
           </div>
           <h2 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(32px,4vw,52px)', fontWeight: 400, color: 'var(--text)', letterSpacing: '-1.5px', lineHeight: 1.1, marginBottom: '32px' }}>

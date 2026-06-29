@@ -263,7 +263,7 @@ export default function Certifications() {
       <div style={{ padding: '0 clamp(24px,5vw,60px)', maxWidth: '1200px', margin: '0 auto', marginBottom: '72px' }}>
         <div
           className="certs-heading"
-          style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '16px', opacity: 0 }}
+          style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '16px', opacity: 0 }}
         >
           // 04 CREDENTIALS
         </div>

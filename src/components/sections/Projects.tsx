@@ -172,7 +172,7 @@ export default function Projects() {
     >
       {/* Header */}
       <div style={{ padding: '0 clamp(24px,5vw,60px)', marginBottom: '48px' }}>
-        <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '16px' }}>
+        <div style={{ ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '16px' }}>
           // 03 WORK
         </div>
         <h2 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(28px,4vw,48px)', fontWeight: 400, color: 'var(--text)', letterSpacing: '-1px', marginBottom: '12px', lineHeight: 1.1 }}>

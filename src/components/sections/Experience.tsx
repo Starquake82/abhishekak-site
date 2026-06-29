@@ -10,62 +10,44 @@ const CARD_PAD = `${NAV_H + 16}px 32px 32px` // push content below nav on snap
 
 const CARDS = [
   {
-    logo:           '/Logos/brintons.png',
-    companyPrimary: 'Brintons Carpets',
-    companySub:     'India Design/Service Centre',
-    role:           'Process Improvement Leader',
-    tenure:         'Jul 2010 – Apr 2013',
-    tags:           ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
+    logo:           null, // rendered as "AK." text
+    companyPrimary: 'Independent Consulting',
+    companySub:     'Self-directed · Feb 2021 – Present',
+    role:           'Independent Analyst & Consultant | Business, Data & Markets',
+    tenure:         'Feb 2021 – Present',
+    tags:           ['CONSULTING', 'POWER BI', 'AI-AUGMENTED'],
     highlights: [
-      'Reduced Internal Badly Defective (IBD) levels by ~70% through structured RCA and SOP implementation',
-      'Owned BOS KPI reporting framework — reported to GM and Executive Director, Group Operations',
-      'PACE Champion — £5K–£10K cost savings (leave encashment initiative)',
+      'Power BI dashboards for JIH Healthcare — business metrics, vendor performance, and B2B outreach reporting',
+      '10+ structured certifications across BA, BI, and AI — building current, market-aligned capability',
+      'FinBridge portfolio project — end-to-end BA documentation for a loan origination system grounded in Indian fintech infrastructure (OCEN, Account Aggregator, UPI)',
     ],
     detail: [
-      'Led 8D root cause analysis across Design, Production, Planning, and Quality functions',
-      'Developed Process Change Authorisation procedure — embedded as standard practice across the Service Centre',
-      'Facilitated Kaizen events and cross-functional improvement workshops across Americas, EMEA, and Asia Pacific',
-      'Managed corrective action tracking and QC checkpoints to prevent recurrence on high-value hospitality projects',
+      'Zoho CRM and n8n automation pipelines — JIH Healthcare and Ajinkya Technologies workflow automation',
+      'Market research and vendor evaluation for B2B import of nutraceutical ingredients from Japan',
+      'Developing AI-augmented delivery capability — prompt engineering, Copilot Studio, GenAI for BA workflows',
     ],
-    skills: ['RCA', 'SOP Development', 'KPI Reporting', 'Process Mapping', 'Change Management', 'Stakeholder Engagement', 'Kaizen'],
+    skills: ['Power BI', 'DAX', 'Zoho CRM', 'n8n', 'AI-Augmented Delivery', 'Prompt Engineering', 'Market Research', 'Business Development'],
   },
   {
-    logo:           '/Logos/mahalaxmi.png',
-    companyPrimary: 'Mahalaxmi Co-Op Yarn Processors',
-    companySub:     'Garment Division',
-    role:           'Business & Operations Manager',
-    tenure:         'Jun 2013 – Mar 2015',
-    tags:           ['OPERATIONS', 'MANUFACTURING', 'GARMENTS'],
+    logo:           '/Logos/sppu.png',
+    companyPrimary: 'Savitribai Phule Pune University',
+    companySub:     'Tribal Development Dept., Govt. of Maharashtra',
+    role:           'Sr. Project Consultant',
+    tenure:         'Nov 2018 – Aug 2021',
+    tags:           ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
     highlights: [
-      'Led machinery installation and commissioning for new production unit — Fit for Use authorisation',
-      'Operational data analysis across output, defects, and delivery KPIs for a 50+ person unit',
-      'Managed garment manufacturing, QC, HR, and process governance across functions',
+      '₹855.16L centrally-funded analytics initiative covering ~1 crore tribal beneficiaries across Maharashtra',
+      '35+ government stakeholder touchpoints — Secretary and Commissioner level to 29 district project offices',
+      'Full BA+BI delivery for Swayam & Hostel module — successfully deployed for TDD staff',
     ],
     detail: [
-      'Conducted business process analysis to evaluate system effectiveness and drive strategic decisions',
-      "Led new children's wear product line launch — end-to-end production setup",
-      'Tracked and reported KPIs across output, defect levels, delivery, and employee performance',
+      'Mapped AS-IS workflows and data flows across 6 live welfare applications (Mahaonline, Probity Soft, NIC)',
+      'Defined KPIs, dashboard specifications, user stories, and acceptance criteria across multiple welfare schemes',
+      'Managed budget reappropriation and utilization certificate submissions',
+      'Navigated vendor delays, frequent stakeholder changes, and hardware procurement constraints',
+      'Note: Broader IDDAC platform constrained by external factors; Swayam module delivered and deployed',
     ],
-    skills: ['Operations Management', 'Process Analysis', 'KPI Tracking', 'Manufacturing', 'Quality Control'],
-  },
-  {
-    logo:           '/Logos/texcarp.png',
-    companyPrimary: 'TexCarp Consulting',
-    companySub:     'Part-time · UK Engagement',
-    role:           'Consultant',
-    tenure:         'Jun 2015 – Jan 2016',
-    tags:           ['CONSULTING', 'B2B', 'UK ENGAGEMENT'],
-    highlights: [
-      'Data collection design and analysis for UK-based B2B client engagement',
-      'Requirements gathering and coordination for website redesign',
-      'Campaign analysis, performance tracking, and client reporting',
-    ],
-    detail: [
-      'Conducted client calls to understand business needs and surface insights',
-      'Developed reports and presentations translating data into actionable recommendations',
-      'Supported digital marketing efforts including campaign analysis and performance tracking',
-    ],
-    skills: ['Requirements Gathering', 'Data Analysis', 'Client Engagement', 'Reporting', 'Digital Marketing'],
+    skills: ['Business Analysis', 'Stakeholder Management', 'Requirements Elicitation', 'BRD', 'User Stories', 'KPI Definition', 'Dashboard Design', 'AS-IS / TO-BE', 'Vendor Coordination', 'Budget Governance'],
   },
   {
     logo:           '/Logos/opine-group.png',
@@ -88,44 +70,62 @@ const CARDS = [
     skills: ['Power BI', 'SQL', 'SSRS', 'SSIS', 'ETL', 'Dimensional Modelling', 'DAX', 'UAT', 'Requirements Elicitation', 'Gap Analysis'],
   },
   {
-    logo:           '/Logos/sppu.png',
-    companyPrimary: 'Savitribai Phule Pune University',
-    companySub:     'Tribal Development Dept., Govt. of Maharashtra',
-    role:           'Sr. Project Consultant (Business Analyst)',
-    tenure:         'Nov 2018 – Aug 2021',
-    tags:           ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
+    logo:           '/Logos/texcarp.png',
+    companyPrimary: 'TexCarp Consulting',
+    companySub:     'Part-time · UK Engagement',
+    role:           'Consultant',
+    tenure:         'Jun 2015 – Jan 2016',
+    tags:           ['CONSULTING', 'B2B', 'UK ENGAGEMENT'],
     highlights: [
-      '₹855.16L centrally-funded analytics initiative covering ~1 crore tribal beneficiaries across Maharashtra',
-      '35+ government stakeholder touchpoints — Secretary and Commissioner level to 29 district project offices',
-      'Full BA+BI delivery for Swayam & Hostel module — successfully deployed for TDD staff',
+      'Data collection design and analysis for UK-based B2B client engagement',
+      'Requirements gathering and coordination for website redesign',
+      'Campaign analysis, performance tracking, and client reporting',
     ],
     detail: [
-      'Mapped AS-IS workflows and data flows across 6 live welfare applications (Mahaonline, Probity Soft, NIC)',
-      'Defined KPIs, dashboard specifications, user stories, and acceptance criteria across multiple welfare schemes',
-      'Managed budget reappropriation and utilization certificate submissions',
-      'Navigated vendor delays, frequent stakeholder changes, and hardware procurement constraints',
-      'Note: Broader IDDAC platform constrained by external factors; Swayam module delivered and deployed',
+      'Conducted client calls to understand business needs and surface insights',
+      'Developed reports and presentations translating data into actionable recommendations',
+      'Supported digital marketing efforts including campaign analysis and performance tracking',
     ],
-    skills: ['Business Analysis', 'Stakeholder Management', 'Requirements Elicitation', 'BRD', 'User Stories', 'KPI Definition', 'Dashboard Design', 'AS-IS / TO-BE', 'Vendor Coordination', 'Budget Governance'],
+    skills: ['Requirements Gathering', 'Data Analysis', 'Client Engagement', 'Reporting', 'Digital Marketing'],
   },
   {
-    logo:           null, // rendered as "AK." text
-    companyPrimary: 'Independent Consulting',
-    companySub:     'Self-directed · Feb 2021 – Present',
-    role:           'Independent Analyst & Consultant',
-    tenure:         'Feb 2021 – Present',
-    tags:           ['CONSULTING', 'POWER BI', 'AI-AUGMENTED'],
+    logo:           '/Logos/mahalaxmi.png',
+    companyPrimary: 'Mahalaxmi Co-Op Yarn Processors',
+    companySub:     'Garment Division',
+    role:           'Business & Operations Manager',
+    tenure:         'Jun 2013 – Mar 2015',
+    tags:           ['OPERATIONS', 'MANUFACTURING', 'GARMENTS'],
     highlights: [
-      'Power BI dashboards for JIH Healthcare — business metrics, vendor performance, and B2B outreach reporting',
-      '10+ structured certifications across BA, BI, and AI — building current, market-aligned capability',
-      'FinBridge portfolio project — end-to-end BA documentation for a loan origination system grounded in Indian fintech infrastructure (OCEN, Account Aggregator, UPI)',
+      'Led machinery installation and commissioning for new production unit — Fit for Use authorisation',
+      'Operational data analysis across output, defects, and delivery KPIs for a 50+ person unit',
+      'Managed garment manufacturing, QC, HR, and process governance across functions',
     ],
     detail: [
-      'Zoho CRM and n8n automation pipelines — JIH Healthcare and Ajinkya Technologies workflow automation',
-      'Market research and vendor evaluation for B2B import of nutraceutical ingredients from Japan',
-      'Developing AI-augmented delivery capability — prompt engineering, Copilot Studio, GenAI for BA workflows',
+      'Conducted business process analysis to evaluate system effectiveness and drive strategic decisions',
+      "Led new children's wear product line launch — end-to-end production setup",
+      'Tracked and reported KPIs across output, defect levels, delivery, and employee performance',
     ],
-    skills: ['Power BI', 'DAX', 'Zoho CRM', 'n8n', 'AI-Augmented Delivery', 'Prompt Engineering', 'Market Research', 'Business Development'],
+    skills: ['Operations Management', 'Process Analysis', 'KPI Tracking', 'Manufacturing', 'Quality Control'],
+  },
+  {
+    logo:           '/Logos/brintons.png',
+    companyPrimary: 'Brintons Carpets',
+    companySub:     'India Design/Service Centre',
+    role:           'Process Improvement Leader',
+    tenure:         'Jul 2010 – Apr 2013',
+    tags:           ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
+    highlights: [
+      'Reduced Internal Badly Defective (IBD) levels by ~70% through structured RCA and SOP implementation',
+      'Owned BOS KPI reporting framework — reported to GM and Executive Director, Group Operations',
+      'PACE Champion — £5K–£10K cost savings (leave encashment initiative)',
+    ],
+    detail: [
+      'Led 8D root cause analysis across Design, Production, Planning, and Quality functions',
+      'Developed Process Change Authorisation procedure — embedded as standard practice across the Service Centre',
+      'Facilitated Kaizen events and cross-functional improvement workshops across Americas, EMEA, and Asia Pacific',
+      'Managed corrective action tracking and QC checkpoints to prevent recurrence on high-value hospitality projects',
+    ],
+    skills: ['RCA', 'SOP Development', 'KPI Reporting', 'Process Mapping', 'Change Management', 'Stakeholder Engagement', 'Kaizen'],
   },
 ]
 
@@ -310,7 +310,7 @@ export default function Experience() {
         {/* Mobile-only label */}
         <div
           className="exp-mobile-label"
-          style={{ display: 'none', padding: 'clamp(60px,8vw,100px) clamp(24px,5vw,48px) 32px', ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase' }}
+          style={{ display: 'none', padding: 'clamp(60px,8vw,100px) clamp(24px,5vw,48px) 32px', ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase' }}
         >
           // 02 EXPERIENCE
         </div>
@@ -335,7 +335,7 @@ export default function Experience() {
               overflow:             'hidden',
             }}
           >
-            <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
+            <div style={{ ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
               // 02 EXPERIENCE
             </div>
 
