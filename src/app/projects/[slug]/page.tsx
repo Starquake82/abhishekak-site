@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Nav from '@/components/Nav'
+import PdfArtifact from '@/components/PdfArtifact'
 import { PROJECTS } from '@/lib/projectData'
 
 export async function generateStaticParams() {
@@ -208,26 +209,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <SectionLabel>Artifacts</SectionLabel>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               {project.artifacts.map((a, i) => (
-                <a
-                  key={i}
-                  href={a.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="artifact-link"
-                  style={{
-                    fontFamily:     mono,
-                    fontSize:       '12px',
-                    letterSpacing:  '0.5px',
-                    color:          'rgba(242,240,235,0.65)',
-                    border:         '1px solid rgba(255,255,255,0.15)',
-                    padding:        '12px 20px',
-                    textDecoration: 'none',
-                    display:        'inline-block',
-                    transition:     'border-color 200ms ease, color 200ms ease',
-                  }}
-                >
-                  {a.label} ↗
-                </a>
+                <PdfArtifact key={i} label={a.label} path={a.path} />
               ))}
             </div>
           </div>
@@ -239,8 +221,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       <style>{`
-        .back-link:hover  { color: rgba(242,240,235,0.75) !important; }
-        .artifact-link:hover { border-color: #FF5A00 !important; color: #FF5A00 !important; }
+        .back-link:hover { color: rgba(242,240,235,0.75) !important; }
       `}</style>
     </main>
   )
