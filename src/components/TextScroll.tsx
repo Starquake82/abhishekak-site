@@ -88,7 +88,7 @@ export default function TextScroll() {
               style={{
                 fontFamily:    'var(--font-jetbrains)',
                 fontWeight:     200,
-                color:         'rgba(242,240,235,0.25)',
+                color:         '#FF5A00',
                 lineHeight:     1,
                 padding:       '0 32px',
                 flexShrink:    0,
