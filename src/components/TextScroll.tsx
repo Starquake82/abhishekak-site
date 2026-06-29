@@ -87,10 +87,10 @@ export default function TextScroll() {
               className="text-scroll-sep"
               style={{
                 fontFamily:    'var(--font-jetbrains)',
-                fontWeight:     100,
-                color:         'rgba(242,240,235,0.30)',
+                fontWeight:     200,
+                color:         'rgba(242,240,235,0.25)',
                 lineHeight:     1,
-                padding:       '0 24px',
+                padding:       '0 32px',
                 flexShrink:    0,
               }}
             >

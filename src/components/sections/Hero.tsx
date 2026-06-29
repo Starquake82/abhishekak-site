@@ -134,7 +134,7 @@ export default function Hero() {
             href="#work"
             data-cursor="hover"
             onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}
-            style={{ background: 'var(--accent)', color: '#fff', padding: '12px 24px', borderRadius: '6px', ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
+            style={{ background: 'var(--accent)', color: '#fff', padding: '12px 24px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#d44d00' }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)' }}
           >
@@ -144,7 +144,7 @@ export default function Hero() {
             href="/CV/Abhishek_CV_BA.pdf"
             download
             data-cursor="hover"
-            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 24px', borderRadius: '6px', ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
+            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 24px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
             onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
             onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
           >

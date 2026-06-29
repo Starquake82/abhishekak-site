@@ -205,7 +205,7 @@ export default function Projects() {
               backdropFilter:      'blur(24px) saturate(1.5)',
               WebkitBackdropFilter:'blur(24px) saturate(1.5)',
               border:              '1px solid rgba(255,255,255,0.10)',
-              borderRadius:        '16px',
+              borderRadius:        0,
               padding:             '28px',
               width:               '400px',
               minWidth:            '400px',
@@ -254,7 +254,7 @@ export default function Projects() {
                       color:           'rgba(242,240,235,0.70)',
                       background:      'rgba(255,255,255,0.07)',
                       border:          '1px solid rgba(255,255,255,0.12)',
-                      borderRadius:    '4px',
+                      borderRadius:    0,
                       padding:         '4px 10px',
                     }}
                   >
@@ -290,7 +290,7 @@ export default function Projects() {
               style={{
                 width:        activeCard === i ? '28px' : '16px',
                 height:       '2px',
-                borderRadius: '2px',
+                borderRadius: 0,
                 background:   activeCard === i ? '#FF5A00' : 'rgba(255,255,255,0.12)',
                 border:       'none',
                 padding:      0,
@@ -358,8 +358,8 @@ export default function Projects() {
           background: radial-gradient(
             ellipse 120% 120% at 50% 50%,
             rgba(255, 248, 225, 0.22) 0%,
-            rgba(255, 244, 210, 0.12) 40%,
-            transparent 70%
+            rgba(255, 244, 210, 0.08) 50%,
+            transparent 100%
           );
           opacity: 0;
           transition: opacity 0.5s ease;

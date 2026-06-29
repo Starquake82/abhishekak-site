@@ -53,10 +53,14 @@ export default function Contact() {
         style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
       >
         <div style={{ maxWidth: '900px' }}>
-          <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,8vw,80px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.05, marginBottom: '48px' }}>
-            <SplitWords text="Let's" />
-            <SplitWords text="work together." />
+          <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,8vw,80px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.05, marginBottom: '16px' }}>
+            <SplitWords text="Start a" />
+            <SplitWords text="Conversation." />
           </div>
+
+          <p className="contact-body" style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', lineHeight: 1.7, maxWidth: '480px', marginBottom: '40px', opacity: 0 }}>
+            Open to consulting engagements, senior BA/BI roles, and strategic collaborations.
+          </p>
 
           <div className="contact-body" style={{ opacity: 0 }}>
             <a
@@ -86,7 +90,7 @@ export default function Contact() {
                   style={{
                     ...mono, fontSize: '11px', letterSpacing: '0.5px', color: 'var(--muted)',
                     textDecoration: 'none', border: '1px solid var(--border)',
-                    padding: '10px 18px', borderRadius: '6px', transition: 'all 0.2s ease',
+                    padding: '10px 18px', borderRadius: 0, transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement

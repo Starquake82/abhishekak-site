@@ -27,7 +27,7 @@ function HighlightCard() {
         backdropFilter:      'blur(20px) saturate(1.5)',
         WebkitBackdropFilter:'blur(20px) saturate(1.5)',
         border:              '1px solid rgba(255,255,255,0.07)',
-        borderRadius:        '16px',
+        borderRadius:        0,
         padding:             '0 28px',
         alignSelf:           'start',
         transition:          'border-color 0.4s ease',
@@ -40,7 +40,7 @@ function HighlightCard() {
         inset:       0,
         zIndex:      0,
         pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.12) 0%, rgba(255,244,210,0.05) 40%, transparent 70%)',
+        background: 'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.12) 0%, rgba(255,244,210,0.04) 50%, transparent 100%)',
         opacity:    hovered ? 1 : 0,
         transition: 'opacity 0.5s ease',
       }} />

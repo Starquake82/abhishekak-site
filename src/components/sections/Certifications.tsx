@@ -115,7 +115,7 @@ function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
         backdropFilter:       'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         border:               '1px solid rgba(255,255,255,0.07)',
-        borderRadius:         '12px',
+        borderRadius:         0,
         padding:              '20px 16px',
         display:              'flex',
         flexDirection:        'column',
@@ -129,7 +129,7 @@ function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
         inset:         0,
         zIndex:        0,
         pointerEvents: 'none',
-        background:   `radial-gradient(ellipse 120% 120% at 50% 50%, ${glowRgba} 0%, transparent 70%)`,
+        background:   `radial-gradient(ellipse 120% 120% at 50% 50%, ${glowRgba} 0%, transparent 100%)`,
         opacity:      1,
       }} />
 
@@ -286,7 +286,7 @@ export default function Certifications() {
               inset:         0,
               zIndex:        0,
               pointerEvents: 'none',
-              background:   `radial-gradient(ellipse 80% 70% at ${cat.align === 'left' ? '25%' : '75%'} 65%, ${cat.glowRgba} 0%, transparent 70%)`,
+              background:   `radial-gradient(ellipse 120% 120% at ${cat.align === 'left' ? '25%' : '75%'} 65%, ${cat.glowRgba} 0%, transparent 100%)`,
             }} />
 
             <div style={{ position: 'relative', zIndex: 1 }}>
