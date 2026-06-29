@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -12,64 +11,53 @@ const CARDS = [
     num: '01', slug: 'library-management-portal',
     type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',
     name: 'Library Management Portal', descriptor: 'BA',
-    image: '/Images/library_management.png',
-    glowColor: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.13)',
   },
   {
     num: '02', slug: 'procurement-management-portal',
     type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',
     name: 'Procurement Management Portal', descriptor: 'BA',
-    image: '/Images/procurement_management.png',
-    glowColor: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.13)',
   },
   {
     num: '03', slug: 'maven-aw-dashboard',
     type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',
     name: 'Maven AW Power BI Dashboard', descriptor: 'BI',
-    image: '/Images/Maven AW Power BI.png',
-    glowColor: 'rgba(107,68,212,0.10)',
+    glowColor: 'rgba(107,68,212,0.13)',
   },
   {
     num: '04', slug: 'finbridge-los',
     type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',
     name: 'FinBridge LOS', descriptor: 'BA · BFSI',
-    image: null,
-    glowColor: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.13)',
   },
   {
     num: '05', slug: 'brintons-runner-carpet',
     type: 'CASE STUDY', domain: 'MANUFACTURING · QA',
     name: 'Brintons — Process Failure & Improvement', descriptor: 'BA · PROCESS',
-    image: '/Images/Brintons Process Failure & Improvement.png',
-    glowColor: 'rgba(56,189,248,0.10)',
+    glowColor: 'rgba(56,189,248,0.13)',
   },
   {
     num: '06', slug: 'brintons-leave-encashment',
     type: 'CASE STUDY', domain: 'MANUFACTURING · COST',
     name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS',
-    image: '/Images/Brintons Leave Encashment & Cost Optimisation.png',
-    glowColor: 'rgba(56,189,248,0.10)',
+    glowColor: 'rgba(56,189,248,0.13)',
   },
   {
     num: '07', slug: 'finance-analytics-dashboard',
     type: 'CASE STUDY', domain: 'BFSI · FINTECH',
     name: 'Finance Analytics & Dashboard', descriptor: 'BA · BI',
-    image: null,
-    glowColor: 'rgba(107,68,212,0.10)',
+    glowColor: 'rgba(107,68,212,0.13)',
   },
   {
     num: '08', slug: 'iddac',
     type: 'CASE STUDY', domain: 'GOVERNMENT · ANALYTICS',
     name: 'IDDAC — Govt. Analytics Platform', descriptor: 'BA · BI',
-    image: null,
-    glowColor: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.13)',
   },
 ]
 
 const TOTAL = CARDS.length
-
-const CARD_HEIGHT = 460
-const IMAGE_HEIGHT = 200
 
 function ProjectCard({ card, hovered, onEnter, onLeave }: {
   card: typeof CARDS[number]
@@ -83,17 +71,15 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
     <div
       className="proj-card"
       style={{
-        position:    'relative',
-        width:       '360px',
-        height:      `${CARD_HEIGHT}px`,
-        flexShrink:   0,
-        background:  '#111111',
-        border:      '1px solid rgba(255,255,255,0.07)',
-        borderRadius: 0,
-        overflow:    'hidden',
-        boxSizing:   'border-box',
-        display:     'flex',
-        flexDirection: 'column',
+        position:      'relative',
+        width:         '360px',
+        height:        '460px',
+        flexShrink:     0,
+        background:    '#111111',
+        border:        '1px solid rgba(255,255,255,0.07)',
+        borderRadius:   0,
+        overflow:      'hidden',
+        boxSizing:     'border-box',
       }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
@@ -109,59 +95,37 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
         transition:    'opacity 500ms ease',
       }} />
 
-      {/* ── Top: artwork image (200px) ─────────────────── */}
+      {/* Large background number */}
       <div style={{
-        position:   'relative',
-        width:      '100%',
-        height:     `${IMAGE_HEIGHT}px`,
-        flexShrink:  0,
-        overflow:   'hidden',
-        zIndex:      1,
-        background: '#0d0d0d',
+        position:      'absolute',
+        bottom:        '-10px',
+        right:         '10px',
+        fontFamily:    'var(--font-fraunces)',
+        fontSize:      '140px',
+        fontWeight:     400,
+        color:         'rgba(242,240,235,0.04)',
+        lineHeight:     1,
+        zIndex:         0,
+        userSelect:    'none',
+        pointerEvents: 'none',
+        letterSpacing: '-4px',
       }}>
-        {card.image ? (
-          <Image
-            src={card.image}
-            alt={card.name}
-            fill
-            sizes="360px"
-            style={{ objectFit: 'cover' }}
-          />
-        ) : (
-          /* Number placeholder centered in image area */
-          <div style={{
-            position:      'absolute',
-            inset:          0,
-            display:       'flex',
-            alignItems:    'center',
-            justifyContent: 'center',
-            fontFamily:    'var(--font-fraunces)',
-            fontSize:      '120px',
-            fontWeight:     400,
-            color:         'rgba(242,240,235,0.04)',
-            letterSpacing: '-4px',
-            userSelect:    'none',
-            lineHeight:     1,
-          }}>
-            {card.num}
-          </div>
-        )}
+        {card.num}
       </div>
 
-      {/* ── Bottom: project info (~260px) ──────────────── */}
+      {/* Card content */}
       <div style={{
         position:      'relative',
         zIndex:         1,
-        flex:           1,
+        height:        '100%',
         display:       'flex',
         flexDirection: 'column',
-        padding:       '20px 24px 20px',
+        padding:       '88px 28px 28px',
         boxSizing:     'border-box',
-        overflow:      'hidden',
       }}>
-        {/* Type + domain labels */}
+        {/* Top: type label + domain tag */}
         <div style={{ flexShrink: 0 }}>
-          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.35)', textTransform: 'uppercase', marginBottom: '5px' }}>
+          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.35)', textTransform: 'uppercase', marginBottom: '6px' }}>
             {card.type}
           </div>
           <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: '#FF5A00', textTransform: 'uppercase' }}>
@@ -169,10 +133,9 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
           </div>
         </div>
 
-        {/* Spacer */}
         <div style={{ flex: 1 }} />
 
-        {/* Project name + descriptor + divider + view */}
+        {/* Bottom: name + descriptor + divider + view */}
         <div style={{ flexShrink: 0 }}>
           <div style={{
             fontFamily:   'var(--font-fraunces)',
@@ -383,14 +346,14 @@ export default function Projects() {
           ref={trackRef}
           className="proj-track"
           style={{
-            display:        'flex',
-            height:         '100%',
-            gap:            '24px',
-            paddingLeft:    '40px',
-            paddingRight:   '40px',
-            width:          'max-content',
-            willChange:     'transform',
-            alignItems:     'center',
+            display:      'flex',
+            height:       '100%',
+            gap:          '24px',
+            paddingLeft:  '40px',
+            paddingRight: '40px',
+            width:        'max-content',
+            willChange:   'transform',
+            alignItems:   'center',
           }}
         >
           {CARDS.map((card, i) => (
