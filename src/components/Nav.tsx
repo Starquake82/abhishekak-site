@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 
 const NAV_LINKS = [
@@ -17,6 +18,8 @@ export default function Nav() {
   const [activeSection, setActiveSection] = useState('')
   const [menuOpen, setMenuOpen]           = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
+  const pathname   = usePathname()
+  const isHome     = pathname === '/'
 
   useEffect(() => {
     const observers: IntersectionObserver[] = []
@@ -46,6 +49,10 @@ export default function Nav() {
   }, [menuOpen])
 
   const scrollTo = (href: string) => {
+    if (!isHome) {
+      window.location.href = '/' + href
+      return
+    }
     if (href === '#hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
@@ -77,8 +84,8 @@ export default function Nav() {
       >
         {/* Logo */}
         <a
-          href="#hero"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+          href={isHome ? '#hero' : '/#hero'}
+          onClick={(e) => { e.preventDefault(); scrollTo('#hero') }}
           style={{ fontFamily: 'var(--font-fraunces)', fontSize: '20px', fontWeight: 400, color: 'var(--text)', textDecoration: 'none', letterSpacing: '-0.5px' }}
           data-cursor="hover"
         >
@@ -108,7 +115,7 @@ export default function Nav() {
         {/* CTA + Hamburger (right side) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <a
-            href="#contact"
+            href={isHome ? '#contact' : '/#contact'}
             onClick={(e) => { e.preventDefault(); scrollTo('#contact') }}
             className="nav-cta"
             data-cursor="hover"
