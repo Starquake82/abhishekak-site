@@ -40,10 +40,6 @@ export default function Education() {
           // 05 EDUCATION
         </div>
 
-        <h2 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(28px,3vw,40px)', fontWeight: 400, color: 'var(--text)', letterSpacing: '-1px', lineHeight: 1.1, marginBottom: '48px' }}>
-          Foundation
-        </h2>
-
         <div
           className="edu-entry"
           style={{
@@ -64,10 +60,10 @@ export default function Education() {
             <h4 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(16px,2vw,22px)', fontWeight: 400, color: 'var(--text)', marginBottom: '4px' }}>
               Bachelor of Engineering — Textile Technology
             </h4>
-            <div style={{ ...mono, fontSize: '11px', color: 'var(--muted)', marginBottom: '4px' }}>
+            <div style={{ fontFamily: 'var(--font-geist)', fontSize: '11px', color: 'var(--muted)', marginBottom: '4px' }}>
               DKTE&rsquo;s Textile &amp; Engineering Institute, Ichalkaranji
             </div>
-            <div style={{ ...mono, fontSize: '10px', color: 'var(--subtle)', marginBottom: '4px', fontStyle: 'italic' }}>
+            <div style={{ fontFamily: 'var(--font-geist)', fontSize: '10px', color: 'var(--subtle)', marginBottom: '4px', fontStyle: 'italic' }}>
               Shivaji University, Kolhapur, Maharashtra
             </div>
             <div style={{ ...mono, fontSize: '11px', color: 'var(--muted)' }}>

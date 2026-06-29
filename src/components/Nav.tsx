@@ -3,14 +3,15 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
 const NAV_LINKS = [
-  { label: 'HOME',    href: '#hero' },
-  { label: 'WORK',    href: '#work' },
-  { label: 'ABOUT',   href: '#about' },
-  { label: 'CERTS',   href: '#certs' },
-  { label: 'CONTACT', href: '#contact' },
+  { label: 'HOME',        href: '#hero' },
+  { label: 'WORK',        href: '#work' },
+  { label: 'PROJECTS',    href: '#work-projects' },
+  { label: 'ABOUT',       href: '#about' },
+  { label: 'CREDENTIALS', href: '#certs' },
+  { label: 'CONTACT',     href: '#contact' },
 ]
 
-const SECTIONS = ['hero', 'work', 'about', 'certs', 'contact']
+const SECTIONS = ['hero', 'work', 'work-projects', 'about', 'certs', 'contact']
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState('')

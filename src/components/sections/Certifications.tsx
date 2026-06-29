@@ -77,7 +77,6 @@ const CATEGORIES: Category[] = [
     speed:    38,
     certs: [
       { name: 'McKinsey Forward Program',  issuer: 'McKinsey & Company',      img: '/Badges/mckinsey-org-forward-program (1).png' },
-      { name: 'Diagramming Foundations',   issuer: 'Cassidy Williams / GSAP', img: '/Badges/diagramming-foundations (1).png' },
     ],
     skills: [
       'Stakeholder Management', 'Change Management', 'Kaizen', 'SWOT Analysis',
@@ -93,7 +92,6 @@ const CATEGORIES: Category[] = [
     speed:    30,
     certs: [
       { name: 'NISM-Series VIII: Equity Derivatives Certification', issuer: 'NISM',     img: '/Logos/nism.png' },
-      { name: 'Data Analytics Job Simulation',                       issuer: 'Deloitte', img: '/Logos/deloitte.png' },
     ],
     skills: [
       'Equity Derivatives', 'F&O', 'Technical Analysis', 'Risk Assessment',
@@ -110,13 +108,14 @@ function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
         position:             'relative',
         overflow:             'hidden',
         width:                '200px',
+        height:               '200px',
         flexShrink:           0,
         background:           'rgba(17,17,17,0.6)',
         backdropFilter:       'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         border:               '1px solid rgba(255,255,255,0.07)',
         borderRadius:         0,
-        padding:              '20px 16px',
+        padding:              '16px',
         display:              'flex',
         flexDirection:        'column',
         cursor:               'default',
@@ -135,41 +134,38 @@ function CertCard({ cert, glowRgba }: { cert: Cert; glowRgba: string }) {
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
         {/* Image */}
-        <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px' }}>
           <img
             src={cert.img}
             alt={cert.name}
             style={{
-              width:     '64px',
-              height:    '64px',
+              width:     '52px',
+              height:    '52px',
               objectFit: 'contain',
               display:   'block',
             }}
           />
         </div>
 
-        {/* Cert name — fixed min-height so names align across a row */}
+        {/* Cert name */}
         <div style={{
           fontFamily: 'var(--font-geist)',
-          fontSize:   '15px',
+          fontSize:   '13px',
           color:      '#F2F0EB',
-          lineHeight:  1.4,
-          minHeight:  '80px',
-          alignItems: 'flex-start',
+          lineHeight:  1.35,
+          flex:        1,
         }}>
           {cert.name}
         </div>
 
-        {/* Issuer — fixed min-height so issuers align across a row */}
+        {/* Issuer */}
         <div style={{
           fontFamily:    'var(--font-jetbrains)',
-          fontSize:      '13px',
+          fontSize:      '11px',
           color:         'rgba(242,240,235,0.40)',
           letterSpacing: '0.2px',
-          minHeight:     '40px',
-          display:       'flex',
-          alignItems:    'flex-start',
           paddingTop:    '6px',
+          flexShrink:    0,
         }}>
           {cert.issuer}
         </div>
@@ -345,7 +341,7 @@ export default function Certifications() {
         }
 
         @media (max-width: 767px) {
-          .cert-card { width: 140px !important; }
+          .cert-card { width: 140px !important; height: 140px !important; }
         }
       `}</style>
     </section>

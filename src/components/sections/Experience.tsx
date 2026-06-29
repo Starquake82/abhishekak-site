@@ -560,7 +560,7 @@ export default function Experience() {
           className="exp-mobile-label"
           style={{ display: 'none', padding: 'clamp(60px,8vw,100px) clamp(24px,5vw,48px) 32px', ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase' }}
         >
-          // 02 EXPERIENCE
+          // 02 WORK EXPERIENCE
         </div>
 
         <div style={{ display: 'flex' }}>
@@ -584,7 +584,7 @@ export default function Experience() {
             }}
           >
             <div style={{ ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
-              // 02 EXPERIENCE
+              // 02 WORK EXPERIENCE
             </div>
 
             {/* Fading content block */}

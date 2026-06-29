@@ -16,9 +16,9 @@ export default function Home() {
       <TextScroll />
       <About />
       <Experience />
-      <Education />
       <Projects />
       <Certifications />
+      <Education />
       <Contact />
     </main>
   )
