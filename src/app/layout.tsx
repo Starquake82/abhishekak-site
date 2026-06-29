@@ -25,13 +25,13 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Abhishek Anil Kininge — Sr. BA & BI Hybrid',
+  title: 'Abhishek Kininge — Independent BA & BI Consultant',
   description:
-    '15 years of structured diagnosis across government analytics, BFSI, and specialty ingredients. BA/BI hybrid based in Pune.',
-  keywords: ['business analyst', 'BI analyst', 'power BI', 'data analytics', 'Pune'],
+    'Senior BA & BI Consultant with 15 years across government analytics, BFSI, and manufacturing. Pune, India.',
+  keywords: ['independent consultant', 'business analyst', 'BI consultant', 'Power BI', 'data analytics', 'Pune', 'AI-augmented delivery', 'IDDAC'],
   openGraph: {
-    title: 'Abhishek Anil Kininge — Sr. BA & BI Hybrid',
-    description: '15 years of structured diagnosis. BA/BI hybrid. Pune, India.',
+    title: 'Abhishek Kininge — Independent BA & BI Consultant',
+    description: 'Senior BA & BI Consultant with 15 years across government analytics, BFSI, and manufacturing. Pune, India.',
     url: 'https://abhishekak.site',
     siteName: 'abhishekak.site',
     locale: 'en_IN',
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abhishek Anil Kininge',
-    description: 'Sr. BA & BI Hybrid · Pune · 15 years',
+    title: 'Abhishek Kininge — Independent Consultant',
+    description: 'BA · BI · AI · 15+ years · Pune, India',
   },
   metadataBase: new URL('https://abhishekak.site'),
   robots: { index: true, follow: true },
