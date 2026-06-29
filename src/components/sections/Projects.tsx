@@ -6,14 +6,14 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const CARDS = [
-  { num: '01', type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA',           link: '#', newTab: false },
+  { num: '01', type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA',           link: '/Projects/library-portal/BAC%20-%20Library%20Management%20Portal-Wireframes.pdf', newTab: true  },
   { num: '02', type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',           name: 'Procurement Management Portal',                   descriptor: 'BA',           link: '#', newTab: false },
   { num: '03', type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',  name: 'Maven AW Power BI Dashboard',                     descriptor: 'BI',           link: '#', newTab: false },
   { num: '04', type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',            name: 'FinBridge LOS',                                   descriptor: 'BA · BFSI',    link: '#', newTab: false },
-  { num: '05', type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS', link: '#', newTab: true  },
-  { num: '06', type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS', link: '#', newTab: true  },
-  { num: '07', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI',      link: '#', newTab: true  },
-  { num: '08', type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI',      link: '#', newTab: true  },
+  { num: '05', type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS', link: '/Projects/Case%20Studies/AK_CS_02_Brintons_Runner_Carpet.pdf',      newTab: true  },
+  { num: '06', type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS', link: '/Projects/Case%20Studies/AK_CS_01_Brintons_Leave_Encashment.pdf',  newTab: true  },
+  { num: '07', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI',      link: '/Projects/Case%20Studies/AK_CS_03_Opine_Sarvatra.pdf',             newTab: true  },
+  { num: '08', type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI',      link: '/Projects/Case%20Studies/AK_CS_04_IDDAC.pdf',                      newTab: true  },
 ]
 
 const TOTAL = CARDS.length
@@ -121,6 +121,7 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
               target={card.newTab ? '_blank' : undefined}
               rel={card.newTab ? 'noopener noreferrer' : undefined}
               onClick={(e) => { if (card.link === '#') e.preventDefault() }}
+              data-cursor="hover"
               style={{
                 ...mono,
                 fontSize:       '11px',
