@@ -278,13 +278,16 @@ export default function Certifications() {
       {/* ── Category blocks ─────────────────────────────────── */}
       {CATEGORIES.map((cat) => (
         <div key={cat.id} className={`cat-${cat.id}`} style={{ marginBottom: '80px', position: 'relative' }}>
-          {/* Per-category ambient glow — full-width so it bleeds into the page */}
+          {/* Per-category ambient glow — extends past block edges to dissolve naturally */}
           <div style={{
             position:     'absolute',
-            inset:        '-40px -20vw',
+            top:          '-60px',
+            left:         '-10vw',
+            right:        '-10vw',
+            bottom:       '-180px',
             zIndex:        0,
             pointerEvents: 'none',
-            background:   `radial-gradient(ellipse 60% 80% at ${cat.align === 'left' ? '20%' : '80%'} 60%, ${cat.glowRgba} 0%, transparent 70%)`,
+            background:   `radial-gradient(ellipse 70% 55% at ${cat.align === 'left' ? '28%' : '72%'} 40%, ${cat.glowRgba} 0%, transparent 70%)`,
           }} />
 
           <div style={{ padding: '0 clamp(24px,5vw,60px)', maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
