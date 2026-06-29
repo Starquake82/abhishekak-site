@@ -116,7 +116,7 @@ export default function Nav() {
               fontSize:      '11px',
               letterSpacing: '1px',
               textTransform: 'uppercase',
-              color:         '#0A0A0A',
+              color:         '#FFFFFF',
               background:    '#FF5A00',
               borderRadius:  '4px',
               padding:       '8px 18px',

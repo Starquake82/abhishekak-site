@@ -74,7 +74,7 @@ export default function TextScroll() {
               style={{
                 fontFamily:      'var(--font-jetbrains)',
                 fontWeight:       400,
-                color:           '#F2F0EB',
+                color:           'rgba(242,240,235,0.35)',
                 textTransform:   'uppercase',
                 letterSpacing:   '-1px',
                 lineHeight:       1,
@@ -87,14 +87,14 @@ export default function TextScroll() {
               className="text-scroll-sep"
               style={{
                 fontFamily:    'var(--font-jetbrains)',
-                fontWeight:     400,
-                color:         '#FF5A00',
+                fontWeight:     100,
+                color:         'rgba(242,240,235,0.30)',
                 lineHeight:     1,
-                padding:       '0 0.25em',
+                padding:       '0 24px',
                 flexShrink:    0,
               }}
             >
-              •
+              +
             </span>
           </span>
         ))}
