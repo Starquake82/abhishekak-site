@@ -154,18 +154,20 @@ function CardContent({ card }: { card: typeof CARDS[number] }) {
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Company — primary line */}
-        <div style={{ fontFamily: 'var(--font-geist)', fontSize: 'clamp(20px,2.3vw,28px)', fontWeight: 500, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-geist)', fontSize: '24px', fontWeight: 500, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '4px' }}>
           {card.companyPrimary}
         </div>
         {/* Company — secondary line */}
-        <div style={{ fontFamily: 'var(--font-geist)', fontSize: 'clamp(18px,2vw,26px)', fontWeight: 400, color: 'rgba(242,240,235,0.50)', marginTop: '4px', marginBottom: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-geist)', fontSize: '22px', fontWeight: 400, color: 'rgba(242,240,235,0.50)', marginTop: '4px', marginBottom: '4px' }}>
           {card.companySub}
         </div>
-        <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.30)', marginBottom: '12px' }}>{card.tenure}</div>
+        <div style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.30)', marginBottom: '12px' }}>{card.tenure}</div>
+
+        <div style={{ height: '8px' }} />
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
           {card.tags.map((tag) => (
-            <span key={tag} style={{ ...mono, fontSize: '9px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
+            <span key={tag} style={{ ...mono, fontSize: '11px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
               {tag}
             </span>
           ))}
@@ -175,17 +177,19 @@ function CardContent({ card }: { card: typeof CARDS[number] }) {
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
           {card.highlights.map((h, i) => (
             <li key={`h-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-              <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '3px', fontSize: '10px' }}>▸</span>
+              <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '3px', fontSize: '11px' }}>▸</span>
               <span style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.7 }}>{h}</span>
             </li>
           ))}
           {card.detail.map((d, i) => (
             <li key={`d-${i}`} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-              <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>›</span>
-              <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
+              <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '11px' }}>›</span>
+              <span style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
             </li>
           ))}
         </ul>
+
+        <div style={{ height: '8px' }} />
 
         {/* Skills line */}
         <div style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.35)', lineHeight: 1.6 }}>
@@ -322,9 +326,7 @@ export default function Experience() {
               top:                   0,
               height:               '100vh',
               borderRight:          '1px solid rgba(255,255,255,0.07)',
-              background:           'rgba(17,17,17,0.6)',
-              backdropFilter:       'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              background:           'var(--bg)',
               display:              'flex',
               flexDirection:        'column',
               padding:              'clamp(40px,5vw,72px) clamp(20px,2.5vw,40px)',
@@ -333,7 +335,7 @@ export default function Experience() {
               overflow:             'hidden',
             }}
           >
-            <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
+            <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
               // 02 EXPERIENCE
             </div>
 
@@ -359,10 +361,10 @@ export default function Experience() {
               </div>
 
               {/* Role title */}
-              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(18px,2vw,24px)', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.25, marginBottom: '10px' }}>
+              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: '26px', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.25, marginBottom: '10px' }}>
                 {displayData.role}
               </div>
-              <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.35)' }}>
+              <div style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.35)' }}>
                 {displayData.tenure}
               </div>
             </div>
