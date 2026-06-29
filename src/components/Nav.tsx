@@ -16,7 +16,12 @@ const SECTIONS = ['hero', 'work', 'work-projects', 'about', 'certs', 'contact']
 export default function Nav() {
   const [activeSection, setActiveSection] = useState('')
   const [menuOpen, setMenuOpen]           = useState(false)
+  const [currentPath, setCurrentPath]     = useState('')
   const overlayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  }, [])
 
   useEffect(() => {
     const observers: IntersectionObserver[] = []
@@ -45,6 +50,9 @@ export default function Nav() {
     }
   }, [menuOpen])
 
+  // On project sub-pages, highlight the PROJECTS link
+  const effectiveActive = currentPath.startsWith('/projects/') ? 'work-projects' : activeSection
+
   const scrollTo = (href: string) => {
     const id = href.replace('#', '')
     const el = document.getElementById(id)
@@ -68,20 +76,20 @@ export default function Nav() {
     <>
       <nav
         style={{
-          position:     'fixed',
-          top:           0,
-          left:          0,
-          right:         0,
-          zIndex:        1000,
-          display:      'flex',
-          alignItems:   'center',
+          position:       'fixed',
+          top:             0,
+          left:            0,
+          right:           0,
+          zIndex:          1000,
+          display:        'flex',
+          alignItems:     'center',
           justifyContent: 'space-between',
-          padding:      '0 clamp(24px,4vw,60px)',
-          height:       '72px',
-          background:   `radial-gradient(ellipse at 50% 120%, rgba(255,248,225,0.09) 0%, transparent 100%), rgba(17,17,17,0.90)`,
+          padding:        '0 clamp(24px,4vw,60px)',
+          height:         '72px',
+          background:     `radial-gradient(ellipse at 50% 120%, rgba(255,248,225,0.09) 0%, transparent 100%), rgba(17,17,17,0.90)`,
           backdropFilter:       'blur(10.5px)',
           WebkitBackdropFilter: 'blur(10.5px)',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
+          borderBottom:   '1px solid rgba(255,255,255,0.07)',
         }}
       >
         {/* Logo */}
@@ -97,15 +105,23 @@ export default function Nav() {
         {/* Desktop links */}
         <ul style={{ display: 'flex', gap: '36px', listStyle: 'none' }} className="hidden-mobile">
           {NAV_LINKS.map((link) => {
-            const id = link.href.replace('#', '')
-            const isActive = activeSection === id
+            const id       = link.href.replace('#', '')
+            const isActive = effectiveActive === id
             return (
               <li key={link.label}>
                 <a
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollTo(link.href) }}
                   data-cursor="hover"
-                  style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '12px', letterSpacing: '1.2px', color: isActive ? 'var(--accent)' : 'var(--muted)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  className="nav-link"
+                  style={{
+                    fontFamily:     'var(--font-jetbrains)',
+                    fontSize:       '12px',
+                    letterSpacing:  '1.2px',
+                    color:           isActive ? '#FF5A00' : 'var(--muted)',
+                    textDecoration: 'none',
+                    transition:     'color 200ms ease',
+                  }}
                 >
                   {link.label}
                 </a>
@@ -114,7 +130,7 @@ export default function Nav() {
           })}
         </ul>
 
-        {/* CTA + Hamburger (right side) */}
+        {/* CTA + Hamburger */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <a
             href="/#contact"
@@ -122,24 +138,23 @@ export default function Nav() {
             className="nav-cta"
             data-cursor="hover"
             style={{
-              fontFamily:    'var(--font-jetbrains)',
-              fontSize:      '11px',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              color:         '#FFFFFF',
-              background:    '#FF5A00',
-              borderRadius:  0,
-              padding:       '8px 18px',
+              fontFamily:     'var(--font-jetbrains)',
+              fontSize:       '11px',
+              letterSpacing:  '1px',
+              textTransform:  'uppercase',
+              color:           '#FFFFFF',
+              background:     '#FF5A00',
+              borderRadius:    0,
+              padding:        '8px 18px',
               textDecoration: 'none',
-              border:        'none',
-              transition:    'background 200ms ease',
-              flexShrink:    0,
+              border:         'none',
+              transition:     'background 200ms ease',
+              flexShrink:      0,
             }}
           >
             Let&apos;s Talk
           </a>
 
-          {/* Hamburger — mobile only */}
           <button
             onClick={() => setMenuOpen(true)}
             className="show-mobile"
@@ -188,7 +203,8 @@ export default function Nav() {
           .show-mobile   { display: flex  !important; }
           .nav-cta { padding: 6px 12px !important; }
         }
-        .nav-cta:hover { background: rgba(255,90,0,0.85) !important; }
+        .nav-link:hover  { color: #F2F0EB !important; }
+        .nav-cta:hover   { background: rgba(255,90,0,0.85) !important; }
       `}</style>
     </>
   )

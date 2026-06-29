@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -7,17 +8,68 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const CARDS = [
-  { num: '01', slug: 'library-management-portal',  type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA'           },
-  { num: '02', slug: 'procurement-management-portal', type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',        name: 'Procurement Management Portal',                   descriptor: 'BA'           },
-  { num: '03', slug: 'maven-aw-dashboard',          type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',  name: 'Maven AW Power BI Dashboard',                     descriptor: 'BI'           },
-  { num: '04', slug: 'finbridge-los',               type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',            name: 'FinBridge LOS',                                   descriptor: 'BA · BFSI'    },
-  { num: '05', slug: 'brintons-runner-carpet',      type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS' },
-  { num: '06', slug: 'brintons-leave-encashment',   type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS' },
-  { num: '07', slug: 'finance-analytics-dashboard', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI'      },
-  { num: '08', slug: 'iddac',                       type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI'      },
+  {
+    num: '01', slug: 'library-management-portal',
+    type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',
+    name: 'Library Management Portal', descriptor: 'BA',
+    image: '/Images/library_management.png',
+    glowColor: 'rgba(242,193,46,0.10)',
+  },
+  {
+    num: '02', slug: 'procurement-management-portal',
+    type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',
+    name: 'Procurement Management Portal', descriptor: 'BA',
+    image: '/Images/procurement_management.png',
+    glowColor: 'rgba(242,193,46,0.10)',
+  },
+  {
+    num: '03', slug: 'maven-aw-dashboard',
+    type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',
+    name: 'Maven AW Power BI Dashboard', descriptor: 'BI',
+    image: '/Images/Maven AW Power BI.png',
+    glowColor: 'rgba(107,68,212,0.10)',
+  },
+  {
+    num: '04', slug: 'finbridge-los',
+    type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',
+    name: 'FinBridge LOS', descriptor: 'BA · BFSI',
+    image: null,
+    glowColor: 'rgba(242,193,46,0.10)',
+  },
+  {
+    num: '05', slug: 'brintons-runner-carpet',
+    type: 'CASE STUDY', domain: 'MANUFACTURING · QA',
+    name: 'Brintons — Process Failure & Improvement', descriptor: 'BA · PROCESS',
+    image: '/Images/Brintons Process Failure & Improvement.png',
+    glowColor: 'rgba(56,189,248,0.10)',
+  },
+  {
+    num: '06', slug: 'brintons-leave-encashment',
+    type: 'CASE STUDY', domain: 'MANUFACTURING · COST',
+    name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS',
+    image: '/Images/Brintons Leave Encashment & Cost Optimisation.png',
+    glowColor: 'rgba(56,189,248,0.10)',
+  },
+  {
+    num: '07', slug: 'finance-analytics-dashboard',
+    type: 'CASE STUDY', domain: 'BFSI · FINTECH',
+    name: 'Finance Analytics & Dashboard', descriptor: 'BA · BI',
+    image: null,
+    glowColor: 'rgba(107,68,212,0.10)',
+  },
+  {
+    num: '08', slug: 'iddac',
+    type: 'CASE STUDY', domain: 'GOVERNMENT · ANALYTICS',
+    name: 'IDDAC — Govt. Analytics Platform', descriptor: 'BA · BI',
+    image: null,
+    glowColor: 'rgba(242,193,46,0.10)',
+  },
 ]
 
 const TOTAL = CARDS.length
+
+const CARD_HEIGHT = 460
+const IMAGE_HEIGHT = 200
 
 function ProjectCard({ card, hovered, onEnter, onLeave }: {
   card: typeof CARDS[number]
@@ -33,59 +85,83 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
       style={{
         position:    'relative',
         width:       '360px',
+        height:      `${CARD_HEIGHT}px`,
         flexShrink:   0,
-        height:      '100%',
         background:  '#111111',
         border:      '1px solid rgba(255,255,255,0.07)',
         borderRadius: 0,
         overflow:    'hidden',
         boxSizing:   'border-box',
+        display:     'flex',
+        flexDirection: 'column',
       }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
-      {/* Hover backlit glow */}
+      {/* Per-card colored backlit glow */}
       <div style={{
         position:      'absolute',
         inset:          0,
         zIndex:         0,
         pointerEvents: 'none',
-        background:    'radial-gradient(ellipse 150% 150% at 50% 30%, rgba(255,248,235,0.08) 0%, transparent 70%)',
-        opacity:        hovered ? 1 : 0.5,
+        background:    `radial-gradient(ellipse 150% 150% at 50% 30%, ${card.glowColor} 0%, transparent 70%)`,
+        opacity:        hovered ? 1 : 0,
         transition:    'opacity 500ms ease',
       }} />
 
-      {/* Large background number */}
+      {/* ── Top: artwork image (200px) ─────────────────── */}
       <div style={{
-        position:      'absolute',
-        bottom:        '-10px',
-        right:         '10px',
-        fontFamily:    'var(--font-fraunces)',
-        fontSize:      '140px',
-        fontWeight:     400,
-        color:         'rgba(242,240,235,0.04)',
-        lineHeight:     1,
-        zIndex:         0,
-        userSelect:    'none',
-        pointerEvents: 'none',
-        letterSpacing: '-4px',
+        position:   'relative',
+        width:      '100%',
+        height:     `${IMAGE_HEIGHT}px`,
+        flexShrink:  0,
+        overflow:   'hidden',
+        zIndex:      1,
+        background: '#0d0d0d',
       }}>
-        {card.num}
+        {card.image ? (
+          <Image
+            src={card.image}
+            alt={card.name}
+            fill
+            sizes="360px"
+            style={{ objectFit: 'cover' }}
+          />
+        ) : (
+          /* Number placeholder centered in image area */
+          <div style={{
+            position:      'absolute',
+            inset:          0,
+            display:       'flex',
+            alignItems:    'center',
+            justifyContent: 'center',
+            fontFamily:    'var(--font-fraunces)',
+            fontSize:      '120px',
+            fontWeight:     400,
+            color:         'rgba(242,240,235,0.04)',
+            letterSpacing: '-4px',
+            userSelect:    'none',
+            lineHeight:     1,
+          }}>
+            {card.num}
+          </div>
+        )}
       </div>
 
-      {/* Card content */}
+      {/* ── Bottom: project info (~260px) ──────────────── */}
       <div style={{
         position:      'relative',
         zIndex:         1,
-        height:        '100%',
+        flex:           1,
         display:       'flex',
         flexDirection: 'column',
-        padding:       '88px 28px 28px',
+        padding:       '20px 24px 20px',
         boxSizing:     'border-box',
+        overflow:      'hidden',
       }}>
-        {/* Top: type label + domain tag */}
+        {/* Type + domain labels */}
         <div style={{ flexShrink: 0 }}>
-          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.35)', textTransform: 'uppercase', marginBottom: '6px' }}>
+          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.35)', textTransform: 'uppercase', marginBottom: '5px' }}>
             {card.type}
           </div>
           <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: '#FF5A00', textTransform: 'uppercase' }}>
@@ -93,17 +169,18 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
           </div>
         </div>
 
+        {/* Spacer */}
         <div style={{ flex: 1 }} />
 
-        {/* Bottom: project name + descriptor + divider + view link */}
+        {/* Project name + descriptor + divider + view */}
         <div style={{ flexShrink: 0 }}>
           <div style={{
             fontFamily:   'var(--font-fraunces)',
-            fontSize:     'clamp(20px, 2vw, 26px)',
+            fontSize:     'clamp(18px, 1.8vw, 22px)',
             fontWeight:    400,
             color:        '#F2F0EB',
             lineHeight:    1.2,
-            marginBottom: '8px',
+            marginBottom: '6px',
           }}>
             {card.name}
           </div>
@@ -111,19 +188,19 @@ function ProjectCard({ card, hovered, onEnter, onLeave }: {
             fontFamily:   'var(--font-geist)',
             fontSize:     '12px',
             color:        'rgba(242,240,235,0.40)',
-            marginBottom: '20px',
+            marginBottom: '16px',
           }}>
             {card.descriptor}
           </div>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '14px' }}>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '12px' }}>
             <span
               data-cursor="hover"
               style={{
                 ...mono,
-                fontSize:    '11px',
-                color:        hovered ? '#FF5A00' : 'rgba(242,240,235,0.30)',
-                transition:  'color 300ms ease',
-                display:     'inline-block',
+                fontSize:   '11px',
+                color:       hovered ? '#FF5A00' : 'rgba(242,240,235,0.30)',
+                transition: 'color 300ms ease',
+                display:    'inline-block',
               }}
             >
               View →
@@ -233,6 +310,7 @@ export default function Projects() {
       ref={sectionRef}
       className="projects-section"
       style={{
+        marginTop:  '120px',
         height:     '100vh',
         overflow:   'hidden',
         background: 'var(--bg)',
@@ -305,14 +383,14 @@ export default function Projects() {
           ref={trackRef}
           className="proj-track"
           style={{
-            display:      'flex',
-            height:       '100%',
-            gap:          '24px',
-            paddingLeft:  '40px',
-            paddingRight: '40px',
-            width:        'max-content',
-            willChange:   'transform',
-            alignItems:   'stretch',
+            display:        'flex',
+            height:         '100%',
+            gap:            '24px',
+            paddingLeft:    '40px',
+            paddingRight:   '40px',
+            width:          'max-content',
+            willChange:     'transform',
+            alignItems:     'center',
           }}
         >
           {CARDS.map((card, i) => (
@@ -335,6 +413,7 @@ export default function Projects() {
       <style>{`
         @media (max-width: 767px) {
           .projects-section {
+            margin-top: 60px !important;
             height: auto !important;
             flex-direction: column !important;
           }
@@ -347,7 +426,7 @@ export default function Projects() {
           }
           .proj-right {
             width: 100% !important;
-            height: 380px !important;
+            height: auto !important;
             overflow: visible !important;
           }
           .proj-track {
@@ -358,7 +437,8 @@ export default function Projects() {
             padding: 16px 24px !important;
             transform: none !important;
             scrollbar-width: none;
-            height: 100% !important;
+            height: auto !important;
+            align-items: flex-start !important;
           }
           .proj-track::-webkit-scrollbar { display: none; }
           .proj-card {
