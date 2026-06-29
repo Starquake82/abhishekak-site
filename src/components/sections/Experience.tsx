@@ -146,18 +146,18 @@ function CardContent({ card }: { card: typeof CARDS[number] }) {
         inset:         0,
         zIndex:        0,
         pointerEvents: 'none',
-        background:   'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.10) 0%, rgba(255,248,225,0.04) 50%, transparent 100%)',
+        background:   'radial-gradient(ellipse 200% 200% at 50% 30%, rgba(255,248,225,0.07) 0%, rgba(255,248,225,0.03) 40%, transparent 70%)',
         opacity:       hovered ? 1 : 0,
-        transition:   'opacity 400ms ease',
+        transition:   'opacity 500ms ease',
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Company — primary line */}
-        <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(22px,2.5vw,30px)', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-geist)', fontSize: 'clamp(20px,2.3vw,28px)', fontWeight: 500, color: '#F2F0EB', lineHeight: 1.2, marginBottom: '4px' }}>
           {card.companyPrimary}
         </div>
         {/* Company — secondary line */}
-        <div style={{ ...mono, fontSize: 'clamp(11px,1.2vw,13px)', color: 'rgba(242,240,235,0.45)', marginTop: '4px', marginBottom: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-geist)', fontSize: 'clamp(18px,2vw,26px)', fontWeight: 400, color: 'rgba(242,240,235,0.50)', marginTop: '4px', marginBottom: '4px' }}>
           {card.companySub}
         </div>
         <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.30)', marginBottom: '12px' }}>{card.tenure}</div>
@@ -347,7 +347,7 @@ export default function Experience() {
                   <img
                     src={displayData.logo}
                     alt={displayData.companyPrimary}
-                    style={{ width: '48px', height: '48px', objectFit: 'contain', display: 'block' }}
+                    style={{ width: '96px', height: '96px', objectFit: 'contain', display: 'block' }}
                   />
                 ) : (
                   <span style={{ fontFamily: 'var(--font-fraunces)', fontSize: '24px', fontWeight: 400, color: '#FF5A00', lineHeight: 1 }}>
