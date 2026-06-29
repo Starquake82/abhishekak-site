@@ -2,75 +2,156 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import ScrollToPlugin from 'gsap/ScrollToPlugin'
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+gsap.registerPlugin(ScrollTrigger)
 
-const PROJECTS = [
-  {
-    id: 0,
-    domain: 'LIBRARY SYSTEMS',
-    name: 'BACentric — Library Management Portal',
-    desc: 'Full-cycle business analysis deliverable covering requirements elicitation, BRD, and stakeholder sign-off for a library management system.',
-    tags: ['Business Analysis', 'Requirements', 'BRD'],
-    link: '#',
-  },
-  {
-    id: 1,
-    domain: 'PROCUREMENT OPS',
-    name: 'BACentric — Procurement Management Portal',
-    desc: 'End-to-end procurement portal analysis with BPMN process maps, UAT planning, and traceability matrices.',
-    tags: ['Process Design', 'UAT', 'BPMN'],
-    link: '#',
-  },
-  {
-    id: 2,
-    domain: 'AVIATION ANALYTICS',
-    name: 'Maven Airlines Power BI Dashboard',
-    desc: 'Multi-page Power BI report with custom DAX measures, dimensional data model, and executive-level KPI views.',
-    tags: ['Data Modelling', 'DAX', 'Power BI'],
-    link: '#',
-  },
-  {
-    id: 3,
-    domain: 'BFSI · LENDING',
-    name: 'FinBridge LOS — Credit Decision Module',
-    desc: 'Phase 1 BRD and process design for a loan origination system credit decision module in a lending operations context.',
-    tags: ['Lending Operations', 'BRD', 'Phase 1'],
-    link: '#',
-  },
+const CARDS = [
+  { num: '01', type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',          name: 'Library Management Portal',                       descriptor: 'BA',           link: '#', newTab: false },
+  { num: '02', type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',           name: 'Procurement Management Portal',                   descriptor: 'BA',           link: '#', newTab: false },
+  { num: '03', type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',  name: 'Maven AW Power BI Dashboard',                     descriptor: 'BI',           link: '#', newTab: false },
+  { num: '04', type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',            name: 'FinBridge LOS',                                   descriptor: 'BA · BFSI',    link: '#', newTab: false },
+  { num: '05', type: 'CASE STUDY',        domain: 'MANUFACTURING · QA',        name: 'Brintons — Process Failure & Improvement',        descriptor: 'BA · PROCESS', link: '#', newTab: true  },
+  { num: '06', type: 'CASE STUDY',        domain: 'MANUFACTURING · COST',      name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS', link: '#', newTab: true  },
+  { num: '07', type: 'CASE STUDY',        domain: 'BFSI · FINTECH',            name: 'Finance Analytics & Dashboard',                   descriptor: 'BA · BI',      link: '#', newTab: true  },
+  { num: '08', type: 'CASE STUDY',        domain: 'GOVERNMENT · ANALYTICS',    name: 'IDDAC — Govt. Analytics Platform',                descriptor: 'BA · BI',      link: '#', newTab: true  },
 ]
 
-const CARD_BG = `linear-gradient(
-  135deg,
-  rgba(10,8,8,0.45) 0%,
-  rgba(10,8,8,0.30) 100%
-), rgba(255,255,255,0.06)`
+const TOTAL = CARDS.length
 
-const SECTION_BG = '#0A0A0A'
+function ProjectCard({ card, hovered, onEnter, onLeave }: {
+  card: typeof CARDS[number]
+  hovered: boolean
+  onEnter: () => void
+  onLeave: () => void
+}) {
+  const mono = { fontFamily: 'var(--font-jetbrains)' } as const
 
-const TOTAL = PROJECTS.length
+  return (
+    <div
+      className="proj-card"
+      style={{
+        position:    'relative',
+        width:       '360px',
+        flexShrink:   0,
+        height:      '100%',
+        background:  '#111111',
+        border:      '1px solid rgba(255,255,255,0.07)',
+        borderRadius: 0,
+        overflow:    'hidden',
+        boxSizing:   'border-box',
+      }}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      {/* Hover backlit glow — dim at rest (0.04 effective), bright on hover (0.08) */}
+      <div style={{
+        position:      'absolute',
+        inset:          0,
+        zIndex:         0,
+        pointerEvents: 'none',
+        background:    'radial-gradient(ellipse 150% 150% at 50% 30%, rgba(255,248,235,0.08) 0%, transparent 70%)',
+        opacity:        hovered ? 1 : 0.5,
+        transition:    'opacity 500ms ease',
+      }} />
+
+      {/* Large background number — bottom-anchored, z-index 0 */}
+      <div style={{
+        position:      'absolute',
+        bottom:        '-10px',
+        right:         '10px',
+        fontFamily:    'var(--font-fraunces)',
+        fontSize:      '140px',
+        fontWeight:     400,
+        color:         'rgba(242,240,235,0.04)',
+        lineHeight:     1,
+        zIndex:         0,
+        userSelect:    'none',
+        pointerEvents: 'none',
+        letterSpacing: '-4px',
+      }}>
+        {card.num}
+      </div>
+
+      {/* Card content — z-index 1 */}
+      <div style={{
+        position:      'relative',
+        zIndex:         1,
+        height:        '100%',
+        display:       'flex',
+        flexDirection: 'column',
+        padding:       '88px 28px 28px',
+        boxSizing:     'border-box',
+      }}>
+        {/* Top: type label + domain tag */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.35)', textTransform: 'uppercase', marginBottom: '6px' }}>
+            {card.type}
+          </div>
+          <div style={{ ...mono, fontSize: '9px', letterSpacing: '1.2px', color: '#FF5A00', textTransform: 'uppercase' }}>
+            {card.domain}
+          </div>
+        </div>
+
+        {/* Spacer pushes bottom content down */}
+        <div style={{ flex: 1 }} />
+
+        {/* Bottom: project name + descriptor + divider + view link */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{
+            fontFamily:   'var(--font-fraunces)',
+            fontSize:     'clamp(20px, 2vw, 26px)',
+            fontWeight:    400,
+            color:        '#F2F0EB',
+            lineHeight:    1.2,
+            marginBottom: '8px',
+          }}>
+            {card.name}
+          </div>
+          <div style={{
+            fontFamily:   'var(--font-geist)',
+            fontSize:     '12px',
+            color:        'rgba(242,240,235,0.40)',
+            marginBottom: '20px',
+          }}>
+            {card.descriptor}
+          </div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '14px' }}>
+            <a
+              href={card.link}
+              target={card.newTab ? '_blank' : undefined}
+              rel={card.newTab ? 'noopener noreferrer' : undefined}
+              onClick={(e) => { if (card.link === '#') e.preventDefault() }}
+              style={{
+                ...mono,
+                fontSize:       '11px',
+                color:           hovered ? '#FF5A00' : 'rgba(242,240,235,0.30)',
+                textDecoration: 'none',
+                transition:     'color 300ms ease',
+                display:        'inline-block',
+              }}
+            >
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Projects() {
-  const sectionRef  = useRef<HTMLElement>(null)
-  const trackRef    = useRef<HTMLDivElement>(null)
-  const triggerRef  = useRef<ScrollTrigger | null>(null)
-  const ctxRef      = useRef<gsap.Context | null>(null)
-  const isMobileRef = useRef(false)
-  const [activeCard, setActiveCard] = useState(0)
-
-  const getScrollAmount = useCallback(() => {
-    const track = trackRef.current
-    if (!track) return 0
-    return -(track.scrollWidth - window.innerWidth)
-  }, [])
+  const sectionRef    = useRef<HTMLElement>(null)
+  const trackRef      = useRef<HTMLDivElement>(null)
+  const ctxRef        = useRef<gsap.Context | null>(null)
+  const isMobileRef   = useRef(false)
+  const [activeCard,  setActiveCard]  = useState(0)
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   const teardown = useCallback(() => {
     if (ctxRef.current) {
       ctxRef.current.revert()
       ctxRef.current = null
     }
-    triggerRef.current = null
     const track = trackRef.current
     if (track) gsap.set(track, { clearProps: 'transform' })
   }, [])
@@ -81,26 +162,29 @@ export default function Projects() {
     if (!section || !track) return
 
     const ctx = gsap.context(() => {
+      const rightW    = () => section.getBoundingClientRect().width * 0.7
+      const scrollAmt = () => track.scrollWidth - rightW()
+
       gsap.to(track, {
-        x: getScrollAmount,
+        x:    () => -scrollAmt(),
         ease: 'none',
         scrollTrigger: {
-          trigger: section,
-          pin: true,
-          scrub: 1.2,
-          start: 'top top',
-          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          trigger:             section,
+          pin:                 true,
+          scrub:               1.2,
+          start:               'top top',
+          end:                 () => `+=${scrollAmt()}`,
           invalidateOnRefresh: true,
           onUpdate(self) {
-            triggerRef.current = self
-            setActiveCard(Math.round(self.progress * (TOTAL - 1)))
+            const idx = Math.round(self.progress * (TOTAL - 1))
+            setActiveCard(idx)
           },
         },
       })
     }, section)
 
     ctxRef.current = ctx
-  }, [getScrollAmount])
+  }, [])
 
   useEffect(() => {
     let resizeTimer: ReturnType<typeof setTimeout>
@@ -127,266 +211,162 @@ export default function Projects() {
     }
   }, [setupDesktop, teardown])
 
-  // Force ScrollTrigger to recalculate after fonts/layout settle
   useEffect(() => {
     const timer = setTimeout(() => ScrollTrigger.refresh(), 100)
     return () => clearTimeout(timer)
   }, [])
 
-  // Mobile: update dots via native scroll
+  // Mobile: update counter via native scroll
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
     const onScroll = () => {
       if (!isMobileRef.current) return
-      const cardW = 400 + 24
+      const cardW = 360 + 24
       setActiveCard(Math.min(Math.round(track.scrollLeft / cardW), TOTAL - 1))
     }
     track.addEventListener('scroll', onScroll, { passive: true })
     return () => track.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollToCard = (idx: number) => {
-    const clamped = Math.max(0, Math.min(TOTAL - 1, idx))
-    if (isMobileRef.current) {
-      const track = trackRef.current
-      if (!track) return
-      track.scrollTo({ left: clamped * (400 + 24), behavior: 'smooth' })
-      return
-    }
-    const trigger = triggerRef.current
-    if (!trigger) return
-    const progress = TOTAL > 1 ? clamped / (TOTAL - 1) : 0
-    const targetY  = trigger.start + progress * (trigger.end - trigger.start)
-    gsap.to(window, { scrollTo: targetY, duration: 0.8, ease: 'power2.inOut' })
-  }
-
-  const mono = { fontFamily: 'var(--font-jetbrains)' } as const
+  const mono    = { fontFamily: 'var(--font-jetbrains)' } as const
+  const counter = `${String(activeCard + 1).padStart(2, '0')} / ${String(TOTAL).padStart(2, '0')}`
 
   return (
     <section
       id="work-projects"
       ref={sectionRef}
       className="projects-section"
-      style={{ background: SECTION_BG, paddingTop: '100px', paddingBottom: 0, overflow: 'hidden' }}
+      style={{
+        height:     '100vh',
+        overflow:   'hidden',
+        background: 'var(--bg)',
+        display:    'flex',
+        position:   'relative',
+      }}
     >
-      {/* Header */}
-      <div style={{ padding: '0 clamp(24px,5vw,60px)', marginBottom: '48px' }}>
-        <div style={{ ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '16px' }}>
-          // 03 WORK
-        </div>
-        <h2 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(28px,4vw,48px)', fontWeight: 400, color: 'var(--text)', letterSpacing: '-1px', marginBottom: '12px', lineHeight: 1.1 }}>
-          Selected projects
-        </h2>
-        <p style={{ ...mono, fontSize: '11px', color: 'var(--subtle)', letterSpacing: '0.3px' }}>
-          ↓ scroll — cards travel ←
-        </p>
-      </div>
-
-      {/* Cards track */}
+      {/* ── Left panel ─────────────────────────────────── */}
       <div
-        ref={trackRef}
-        className="cards-track"
+        className="proj-left"
         style={{
-          display: 'flex',
-          gap: '24px',
-          paddingLeft: '60px',
-          paddingRight: '60px',
-          width: 'max-content',
-          willChange: 'transform',
+          width:                '30%',
+          flexShrink:            0,
+          height:               '100%',
+          background:           'rgba(17,17,17,0.6)',
+          backdropFilter:       'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderRight:          '1px solid rgba(255,255,255,0.07)',
+          display:              'flex',
+          flexDirection:        'column',
+          padding:              'clamp(80px,8vw,100px) clamp(24px,3vw,48px) clamp(40px,5vw,60px)',
+          boxSizing:            'border-box',
+          zIndex:                10,
         }}
       >
-        {PROJECTS.map((p, i) => (
-          <div
-            key={p.id}
-            className="project-card"
-            style={{
-              background:          CARD_BG,
-              backdropFilter:      'blur(24px) saturate(1.5)',
-              WebkitBackdropFilter:'blur(24px) saturate(1.5)',
-              border:              '1px solid rgba(255,255,255,0.10)',
-              borderRadius:        0,
-              padding:             '28px',
-              width:               '400px',
-              minWidth:            '400px',
-              minHeight:           '320px',
-              flexShrink:          0,
-              position:            'relative',
-              overflow:            'hidden',
-              transition:          'transform 0.3s ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)' }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)' }}
-          >
-            {/* Backlit glow — fades in on hover via CSS */}
-            <div className="card-backlight" />
+        {/* Spacer pushes content to lower portion of panel */}
+        <div style={{ flex: 1 }} />
 
-            {/* Content sits above the backlight */}
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
-
-              {/* Domain label */}
-              <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: '#FF5A00', marginBottom: '12px' }}>
-                {p.domain}
-              </div>
-
-              {/* Project name */}
-              <h3 style={{ fontFamily: 'var(--font-fraunces)', fontSize: '22px', fontWeight: 400, color: 'var(--text)', lineHeight: 1.25, overflowWrap: 'break-word', marginBottom: 0 }}>
-                {p.name}
-              </h3>
-
-              {/* Separator */}
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.14)', margin: '14px 0', width: '100%' }} />
-
-              {/* Description */}
-              <p style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'var(--muted)', lineHeight: 1.7, overflowWrap: 'break-word', margin: 0 }}>
-                {p.desc}
-              </p>
-
-              {/* Tags — pushed to bottom */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto', paddingTop: '18px' }}>
-                {p.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      ...mono,
-                      fontSize:        '10px',
-                      letterSpacing:   '0.5px',
-                      color:           'rgba(242,240,235,0.70)',
-                      background:      'rgba(255,255,255,0.07)',
-                      border:          '1px solid rgba(255,255,255,0.12)',
-                      borderRadius:    0,
-                      padding:         '4px 10px',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* View link */}
-              <a
-                href={p.link}
-                data-cursor="hover"
-                style={{ ...mono, fontSize: '12px', color: 'var(--accent)', textDecoration: 'none', paddingTop: '16px', transition: 'opacity 0.2s', display: 'inline-block' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1' }}
-              >
-                View →
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Navigation — dots + arrows */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px clamp(24px,5vw,60px) 40px' }}>
-        {/* Dots */}
-        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-          {PROJECTS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => scrollToCard(i)}
-              aria-label={`Go to project ${i + 1}`}
-              style={{
-                width:        activeCard === i ? '28px' : '16px',
-                height:       '2px',
-                borderRadius: 0,
-                background:   activeCard === i ? '#FF5A00' : 'rgba(255,255,255,0.12)',
-                border:       'none',
-                padding:      0,
-                cursor:       'pointer',
-                transition:   'width 0.25s ease, background 0.25s ease',
-              }}
-            />
-          ))}
+        <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.2px', color: '#FF5A00', textTransform: 'uppercase', marginBottom: '20px' }}>
+          // 03 PROJECTS &amp; CASE STUDIES
         </div>
 
-        {/* Arrows — hidden on mobile */}
-        <div className="arrow-buttons" style={{ display: 'flex', gap: '10px' }}>
-          {([{ label: '←', delta: -1 }, { label: '→', delta: 1 }] as const).map(({ label, delta }) => {
-            const disabled = delta === -1 ? activeCard === 0 : activeCard === TOTAL - 1
-            return (
-              <button
-                key={label}
-                onClick={() => scrollToCard(activeCard + delta)}
-                disabled={disabled}
-                aria-label={delta === -1 ? 'Previous project' : 'Next project'}
-                style={{
-                  width:          '34px',
-                  height:         '34px',
-                  borderRadius:   '50%',
-                  background:     'rgba(255,255,255,0.06)',
-                  backdropFilter: 'blur(8px)',
-                  border:         '1px solid rgba(255,255,255,0.12)',
-                  color:          disabled ? 'rgba(242,240,235,0.22)' : 'rgba(242,240,235,0.55)',
-                  fontSize:       '14px',
-                  cursor:         disabled ? 'not-allowed' : 'pointer',
-                  opacity:        disabled ? 0.22 : 1,
-                  transition:     'all 0.2s ease',
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  flexShrink:     0,
-                }}
-                onMouseEnter={(e) => {
-                  if (disabled) return
-                  const el = e.currentTarget
-                  el.style.borderColor = 'rgba(255,90,0,0.45)'
-                  el.style.color       = '#FF5A00'
-                }}
-                onMouseLeave={(e) => {
-                  if (disabled) return
-                  const el = e.currentTarget
-                  el.style.borderColor = 'rgba(255,255,255,0.12)'
-                  el.style.color       = 'rgba(242,240,235,0.55)'
-                }}
-              >
-                {label}
-              </button>
-            )
-          })}
+        <h2 style={{
+          fontFamily:    'var(--font-fraunces)',
+          fontSize:      'clamp(36px, 4vw, 52px)',
+          fontWeight:     400,
+          color:         '#F2F0EB',
+          lineHeight:     1.05,
+          letterSpacing: '-1.5px',
+          marginBottom:  '16px',
+        }}>
+          Selected Work.
+        </h2>
+
+        <p style={{
+          fontFamily:   'var(--font-geist)',
+          fontSize:     '14px',
+          color:        'rgba(242,240,235,0.45)',
+          lineHeight:    1.6,
+          marginBottom: '40px',
+        }}>
+          Portfolio projects and real-world case studies across BA, BI, and process improvement.
+        </p>
+
+        {/* Counter — updates on scroll */}
+        <div style={{ ...mono, fontSize: '12px', color: 'rgba(242,240,235,0.25)', letterSpacing: '0.5px' }}>
+          {counter}
+        </div>
+      </div>
+
+      {/* ── Right panel — horizontal track ─────────────── */}
+      <div
+        className="proj-right"
+        style={{
+          width:    '70%',
+          height:   '100%',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <div
+          ref={trackRef}
+          className="proj-track"
+          style={{
+            display:      'flex',
+            height:       '100%',
+            gap:          '24px',
+            paddingLeft:  '40px',
+            paddingRight: '40px',
+            width:        'max-content',
+            willChange:   'transform',
+            alignItems:   'stretch',
+          }}
+        >
+          {CARDS.map((card, i) => (
+            <ProjectCard
+              key={card.num}
+              card={card}
+              hovered={hoveredCard === i}
+              onEnter={() => setHoveredCard(i)}
+              onLeave={() => setHoveredCard(null)}
+            />
+          ))}
         </div>
       </div>
 
       <style>{`
-        /* Backlit frosted glass — warm light from behind the card surface */
-        .card-backlight {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          background: radial-gradient(
-            ellipse 120% 120% at 50% 50%,
-            rgba(255, 248, 225, 0.22) 0%,
-            rgba(255, 244, 210, 0.08) 50%,
-            transparent 100%
-          );
-          opacity: 0;
-          transition: opacity 0.5s ease;
-        }
-        .project-card:hover .card-backlight {
-          opacity: 1;
-        }
-
-        /* Mobile: native scroll snap */
         @media (max-width: 767px) {
-          .cards-track {
+          .projects-section {
+            height: auto !important;
+            flex-direction: column !important;
+          }
+          .proj-left {
+            width: 100% !important;
+            height: auto !important;
+            padding: 80px 24px 32px !important;
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+          }
+          .proj-right {
+            width: 100% !important;
+            height: 380px !important;
+            overflow: visible !important;
+          }
+          .proj-track {
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
             width: 100vw !important;
-            padding-left: 24px !important;
-            padding-right: 24px !important;
+            padding: 16px 24px !important;
             transform: none !important;
             scrollbar-width: none;
+            height: 100% !important;
           }
-          .cards-track::-webkit-scrollbar { display: none; }
-          .cards-track .project-card {
+          .proj-track::-webkit-scrollbar { display: none; }
+          .proj-card {
             width: 80vw !important;
-            min-width: 80vw !important;
             scroll-snap-align: start;
           }
-          .arrow-buttons { display: none !important; }
         }
       `}</style>
     </section>
