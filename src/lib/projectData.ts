@@ -207,7 +207,9 @@ export const PROJECTS: Project[] = [
     approach:     [],
     deliverables: [],
     takeaways:    [],
-    artifacts:    [],
+    artifacts:    [
+      { label: 'Wireframes PDF', path: '/Projects/library-portal/BAC%20-%20Library%20Management%20Portal-Wireframes.pdf' },
+    ],
     comingSoon:   true,
   },
   {

@@ -139,8 +139,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             textAlign:   'center',
             padding:     '48px 0',
           }}>
-            This case study is currently being documented. Check back soon.
+            This project is currently being documented. Check back soon.
           </p>
+          {project.artifacts.length > 0 && (
+            <>
+              <Divider />
+              <div style={{ marginBottom: '56px' }}>
+                <SectionLabel>Artifacts</SectionLabel>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  {project.artifacts.map((a, i) => (
+                    <PdfArtifact key={i} label={a.label} path={a.path} />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+          <BackLink />
         </div>
 
         <style>{`
