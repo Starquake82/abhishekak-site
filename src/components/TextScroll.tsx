@@ -101,15 +101,11 @@ export default function TextScroll() {
       </div>
 
       <style>{`
-        .text-scroll-item,
-        .text-scroll-sep {
-          font-size: clamp(64px, 10vw, 120px);
-        }
+        .text-scroll-item { font-size: clamp(64px, 10vw, 120px); }
+        .text-scroll-sep  { font-size: clamp(27px, 4.2vw, 50px); }
         @media (max-width: 767px) {
-          .text-scroll-item,
-          .text-scroll-sep {
-            font-size: clamp(40px, 12vw, 64px);
-          }
+          .text-scroll-item { font-size: clamp(40px, 12vw, 64px); }
+          .text-scroll-sep  { font-size: clamp(17px, 5vw, 27px); }
         }
       `}</style>
     </div>
