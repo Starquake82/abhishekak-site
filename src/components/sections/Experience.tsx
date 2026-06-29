@@ -5,15 +5,78 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CARD_BG = 'linear-gradient(135deg, rgba(10,8,8,0.45) 0%, rgba(10,8,8,0.30) 100%), rgba(255,255,255,0.06)'
-
-const TIER_A = [
+const CARDS = [
   {
-    id:       'iddac',
-    role:     'Sr. Project Consultant (Business Analyst)',
-    company:  'Savitribai Phule Pune University · Tribal Development Dept., Govt. of Maharashtra',
-    tenure:   'Nov 2018 – Aug 2021',
-    tags:     ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
+    role:       'Process Improvement Leader',
+    company:    'Brintons Carpets · India Design/Service Centre',
+    tenure:     'Jul 2010 – Apr 2013',
+    tags:       ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
+    highlights: [
+      'Reduced Internal Badly Defective (IBD) levels by ~70% through structured RCA and SOP implementation',
+      'Owned BOS KPI reporting framework — reported to GM and Executive Director, Group Operations',
+      'PACE Champion — £5K–£10K cost savings (leave encashment initiative)',
+    ],
+    detail: [
+      'Led 8D root cause analysis across Design, Production, Planning, and Quality functions',
+      'Developed Process Change Authorisation procedure — embedded as standard practice across the Service Centre',
+      'Facilitated Kaizen events and cross-functional improvement workshops across Americas, EMEA, and Asia Pacific',
+      'Managed corrective action tracking and QC checkpoints to prevent recurrence on high-value hospitality projects',
+    ],
+  },
+  {
+    role:       'Business & Operations Manager',
+    company:    'Mahalaxmi Co-Op Yarn Processors Ltd. · Garment Division',
+    tenure:     'Jun 2013 – Mar 2015',
+    tags:       ['OPERATIONS', 'MANUFACTURING', 'GARMENTS'],
+    highlights: [
+      'Led machinery installation and commissioning for new production unit — Fit for Use authorisation',
+      'Operational data analysis across output, defects, and delivery KPIs for a 50+ person unit',
+      'Managed garment manufacturing, QC, HR, and process governance across functions',
+    ],
+    detail: [
+      'Conducted business process analysis to evaluate system effectiveness and drive strategic decisions',
+      "Led new children's wear product line launch — end-to-end production setup",
+      'Tracked and reported KPIs across output, defect levels, delivery, and employee performance',
+    ],
+  },
+  {
+    role:       'Consultant',
+    company:    'TexCarp Consulting Pvt. Ltd.',
+    tenure:     'Jun 2015 – Jan 2016 (Part-time)',
+    tags:       ['CONSULTING', 'B2B', 'UK ENGAGEMENT'],
+    highlights: [
+      'Data collection design and analysis for UK-based B2B client engagement',
+      'Requirements gathering and coordination for website redesign',
+      'Campaign analysis, performance tracking, and client reporting',
+    ],
+    detail: [
+      'Conducted client calls to understand business needs and surface insights',
+      'Developed reports and presentations translating data into actionable recommendations',
+      'Supported digital marketing efforts including campaign analysis and performance tracking',
+    ],
+  },
+  {
+    role:       'Business Intelligence Analyst',
+    company:    'Opine Group · Deployed at Sarvatra Technologies (BFSI/Fintech)',
+    tenure:     'May 2017 – Oct 2018',
+    tags:       ['BFSI', 'BI DELIVERY', 'FULL LIFECYCLE'],
+    highlights: [
+      'Sole on-site BA and BI resource — independently owned full delivery lifecycle from requirements to sign-off',
+      'Replaced fragmented manual reporting with a centralised SSRS dashboard — report generation reduced from hours to minutes',
+      'Integrated TallyERP and Excel into a unified dimensional model via SSIS ETL',
+    ],
+    detail: [
+      'Conducted requirement workshops and gap analysis with Finance, Accounts, and Senior Management',
+      'Designed dimensional data model, data dictionary, and ERD — full traceability from business requirement to dashboard output',
+      'Built centralised finance dashboard covering revenue, AR, dues, and settlement KPIs',
+      'Executed UAT with Finance and Senior Management — validated all outputs against source data and obtained formal sign-off',
+    ],
+  },
+  {
+    role:       'Sr. Project Consultant (Business Analyst)',
+    company:    'Savitribai Phule Pune University · Tribal Development Dept., Govt. of Maharashtra',
+    tenure:     'Nov 2018 – Aug 2021',
+    tags:       ['GOVERNMENT', 'ANALYTICS PLATFORM', 'ARTICLE 275(1)'],
     highlights: [
       '₹855.16L centrally-funded analytics initiative covering ~1 crore tribal beneficiaries across Maharashtra',
       '35+ government stakeholder touchpoints — Secretary and Commissioner level to 29 district project offices',
@@ -28,217 +91,329 @@ const TIER_A = [
     ],
   },
   {
-    id:       'opine',
-    role:     'Business Intelligence Analyst',
-    company:  'Opine Group · Deployed at Sarvatra Technologies (BFSI/Fintech)',
-    tenure:   'May 2017 – Oct 2018',
-    tags:     ['BFSI', 'BI DELIVERY', 'FULL LIFECYCLE'],
+    role:       'Independent Analyst & Consultant',
+    company:    'Self-Employed',
+    tenure:     'Feb 2021 – Present',
+    tags:       ['CONSULTING', 'POWER BI', 'AI-AUGMENTED'],
     highlights: [
-      'Sole on-site BA and BI resource — independently owned full delivery lifecycle from requirements to sign-off',
-      'Replaced fragmented manual reporting with a centralised SSRS dashboard — report generation reduced from hours to minutes',
-      'Integrated TallyERP and Excel into a unified dimensional model via SSIS ETL',
+      'Power BI dashboards for JIH Healthcare — business metrics, vendor performance, and B2B outreach reporting',
+      '10+ structured certifications across BA, BI, and AI — building current, market-aligned capability',
+      'FinBridge portfolio project — end-to-end BA documentation for a loan origination system grounded in Indian fintech infrastructure (OCEN, Account Aggregator, UPI)',
     ],
     detail: [
-      'Conducted requirement workshops and gap analysis with Finance, Accounts, and Senior Management',
-      'Designed dimensional data model, data dictionary, and ERD — full traceability from business requirement to dashboard output',
-      'Built centralised finance dashboard covering revenue, AR, dues, and settlement KPIs',
-      'Executed UAT with Finance and Senior Management — validated all outputs against source data and obtained formal sign-off',
-    ],
-  },
-  {
-    id:       'brintons',
-    role:     'Process Improvement Leader',
-    company:  'Brintons Carpets · India Design/Service Centre',
-    tenure:   'Jul 2010 – Apr 2013',
-    tags:     ['PROCESS IMPROVEMENT', 'MANUFACTURING', 'GLOBAL'],
-    highlights: [
-      'Reduced Internal Badly Defective (IBD) levels by ~70% through structured RCA and SOP implementation',
-      'Owned BOS KPI reporting framework — reported to GM and Executive Director, Group Operations',
-      'PACE Champion — £5K–£10K cost savings (leave encashment initiative)',
-    ],
-    detail: [
-      'Led 8D root cause analysis investigations across Design, Production, Planning, and Quality functions',
-      'Developed Process Change Authorisation procedure — embedded as standard practice across the Service Centre',
-      'Facilitated Kaizen events and cross-functional improvement workshops across Americas, EMEA, and Asia Pacific',
-      'Managed corrective action tracking and QC checkpoints to prevent recurrence on high-value hospitality projects',
+      'Zoho CRM and n8n automation pipelines — JIH Healthcare and Ajinkya Technologies workflow automation',
+      'Market research and vendor evaluation for B2B import of nutraceutical ingredients from Japan',
+      'Developing AI-augmented delivery capability — prompt engineering, Copilot Studio, GenAI for BA workflows',
     ],
   },
 ]
 
-const TIER_B = [
-  { role: 'Independent Analyst & Consultant', company: 'Self-Employed',                         tenure: 'Feb 2021 – Present' },
-  { role: 'Consultant',                        company: 'TexCarp Consulting Pvt. Ltd.',           tenure: 'Jun 2015 – Jan 2016 (Part-time)' },
-  { role: 'Business & Operations Manager',     company: 'Mahalaxmi Co-Op Yarn Processors',       tenure: 'Jun 2013 – Mar 2015' },
-]
-
-function TierACard({ item, index }: { item: typeof TIER_A[number]; index: number }) {
-  const [open, setOpen]       = useState(false)
-  const [hovered, setHovered] = useState(false)
-
+function CardContent({ card }: { card: typeof CARDS[number] }) {
+  const [open, setOpen] = useState(false)
   const mono = { fontFamily: 'var(--font-jetbrains)' } as const
 
   return (
-    <div
-      className="exp-tier-a"
-      style={{ opacity: 0, display: 'grid', gridTemplateColumns: '24px 1fr', gap: '0 20px', alignItems: 'start' }}
-    >
-      {/* Dot node */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '18px' }}>
-        <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: 'var(--accent)', flexShrink: 0, boxShadow: '0 0 8px rgba(255,90,0,0.5)' }} />
+    <div className="exp-card-inner" style={{ display: 'flex', flexDirection: 'column' }}>
+      <h4 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(22px,2.5vw,30px)', fontWeight: 400, color: '#F2F0EB', marginBottom: '8px', lineHeight: 1.2 }}>
+        {card.role}
+      </h4>
+      <div style={{ ...mono, fontSize: '12px', color: 'rgba(242,240,235,0.50)', marginBottom: '4px' }}>{card.company}</div>
+      <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.30)', marginBottom: '20px' }}>{card.tenure}</div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
+        {card.tags.map((tag) => (
+          <span key={tag} style={{ ...mono, fontSize: '9px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
+            {tag}
+          </span>
+        ))}
       </div>
 
-      {/* Card */}
-      <div
-        style={{
-          position:            'relative',
-          overflow:            'hidden',
-          background:          CARD_BG,
-          backdropFilter:      'blur(20px) saturate(1.5)',
-          WebkitBackdropFilter:'blur(20px) saturate(1.5)',
-          border:              '1px solid rgba(255,255,255,0.10)',
-          borderRadius:        0,
-          padding:             '24px',
-          marginBottom:        '0',
-          transition:          'border-color 0.3s ease',
-          borderColor:         hovered ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.10)',
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+        {card.highlights.map((h, i) => (
+          <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+            <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '3px', fontSize: '10px' }}>▸</span>
+            <span style={{ fontFamily: 'var(--font-geist)', fontSize: '14px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.7 }}>{h}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className={`exp-detail${open ? ' open' : ''}`}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', marginBottom: '14px' }} />
+        <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          {card.detail.map((d, i) => (
+            <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>›</span>
+              <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button
+        onClick={() => setOpen(!open)}
+        style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', ...mono, fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.5px', marginTop: '4px', transition: 'opacity 0.2s', alignSelf: 'flex-start' }}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1' }}
       >
-        {/* Backlight */}
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 120% 120% at 50% 50%, rgba(255,248,225,0.10) 0%, rgba(255,248,225,0.04) 50%, transparent 100%)', opacity: hovered ? 1 : 0, transition: 'opacity 0.5s ease' }} />
-
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {/* Header */}
-          <h4 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(16px,2vw,20px)', fontWeight: 400, color: 'var(--text)', marginBottom: '4px', overflowWrap: 'break-word' }}>
-            {item.role}
-          </h4>
-          <div style={{ ...mono, fontSize: '11px', color: 'var(--muted)', marginBottom: '2px' }}>{item.company}</div>
-          <div style={{ ...mono, fontSize: '10px', color: 'var(--subtle)', marginBottom: '16px' }}>{item.tenure}</div>
-
-          {/* Tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-            {item.tags.map((tag) => (
-              <span key={tag} style={{ ...mono, fontSize: '9px', letterSpacing: '0.8px', color: '#FF5A00', border: '1px solid rgba(255,90,0,0.25)', padding: '3px 8px', borderRadius: 0 }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Highlights */}
-          <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
-            {item.highlights.map((h, i) => (
-              <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>▸</span>
-                <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.6 }}>{h}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Expandable detail */}
-          <div className={`exp-detail${open ? ' open' : ''}`}>
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', marginBottom: '14px' }} />
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {item.detail.map((d, i) => (
-                <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                  <span style={{ color: 'rgba(255,90,0,0.5)', flexShrink: 0, marginTop: '2px', fontSize: '10px' }}>›</span>
-                  <span style={{ fontFamily: 'var(--font-geist)', fontSize: '13px', color: 'rgba(242,240,235,0.45)', lineHeight: 1.6 }}>{d}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Toggle */}
-          <button
-            onClick={() => setOpen(!open)}
-            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', ...mono, fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.5px', marginTop: '4px', transition: 'opacity 0.2s' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1' }}
-          >
-            {open ? '– View less' : '+ View more'}
-          </button>
-        </div>
-      </div>
+        {open ? '– View less' : '+ View more'}
+      </button>
     </div>
   )
 }
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef    = useRef<HTMLElement>(null)
+  const leftInfoRef   = useRef<HTMLDivElement>(null)
+  const cardRefs      = useRef<(HTMLDivElement | null)[]>([])
+  const activeCardRef = useRef(0)
+
+  const [activeCard, setActiveCard] = useState(0)
+  const [shownCard,  setShownCard]  = useState(0)
+  const [showArrows, setShowArrows] = useState(false)
+
+  // Fade left-panel text out → swap content → fade in
+  useEffect(() => {
+    const el = leftInfoRef.current
+    if (!el) { setShownCard(activeCard); return }
+    gsap.killTweensOf(el)
+    gsap.to(el, {
+      opacity: 0,
+      duration: 0.2,
+      onComplete: () => {
+        setShownCard(activeCard)
+        requestAnimationFrame(() => gsap.to(el, { opacity: 1, duration: 0.2 }))
+      },
+    })
+  }, [activeCard])
 
   useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
+    const section   = sectionRef.current
+    if (!section) return
+    const isDesktop = window.innerWidth >= 768
 
-    el.querySelectorAll('.exp-tier-a').forEach((entry) => {
-      gsap.fromTo(entry, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', scrollTrigger: { trigger: entry, start: 'top 82%', once: true } })
-    })
-    el.querySelectorAll('.exp-tier-b').forEach((entry) => {
-      gsap.fromTo(entry, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: { trigger: entry, start: 'top 85%', once: true } })
-    })
+    const animateCardIn = (inner: Element) => {
+      gsap.fromTo(
+        Array.from(inner.children),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }
+      )
+    }
+
+    const ctx = gsap.context(() => {
+      if (isDesktop) {
+        ScrollTrigger.create({
+          trigger: section,
+          start:   'top top',
+          end:     'bottom bottom',
+          snap: {
+            snapTo:   1 / (CARDS.length - 1),
+            duration: { min: 0.3, max: 0.5 },
+            ease:     'power1.inOut',
+          },
+          onUpdate: (self) => {
+            const idx = Math.round(self.progress * (CARDS.length - 1))
+            if (idx !== activeCardRef.current) {
+              activeCardRef.current = idx
+              setActiveCard(idx)
+            }
+          },
+          onToggle: (self) => setShowArrows(self.isActive),
+        })
+
+        // First card is already in view on section entry — animate immediately
+        const firstInner = cardRefs.current[0]?.querySelector('.exp-card-inner')
+        if (firstInner) {
+          ScrollTrigger.create({
+            trigger: section,
+            start:   'top 80%',
+            once:    true,
+            onEnter: () => animateCardIn(firstInner),
+          })
+        }
+      }
+
+      // Cards 1–5 (desktop) and all cards (mobile) animate on scroll
+      cardRefs.current.forEach((cardEl, i) => {
+        if (!cardEl || (i === 0 && isDesktop)) return
+        const inner = cardEl.querySelector('.exp-card-inner')
+        if (!inner) return
+
+        ScrollTrigger.create({
+          trigger: cardEl,
+          start:   isDesktop ? 'top 40%' : 'top 80%',
+          onEnter: () => animateCardIn(inner),
+          ...(isDesktop ? { onEnterBack: () => animateCardIn(inner) } : {}),
+        })
+      })
+    }, section)
+
+    return () => ctx.revert()
   }, [])
 
-  const mono = { fontFamily: 'var(--font-jetbrains)' } as const
+  const goToCard = (index: number) => {
+    const el = cardRefs.current[index]
+    if (!el) return
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' })
+  }
+
+  const mono        = { fontFamily: 'var(--font-jetbrains)' } as const
+  const displayData = CARDS[shownCard]
+  const counter     = `${String(shownCard + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}`
 
   return (
-    <section
-      id="work"
-      ref={sectionRef}
-      style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
-    >
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-        <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
+    <>
+      <section id="work" ref={sectionRef} style={{ background: 'var(--bg)', position: 'relative' }}>
+
+        {/* Mobile-only section label */}
+        <div
+          className="exp-mobile-label"
+          style={{ display: 'none', padding: 'clamp(60px,8vw,100px) clamp(24px,5vw,48px) 32px', ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase' }}
+        >
           // 02 EXPERIENCE
         </div>
 
-        {/* Timeline container */}
-        <div style={{ position: 'relative' }}>
-          {/* Vertical line */}
-          <div style={{ position: 'absolute', left: '11px', top: 0, bottom: 0, width: '1px', background: 'linear-gradient(to bottom, var(--accent), rgba(255,90,0,0.15))' }} />
+        <div style={{ display: 'flex' }}>
 
-          {/* Tier A cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
-            {TIER_A.map((item, i) => (
-              <TierACard key={item.id} item={item} index={i} />
-            ))}
+          {/* ── LEFT PANEL ───────────────────────────────────── */}
+          <div
+            className="exp-left"
+            style={{
+              width:          '32%',
+              position:       'sticky',
+              top:             0,
+              height:         '100vh',
+              borderRight:    '1px solid rgba(255,255,255,0.07)',
+              background:     'var(--bg)',
+              display:        'flex',
+              flexDirection:  'column',
+              padding:        'clamp(40px,5vw,72px) clamp(20px,2.5vw,40px)',
+              flexShrink:      0,
+              boxSizing:      'border-box',
+            }}
+          >
+            <div style={{ ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>
+              // 02 EXPERIENCE
+            </div>
+
+            <div ref={leftInfoRef} style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: '48px', fontWeight: 400, color: 'rgba(242,240,235,0.15)', lineHeight: 1, marginBottom: '32px' }}>
+                {counter}
+              </div>
+              <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: '18px', fontWeight: 400, color: '#F2F0EB', lineHeight: 1.3, maxWidth: '200px', marginBottom: '12px' }}>
+                {displayData.company}
+              </div>
+              <div style={{ ...mono, fontSize: '10px', color: 'rgba(242,240,235,0.35)' }}>
+                {displayData.tenure}
+              </div>
+            </div>
+
+            {/* Dot indicators */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {CARDS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goToCard(i)}
+                  aria-label={`Go to experience ${i + 1}`}
+                  style={{
+                    width:      '5px',
+                    height:     '5px',
+                    borderRadius: '50%',
+                    background: i === activeCard ? '#FF5A00' : 'rgba(255,90,0,0.25)',
+                    border:     'none',
+                    padding:     0,
+                    cursor:     'pointer',
+                    flexShrink:  0,
+                    transition: 'background 0.3s ease',
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Tier B compact entries */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {TIER_B.map((item, i) => (
+          {/* ── RIGHT PANEL ──────────────────────────────────── */}
+          <div className="exp-right" style={{ width: '68%' }}>
+            {CARDS.map((card, i) => (
               <div
                 key={i}
-                className="exp-tier-b"
-                style={{ opacity: 0, display: 'grid', gridTemplateColumns: '24px 1fr', gap: '0 20px', alignItems: 'center' }}
+                ref={(el) => { cardRefs.current[i] = el }}
+                className="exp-card"
+                style={{
+                  height:               '100vh',
+                  padding:              '48px 40px',
+                  background:           'rgba(17,17,17,0.5)',
+                  backdropFilter:       'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  borderLeft:           '1px solid rgba(255,255,255,0.07)',
+                  borderBottom:          i < CARDS.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                  overflow:             'hidden',
+                  boxSizing:            'border-box',
+                }}
               >
-                {/* Small dot */}
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,90,0,0.45)', flexShrink: 0 }} />
-                </div>
-                {/* Compact line */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center', padding: '10px 0' }}>
-                  <span style={{ ...mono, fontSize: '12px', color: 'var(--muted)' }}>{item.role}</span>
-                  <span style={{ color: 'rgba(255,90,0,0.4)', fontSize: '10px' }}>·</span>
-                  <span style={{ ...mono, fontSize: '12px', color: 'var(--subtle)' }}>{item.company}</span>
-                  <span style={{ color: 'rgba(255,90,0,0.4)', fontSize: '10px' }}>·</span>
-                  <span style={{ ...mono, fontSize: '11px', color: 'rgba(242,240,235,0.30)' }}>{item.tenure}</span>
-                </div>
+                <CardContent card={card} />
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ── Navigation arrows (fixed, desktop only) ──────── */}
+      {showArrows && (
+        <div
+          className="exp-arrows"
+          style={{ position: 'fixed', bottom: '40px', left: '32%', width: '68%', display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 100 }}
+        >
+          <button
+            onClick={() => activeCard > 0 && goToCard(activeCard - 1)}
+            style={{
+              ...mono,
+              fontSize:    '14px',
+              border:      '1px solid rgba(255,255,255,0.15)',
+              padding:     '6px 14px',
+              background:  'transparent',
+              color:       'rgba(242,240,235,0.6)',
+              cursor:       activeCard === 0 ? 'default' : 'pointer',
+              opacity:      activeCard === 0 ? 0.3 : 1,
+              borderRadius: 0,
+              transition:  'border-color 0.2s, opacity 0.2s',
+            }}
+            onMouseEnter={(e) => { if (activeCard > 0) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)' }}
+          >
+            ←
+          </button>
+          <button
+            onClick={() => activeCard < CARDS.length - 1 && goToCard(activeCard + 1)}
+            style={{
+              ...mono,
+              fontSize:    '14px',
+              border:      '1px solid rgba(255,255,255,0.15)',
+              padding:     '6px 14px',
+              background:  'transparent',
+              color:       'rgba(242,240,235,0.6)',
+              cursor:       activeCard === CARDS.length - 1 ? 'default' : 'pointer',
+              opacity:      activeCard === CARDS.length - 1 ? 0.3 : 1,
+              borderRadius: 0,
+              transition:  'border-color 0.2s, opacity 0.2s',
+            }}
+            onMouseEnter={(e) => { if (activeCard < CARDS.length - 1) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)' }}
+          >
+            →
+          </button>
+        </div>
+      )}
 
       <style>{`
-        .exp-detail {
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.45s ease;
-        }
-        .exp-detail.open {
-          max-height: 600px;
+        .exp-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+        .exp-detail.open { max-height: 600px; }
+        @media (max-width: 767px) {
+          .exp-left         { display: none !important; }
+          .exp-right        { width: 100% !important; }
+          .exp-mobile-label { display: block !important; }
+          .exp-card         { height: auto !important; padding: 32px 24px !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+          .exp-arrows       { display: none !important; }
         }
       `}</style>
-    </section>
+    </>
   )
 }
