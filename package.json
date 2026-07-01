@@ -1,7 +1,23 @@
 {
   "name": "abhishekak-site",
   "version": "0.1.0",
+  "description": "AI-assisted BA and BI portfolio website for Abhishek Anil Kininge.",
   "private": true,
+  "author": "Abhishek Anil Kininge",
+  "homepage": "https://abhishekak.site",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Starquake82/abhishekak-site.git"
+  },
+  "keywords": [
+    "business-analysis",
+    "business-intelligence",
+    "ai-assisted-development",
+    "portfolio",
+    "nextjs",
+    "typescript",
+    "case-studies"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
