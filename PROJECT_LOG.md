@@ -87,4 +87,10 @@ A running record of significant development sessions and deliverables.
 - `PROJECT_LOG.md` created (this file)
 - `SESSION_TEMPLATE.md` created — standard session brief template for future work
 
+**Post-session README edits by user (committed separately):**
+- Title updated: `abhishekak.site — AI-Assisted BA & BI Portfolio` → `AI-Assisted Website Build — www.abhishekak.site`
+- Author title updated: "Business Analyst & BI Developer" → "Business Analyst & Business Intelligence Analyst"
+- Author section: "Portfolio:" → "Website:"
+- LinkedIn profile added to Section 12: `linkedin.com/in/abhishekkininge`
+
 ---
