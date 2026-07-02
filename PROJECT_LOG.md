@@ -2,6 +2,8 @@
 
 A running record of significant development sessions and deliverables.
 
+**Notion project page:** https://app.notion.com/p/3910adb7af6081f69cc6cea17771a60a
+
 ---
 
 ## SESSION 001 — Foundation & Core Build
