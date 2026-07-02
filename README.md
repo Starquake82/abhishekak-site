@@ -1,4 +1,4 @@
-# abhishekak.site — AI-Assisted BA & BI Portfolio
+# AI-Assisted Website Build — www.abhishekak.site  
 
 [![Status](https://img.shields.io/badge/Status-Live%20·%20In%20Active%20Development-brightgreen)](https://abhishekak.site)
 [![Live Site](https://img.shields.io/badge/Live%20Site-abhishekak.site-FF5A00)](https://abhishekak.site)
@@ -233,10 +233,11 @@ abhishekak-site/
 
 ## 12 / Author
 
-**Abhishek Anil Kininge** — Business Analyst & BI Developer
+**Abhishek Anil Kininge** — Business Analyst & Business Intelligence Analyst
 
-- **Portfolio:** [abhishekak.site](https://abhishekak.site)
+- **Website:** [abhishekak.site](https://abhishekak.site)
 - **GitHub:** [github.com/Starquake82](https://github.com/Starquake82)
+- **LinkedIn:** [linkedin.com/in/abhishekkininge](https://www.linkedin.com/in/abhishekkininge)
 - **Email:** san.abhishek@gmail.com
 
 *Structured Diagnosis for Business, Systems & AI.*
