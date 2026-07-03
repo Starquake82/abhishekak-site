@@ -3,6 +3,18 @@ export type ProjectArtifact = {
   path:  string
 }
 
+export type GalleryImage = {
+  src:      string
+  alt:      string
+  caption?: string
+}
+
+export type ProjectGallery = {
+  tokens?:     GalleryImage[]
+  components?: GalleryImage[]
+  kits?:       GalleryImage[]
+}
+
 export type Project = {
   slug:         string
   type:         'CASE STUDY' | 'PORTFOLIO PROJECT'
@@ -17,6 +29,7 @@ export type Project = {
   takeaways:    string[]
   artifacts:    ProjectArtifact[]
   comingSoon:   boolean
+  gallery?:     ProjectGallery
 }
 
 export const PROJECTS: Project[] = [
@@ -193,6 +206,71 @@ export const PROJECTS: Project[] = [
       { label: 'Case Study PDF', path: '/Projects/Case%20Studies/AK_CS_04_IDDAC.pdf' },
     ],
     comingSoon: false,
+  },
+  {
+    slug:       'ak-brand-os',
+    type:       'CASE STUDY',
+    domainTag:  'DESIGN SYSTEMS · AI ENGINEERING',
+    name:       'AK Brand OS — Design System',
+    org:        'Independent · Built with Claude Design & Claude Code',
+    year:       'Ongoing (V4)',
+    brief:      'AK Brand OS is my personal design system — one token set and one component language applied across every artefact I produce, from BRDs and strategy memos to my resume, slide decks, dashboard, and this portfolio site. Built with Claude Design and Claude Code, it extracts a shared visual language from documents I already use in practice, rather than starting from a mood board.',
+    role:       'I defined the brand premise and the five governing principles behind the system, sourced from my own Artefact Standards spec sheet, and supplied every source document the tokens were extracted from. Claude Design and Claude Code handled extraction, token generation, and the applied UI kits; I reviewed every token, component, and substitution against the original spec and directed scope — what shipped in V4, what stayed flagged open, and what comes next.',
+    approach: [
+      'Supplied real working documents — a BRD template, strategy memo, research report, presentation deck, and learning-notes system — as raw material, rather than designing tokens from a blank slate',
+      'Used Claude Design to extract a shared token and component language from those documents, cross-checked against a pre-existing "Artefact Standards" spec sheet',
+      'Defined five governing principles — Structured Diagnosis, Show Thinking, One Insight Per Block, Metadata Always Visible, Consistency in Elements — as the design intent behind every token decision',
+      'Constrained the palette deliberately: one signal colour (orange), one serif (Fraunces), one sans (Geist), one mono (JetBrains Mono), a warm paper canvas, and a 4px spacing grid',
+      'Packaged the system as a portable Claude Code Skill (SKILL.md), kept in sync via a custom /design-sync workflow — incremental updates, never a wholesale replace',
+      'Generated an oxlint adherence config that blocks raw hex/px values and unauthorized fonts in downstream code, enforcing the tokens at the linting level',
+      'Reviewed every extracted token, component, and substitution — including catching an IBM Plex Mono → Serif swap — against the original spec sheet before sign-off',
+    ],
+    deliverables: [
+      'Full design token reference — colour, type, spacing, radii, shadows, and motion — documented in the system\'s design-tokens spec',
+      'Six applied UI kits built on the same token set: resume, BRD/strategy-memo ("Universal Document"), dashboard, portfolio, social carousel, and slides',
+      'A portable Claude Code Skill (SKILL.md) plus a /design-sync workflow for keeping downstream implementations incrementally aligned with the source system',
+      'An auto-generated oxlint adherence config enforcing token usage in code',
+      'This portfolio site itself runs on AK Brand OS as its applied production example',
+      'V4 shipped as the current version, with open items logged rather than silently resolved',
+    ],
+    takeaways: [
+      'A design system is more credible when extracted from real working documents than invented from a moodboard — it starts already proven in practice',
+      'Narrow, disciplined constraints (one accent colour, three type families, one spacing unit) produce more consistency than an open palette ever would',
+      'Flagging open issues explicitly — like this live site\'s theme not yet reconciled with the V4 paper-canvas spec, or the icon library being a best-guess substitution — is more useful than quietly shipping unresolved decisions',
+      'Versioning discipline matters: informal labels ("V4" externally, "alpha" internally) create confusion a single consistent identifier would avoid',
+      'Directing an AI collaborator still requires the human to own the spec, review every substitution, and decide scope — the system reflects editorial judgement, not automation alone',
+    ],
+    artifacts: [
+      { label: 'Source Repo (GitHub)', path: 'https://github.com/Starquake82/ak-brand-os' },
+      { label: 'Notion Doc', path: 'https://app.notion.com/p/3910adb7af6081a68ddaf75b23621619' },
+    ],
+    comingSoon: false,
+    gallery: {
+      tokens: [
+        { src: '/Projects/ak-brand-os/tokens/colors-paper.png', alt: 'Paper canvas colour palette', caption: 'Paper Canvas' },
+        { src: '/Projects/ak-brand-os/tokens/colors-signal.png', alt: 'Signal orange colour palette', caption: 'Signal Colour' },
+        { src: '/Projects/ak-brand-os/tokens/type-families.png', alt: 'Type family specimens — Fraunces, Geist, JetBrains Mono', caption: 'Type Families' },
+        { src: '/Projects/ak-brand-os/tokens/spacing-scale.png', alt: '4px-based spacing scale', caption: 'Spacing Scale' },
+      ],
+      components: [
+        { src: '/Projects/ak-brand-os/components/01-logo-lockups.png', alt: 'AK logo lockup variants', caption: 'Logo Lockups' },
+        { src: '/Projects/ak-brand-os/components/11-colors-ink.png', alt: 'Ink colour tokens in context', caption: 'Ink Colours' },
+        { src: '/Projects/ak-brand-os/components/20-type-serif-display.png', alt: 'Fraunces serif display type in use', caption: 'Serif Display' },
+        { src: '/Projects/ak-brand-os/components/40-buttons.png', alt: 'Button component variants', caption: 'Buttons' },
+        { src: '/Projects/ak-brand-os/components/44-stats.png', alt: 'Stat component variants', caption: 'Stats' },
+        { src: '/Projects/ak-brand-os/components/45-bar-chart.png', alt: 'Bar chart component', caption: 'Bar Chart' },
+        { src: '/Projects/ak-brand-os/components/46-process-ribbon.png', alt: 'Process ribbon component', caption: 'Process Ribbon' },
+        { src: '/Projects/ak-brand-os/components/50-table-document.png', alt: 'Document table component', caption: 'Document Table' },
+      ],
+      kits: [
+        { src: '/Projects/ak-brand-os/kits/resume-ui-kit.png', alt: 'Resume UI kit applying the design system', caption: 'Resume' },
+        { src: '/Projects/ak-brand-os/kits/brd-ui-kit.png', alt: 'BRD / strategy memo UI kit', caption: 'BRD / Document' },
+        { src: '/Projects/ak-brand-os/kits/kit-dashboard.png', alt: 'Dashboard UI kit', caption: 'Dashboard' },
+        { src: '/Projects/ak-brand-os/kits/kit-portfolio.png', alt: 'Portfolio site UI kit', caption: 'Portfolio Site' },
+        { src: '/Projects/ak-brand-os/kits/kit-social.png', alt: 'Social carousel UI kit', caption: 'Social Carousel' },
+        { src: '/Projects/ak-brand-os/kits/kit-slides.png', alt: 'Slides / presentation UI kit', caption: 'Slides Deck' },
+      ],
+    },
   },
   // ─── PORTFOLIO PROJECTS (comingSoon) ────────────────────────────────────────
   {

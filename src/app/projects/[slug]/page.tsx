@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Nav from '@/components/Nav'
 import PdfArtifact from '@/components/PdfArtifact'
+import GalleryThumb from '@/components/GalleryThumb'
 import { PROJECTS } from '@/lib/projectData'
 
 export async function generateStaticParams() {
@@ -204,6 +205,50 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <SectionLabel>Approach</SectionLabel>
           <BulletList items={project.approach} />
         </div>
+
+        {/* System Gallery */}
+        {project.gallery && (
+          <>
+            {project.gallery.tokens && project.gallery.tokens.length > 0 && (
+              <div style={{ marginBottom: '56px' }}>
+                <SectionLabel>Design Tokens</SectionLabel>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                  {project.gallery.tokens.map((img, i) => (
+                    <GalleryThumb
+                      key={i}
+                      src={img.src}
+                      alt={img.alt}
+                      caption={img.caption}
+                      imgStyle={{ height: '140px', width: 'auto' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.gallery.components && project.gallery.components.length > 0 && (
+              <div style={{ marginBottom: '56px' }}>
+                <SectionLabel>Component Library</SectionLabel>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
+                  {project.gallery.components.map((img, i) => (
+                    <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.gallery.kits && project.gallery.kits.length > 0 && (
+              <div style={{ marginBottom: '56px' }}>
+                <SectionLabel>Applied Kits</SectionLabel>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                  {project.gallery.kits.map((img, i) => (
+                    <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
 
         {/* Deliverables & Outcomes */}
         <div style={{ marginBottom: '56px' }}>

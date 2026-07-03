@@ -55,6 +55,12 @@ const CARDS = [
     name: 'IDDAC — Govt. Analytics Platform', descriptor: 'BA · BI',
     glowColor: 'rgba(242,193,46,0.13)',
   },
+  {
+    num: '09', slug: 'ak-brand-os',
+    type: 'CASE STUDY', domain: 'DESIGN SYSTEMS · AI ENGINEERING',
+    name: 'AK Brand OS — Design System', descriptor: 'DESIGN · AI',
+    glowColor: 'rgba(255,90,0,0.13)',
+  },
 ]
 
 const TOTAL = CARDS.length
