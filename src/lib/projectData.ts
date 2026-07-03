@@ -335,4 +335,52 @@ export const PROJECTS: Project[] = [
     artifacts:    [],
     comingSoon:   true,
   },
+  // ─── AI-ASSISTED BUILD ──────────────────────────────────────────────────────
+  {
+    slug:       'abhishekak-site',
+    type:       'CASE STUDY',
+    domainTag:  'AI · WEB DELIVERY',
+    name:       'abhishekak.site — AI-Assisted Portfolio Build',
+    org:        'Independent · Built with Claude Code',
+    year:       '2026',
+    comingSoon: false,
+
+    brief: 'A production-quality personal portfolio website designed and delivered from zero coding background using a structured AI-assisted workflow. The project runs on a 4-session BA/PM methodology: business objectives defined first, structured session briefs authored before every implementation session, outputs reviewed against acceptance criteria, and decisions documented in a living project log. The site itself is the artefact — and the way it was built is the case study.',
+
+    role: 'Human Product Owner and AI PM. Defined three business objectives before implementation began, authored structured session briefs with explicit acceptance criteria for every session, reviewed and accepted or rejected all implementation outputs, maintained cross-session continuity through PROJECT_LOG.md and SESSION_TEMPLATE.md, and directed scope at every iteration — including what shipped in Phase 1 and what stays in Phase 2.',
+
+    approach: [
+      'Defined three Business Objectives (BO-01: evidence-led portfolio, BO-02: AI delivery demonstration, BO-03: analyst-as-PM) before any implementation began — framing the build as a BA project, not a coding exercise',
+      'Authored structured session briefs for every implementation session — scope definition, deliverables list, acceptance criteria, and explicit out-of-scope guards',
+      'Directed Claude Code implementation iteratively, specifying layout, animation, routing, and component behaviour through structured prompts and real-time feedback cycles',
+      'Applied the AK Brand OS design system as the visual constraint — one token set, three fonts, one accent colour — ensuring consistency between the site and all other portfolio artefacts',
+      'Established cross-session continuity through a living PROJECT_LOG.md, a reusable SESSION_TEMPLATE.md, and Claude Code project memory files',
+      'Built a Notion project page mirroring the FinBridge portfolio tracking pattern — session log, decision log, AI impact log, and standing rules',
+      'Diagnosed and resolved delivery issues without developer support: Vercel build failure (missing committed file), PDF auto-download bug (Content-Disposition header + embed vs iframe), and Nav routing failure on project subpages (usePathname() Suspense issue in Next.js 16)',
+    ],
+
+    deliverables: [
+      'Live production portfolio at abhishekak.site — deployed to Vercel, responsive on desktop and mobile',
+      '10 project cards on the horizontal scroll gallery, each with a full detail page',
+      'PDF artefact viewer with inline popup and download; image gallery with lightbox and zoom',
+      'BA-style README.md: 12 sections including Problem Statement, Business Objectives, Delivery Methodology, and Deliverables Register',
+      'PROJECT_LOG.md: 4 sessions backfilled with deliverables, issues resolved, and decisions logged',
+      'SESSION_TEMPLATE.md: reusable brief template for future Claude Code sessions',
+      'Notion project page: session log, decision log, AI impact log (~57–77 hrs of work estimated), and standing rules',
+    ],
+
+    takeaways: [
+      'A business analyst with zero coding background can deliver a production web product using structured AI direction — the BA skill set (requirements framing, scope definition, acceptance criteria, iterative review) transfers directly to AI-assisted delivery',
+      'Session brief quality is the primary lever for output quality — vague briefs produce vague outputs; structured briefs with explicit acceptance criteria produce shippable components',
+      'Cross-session continuity is the hardest problem in AI-assisted project delivery — solved here through PROJECT_LOG.md and SESSION_TEMPLATE.md, not through AI memory alone',
+      'The human handles direction, judgement, and scope; the AI handles implementation velocity — this skill split should be designed explicitly before a project begins, not discovered mid-delivery',
+      'Documenting decisions at the time they are made reduces re-debate in future sessions and proves that scope calls were deliberate, not accidental',
+    ],
+
+    artifacts: [
+      { label: 'Live Site',           path: 'https://abhishekak.site' },
+      { label: 'GitHub Repo',         path: 'https://github.com/Starquake82/abhishekak-site' },
+      { label: 'Notion Project Page', path: 'https://app.notion.com/p/3910adb7af6081f69cc6cea17771a60a' },
+    ],
+  },
 ]

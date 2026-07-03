@@ -61,6 +61,12 @@ const CARDS = [
     name: 'AK Brand OS — Design System', descriptor: 'DESIGN · AI',
     glowColor: 'rgba(255,90,0,0.13)',
   },
+  {
+    num: '10', slug: 'abhishekak-site',
+    type: 'CASE STUDY', domain: 'AI · WEB DELIVERY',
+    name: 'abhishekak.site — AI-Assisted Portfolio Build', descriptor: 'PM · AI DELIVERY',
+    glowColor: 'rgba(255,90,0,0.13)',
+  },
 ]
 
 const TOTAL = CARDS.length
