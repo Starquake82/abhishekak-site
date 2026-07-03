@@ -15,6 +15,11 @@ export type ProjectGallery = {
   kits?:       GalleryImage[]
 }
 
+export type RichSection =
+  | { type: 'text';    label?: string; body: string }
+  | { type: 'bullets'; label?: string; items: string[] }
+  | { type: 'table';   label?: string; headers: string[]; rows: string[][] }
+
 export type Project = {
   slug:         string
   type:         'CASE STUDY' | 'PORTFOLIO PROJECT'
@@ -30,6 +35,7 @@ export type Project = {
   artifacts:    ProjectArtifact[]
   comingSoon:   boolean
   gallery?:     ProjectGallery
+  richContent?: RichSection[]
 }
 
 export const PROJECTS: Project[] = [
@@ -345,28 +351,137 @@ export const PROJECTS: Project[] = [
     year:       '2026',
     comingSoon: false,
 
-    brief: 'BA and BI experience is invisible on a CV — analytical depth, delivery structure, and quality of judgement only show through evidence. This site is that evidence: a production portfolio built by an analyst with zero coding background, using structured AI-assisted delivery across four sessions. Three Business Objectives were locked in before implementation began — BO-01: evidence-led portfolio, not claims; BO-02: proof that an analyst can specify, direct, and ship a web product with AI; BO-03: analyst-as-PM, not just subject matter expert. The site is the product. The methodology is the case study.',
+    brief: 'Professional BA and BI experience is difficult to convey through a CV alone — work quality, analytical structure, and delivery approach are invisible without evidence. This portfolio addresses that gap: 15 years of structured analysis work translated into a navigable, evidence-led digital product, combining case studies, project artefacts, CVs, certifications, and process documentation in a single accessible reference. Built and delivered by an analyst with zero coding background using a structured AI-assisted workflow. The project follows one principle: Structured Diagnosis for Business, Systems & AI.',
 
-    role: 'Human Product Owner (Abhishek Kininge) — defined business objectives, authored session briefs with explicit acceptance criteria, made all scope decisions, reviewed and accepted or rejected every output, and supplied all domain knowledge and content. AI Implementation Partner (Claude Code) — translated briefs into React / Next.js components, built GSAP animations and routing, diagnosed and resolved three production delivery issues.',
+    role:        '—',
+    approach:    [],
+    deliverables:[],
+    takeaways:   [],
 
-    approach: [
-      'Business Objectives defined first — BO-01, BO-02, BO-03 — before any implementation. Used as the scope boundary throughout; every feature decision was tested against them',
-      'Structured session brief authored before each of four delivery sessions — scope, deliverables list, acceptance criteria with pass/fail conditions, and an explicit out-of-scope guard. Brief quality was the single highest-leverage input to output quality',
-      'AK Brand OS applied as the sole visual constraint: #0A0A0A background, #FF5A00 accent, Fraunces / Geist / JetBrains Mono type system — consistency between the site and all other portfolio artefacts without a separate design phase',
-      'Cross-session continuity solved through PROJECT_LOG.md (session scope, deliverables, issues, decisions per session) and SESSION_TEMPLATE.md (reusable brief format) — not through AI memory',
-    ],
-
-    deliverables: [
-      'abhishekak.site — live on Vercel, Next.js 16 App Router / React 19, 15 static routes, responsive on desktop and mobile',
-      '10 project cards in a GSAP horizontal pin-scroll gallery — per-card domain glow, individual detail pages, PDF artefact viewer and image lightbox across all entries',
-      'BA-style README.md — 12 sections including Problem Statement, three Business Objectives, AI vs Human PO role split, Skills tables, Deliverables Register, and Design Direction token table',
-      'PROJECT_LOG.md (4 sessions) · SESSION_TEMPLATE.md (reusable brief) · Notion project page (session log, decision log, AI impact log ~57–77 hrs, 10 standing rules)',
-    ],
-
-    takeaways: [
-      'The BA skill set transfers directly to AI-assisted web delivery — requirements framing, scope definition, acceptance criteria, and iterative review work the same way whether the deliverable is a BRD or a deployed website',
-      'Session brief quality determines output quality. A brief with explicit scope, a numbered deliverables list, and pass/fail criteria produces a shippable component on first review. A vague prompt produces rework',
-      'Cross-session continuity is a documentation problem, not an AI problem — PROJECT_LOG.md and SESSION_TEMPLATE.md gave every new session full context within the first prompt, not through AI memory',
+    richContent: [
+      {
+        type:  'bullets',
+        label: '02 / WHY THIS PROJECT EXISTS',
+        items: [
+          'BO-01 — Evidence-Led Portfolio: Present BA, BI, and process improvement experience through structured case studies, documented artefacts, and navigable sections — not through claims alone',
+          'BO-02 — AI Delivery Demonstration: Demonstrate that an analyst with no prior web development background can specify, direct, review, and deliver a production-quality web product using an AI-assisted coding workflow',
+          'BO-03 — Analyst-as-Product-Owner: Show how a business analyst can act simultaneously as product owner, content architect, reviewer, and delivery lead — with AI as the implementation partner',
+        ],
+      },
+      {
+        type:  'bullets',
+        label: '03 / AI IMPLEMENTATION ROLE',
+        items: [
+          'Translated structured requirements into React / Next.js components',
+          'Built and iterated layout, animation, routing, and interaction behaviour',
+          'Structured portfolio content into typed data models',
+          'Accelerated delivery from concept to deployed site',
+        ],
+      },
+      {
+        type:  'bullets',
+        label: 'HUMAN PRODUCT OWNER ROLE — ABHISHEK KININGE',
+        items: [
+          'Defined business objectives and product scope',
+          'Supplied domain knowledge, professional context, and case-study content',
+          'Reviewed all outputs for accuracy, tone, and business relevance',
+          'Validated portfolio evidence and directed final user experience',
+          'Authored all session briefs and acceptance criteria',
+        ],
+      },
+      {
+        type:    'table',
+        label:   '04 / BA & BI SKILLS DEMONSTRATED',
+        headers: ['Domain', 'Skills'],
+        rows: [
+          ['Business Analysis',    'Requirements elicitation, process mapping, BRD writing, user stories, stakeholder management, gap analysis'],
+          ['Business Intelligence','Power BI (Desktop + Service + DAX), data modelling, dashboard design, KPI definition'],
+          ['Process Improvement',  'Root cause analysis, waste identification, process reengineering, cost optimisation'],
+          ['Documentation',        'Wireframes, use case documentation, validation sheets, process flow diagrams'],
+          ['Domain Knowledge',     'BFSI · Manufacturing · Retail Analytics · Government · Healthcare · Library Systems'],
+        ],
+      },
+      {
+        type:    'table',
+        label:   '05 / AI & TECHNICAL SKILLS DEMONSTRATED',
+        headers: ['Domain', 'Skills'],
+        rows: [
+          ['AI-Assisted Delivery', 'Claude Code prompt engineering, session brief authoring, AI output review and direction'],
+          ['Frontend',             'React 19, Next.js 16 App Router, TypeScript, Tailwind CSS v4'],
+          ['Animation',            'GSAP + ScrollTrigger (horizontal pin scroll, scroll-triggered entrance), Lenis smooth scroll'],
+          ['Routing',              'App Router dynamic routes, static params generation, async server components'],
+          ['Data Modelling',       'Typed project data structures in TypeScript (projectData.ts)'],
+        ],
+      },
+      {
+        type:  'bullets',
+        label: '06 / PRODUCT FEATURES',
+        items: [
+          'Hero — Canvas particle mesh, animated headline with rotating text, entrance animation',
+          'Work / Experience — GSAP vertical snap timeline, company logo grid (35+ logos)',
+          'Projects & Case Studies — Horizontal pinned scroll track, 10 cards (4 portfolio projects + 6 case studies), individual project detail pages with PDF artefact viewer',
+          'Certifications — Dual horizontal marquee of certificate cards',
+          'About — Count-up stats, personal context section',
+          'Contact — Styled contact form with social links',
+          'Admin Route — /admin pipeline dashboard UI (Phase 2 placeholder; Run buttons disabled)',
+          'PDF Artefact Viewer — Inline PDF popup with download option, image viewer with zoom',
+          'Custom Cursor — Dot cursor with hover expand behaviour',
+        ],
+      },
+      {
+        type:    'table',
+        label:   '07 / DELIVERABLES REGISTER',
+        headers: ['Artefact Type', 'Contents', 'Location'],
+        rows: [
+          ['CV Documents',                   'BA-focused CV, BI-focused CV, Cover Letter',                         'public/CV/'],
+          ['Case Study PDFs',                '6 BA/BI/Process case studies',                                      'public/Projects/Case Studies/'],
+          ['BA Portfolio — Library Portal',  'Wireframes, BRD, process flows, user stories, validation sheet',    'public/Projects/library-portal/'],
+          ['BA Portfolio — Procurement Portal','Wireframes, BRD, use cases, validation sheet, process flows',     'public/Projects/procurement-portal/'],
+          ['BI Portfolio — Maven AW Dashboard','Power BI project files',                                          'public/Projects/maven-aw/'],
+          ['BI Portfolio — FinBridge LOS',   'BFSI lending project documentation',                               'public/Projects/finbridge-los/'],
+          ['Certificates',                   '12+ professional certificates (PDF and image)',                     'public/Certificates/'],
+          ['Certification Badges',           'Digital badges from Maven Analytics, McKinsey, Google, IBM',        'public/Badges/'],
+          ['Organisation Logos',             '35+ logos used in Experience and Education sections',               'public/Logos/'],
+        ],
+      },
+      {
+        type:    'table',
+        label:   '08 / TECHNOLOGY STACK',
+        headers: ['Category', 'Technology', 'Version'],
+        rows: [
+          ['Framework',    'Next.js',           '16.2.9'],
+          ['Language',     'TypeScript',         '^5'],
+          ['UI Library',   'React',              '19.2.4'],
+          ['Styling',      'Tailwind CSS',        '^4'],
+          ['Animation',    'GSAP + ScrollTrigger','^ 3.15'],
+          ['Smooth Scroll','Lenis',               '^1.3'],
+          ['Utilities',    'clsx',                '^2.1'],
+          ['Utilities',    'tailwind-merge',      '^3.6'],
+          ['Deployment',   'Vercel',              '—'],
+        ],
+      },
+      {
+        type:    'table',
+        label:   '09 / DESIGN DIRECTION',
+        headers: ['Token', 'Value', 'Usage'],
+        rows: [
+          ['--bg',     '#0A0A0A',                   'Page background'],
+          ['--surface','#111111',                   'Cards, panels'],
+          ['--text',   '#F2F0EB',                   'Primary text'],
+          ['--muted',  'rgba(242,240,235,0.45)',     'Secondary text'],
+          ['--accent', '#FF5A00',                   'Orange highlight, CTAs'],
+          ['--border', 'rgba(255,255,255,0.07)',     'Dividers, card borders'],
+        ],
+      },
+      {
+        type:  'bullets',
+        label: 'TYPOGRAPHY',
+        items: [
+          'Fraunces — Display headings (serif, optical)',
+          'Geist — Body and UI text (sans-serif)',
+          'JetBrains Mono — Section labels, tags, monospaced UI',
+        ],
+      },
     ],
 
     artifacts: [

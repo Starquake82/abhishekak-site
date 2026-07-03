@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Nav from '@/components/Nav'
 import PdfArtifact from '@/components/PdfArtifact'
 import GalleryThumb from '@/components/GalleryThumb'
-import { PROJECTS } from '@/lib/projectData'
+import { PROJECTS, type RichSection } from '@/lib/projectData'
 
 export async function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }))
@@ -85,6 +85,75 @@ function Divider() {
       margin:     '48px 0',
       width:      '100%',
     }} />
+  )
+}
+
+function RichTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+  return (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            {headers.map((h, i) => (
+              <th key={i} style={{
+                fontFamily:    mono,
+                fontSize:      '10px',
+                letterSpacing: '1px',
+                color:         'rgba(242,240,235,0.30)',
+                fontWeight:    400,
+                textAlign:     'left',
+                textTransform: 'uppercase',
+                paddingBottom: '12px',
+                paddingRight:  '32px',
+                borderBottom:  '1px solid rgba(255,255,255,0.07)',
+                whiteSpace:    'nowrap',
+              }}>
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => (
+                <td key={j} style={{
+                  fontFamily:  j === 0 ? mono : sans,
+                  fontSize:    j === 0 ? '12px' : '13px',
+                  color:       j === 0 ? 'rgba(242,240,235,0.70)' : 'rgba(242,240,235,0.50)',
+                  padding:     '11px 32px 11px 0',
+                  borderBottom:'1px solid rgba(255,255,255,0.04)',
+                  verticalAlign:'top',
+                  lineHeight:  1.6,
+                  whiteSpace:  j === 0 ? 'nowrap' : 'normal',
+                }}>
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function RichContent({ sections }: { sections: RichSection[] }) {
+  return (
+    <>
+      {sections.map((s, i) => (
+        <div key={i} style={{ marginBottom: '48px' }}>
+          {s.label && <SectionLabel>{s.label}</SectionLabel>}
+          {s.type === 'text' && (
+            <p style={{ fontFamily: sans, fontSize: '15px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.75, margin: 0 }}>
+              {s.body}
+            </p>
+          )}
+          {s.type === 'bullets' && <BulletList items={s.items} />}
+          {s.type === 'table'   && <RichTable headers={s.headers} rows={s.rows} />}
+        </div>
+      ))}
+    </>
   )
 }
 
@@ -192,75 +261,81 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <Divider />
 
-        {/* My Role */}
-        <div style={{ marginBottom: '56px' }}>
-          <SectionLabel>My Role</SectionLabel>
-          <p style={{ fontFamily: sans, fontSize: '15px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.75, margin: 0 }}>
-            {project.role}
-          </p>
-        </div>
-
-        {/* Approach */}
-        <div style={{ marginBottom: '56px' }}>
-          <SectionLabel>Approach</SectionLabel>
-          <BulletList items={project.approach} />
-        </div>
-
-        {/* System Gallery */}
-        {project.gallery && (
+        {project.richContent ? (
+          <RichContent sections={project.richContent} />
+        ) : (
           <>
-            {project.gallery.tokens && project.gallery.tokens.length > 0 && (
-              <div style={{ marginBottom: '56px' }}>
-                <SectionLabel>Design Tokens</SectionLabel>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  {project.gallery.tokens.map((img, i) => (
-                    <GalleryThumb
-                      key={i}
-                      src={img.src}
-                      alt={img.alt}
-                      caption={img.caption}
-                      imgStyle={{ height: '140px', width: 'auto' }}
-                    />
-                  ))}
-                </div>
-              </div>
+            {/* My Role */}
+            <div style={{ marginBottom: '56px' }}>
+              <SectionLabel>My Role</SectionLabel>
+              <p style={{ fontFamily: sans, fontSize: '15px', color: 'rgba(242,240,235,0.65)', lineHeight: 1.75, margin: 0 }}>
+                {project.role}
+              </p>
+            </div>
+
+            {/* Approach */}
+            <div style={{ marginBottom: '56px' }}>
+              <SectionLabel>Approach</SectionLabel>
+              <BulletList items={project.approach} />
+            </div>
+
+            {/* System Gallery */}
+            {project.gallery && (
+              <>
+                {project.gallery.tokens && project.gallery.tokens.length > 0 && (
+                  <div style={{ marginBottom: '56px' }}>
+                    <SectionLabel>Design Tokens</SectionLabel>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                      {project.gallery.tokens.map((img, i) => (
+                        <GalleryThumb
+                          key={i}
+                          src={img.src}
+                          alt={img.alt}
+                          caption={img.caption}
+                          imgStyle={{ height: '140px', width: 'auto' }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {project.gallery.components && project.gallery.components.length > 0 && (
+                  <div style={{ marginBottom: '56px' }}>
+                    <SectionLabel>Component Library</SectionLabel>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
+                      {project.gallery.components.map((img, i) => (
+                        <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {project.gallery.kits && project.gallery.kits.length > 0 && (
+                  <div style={{ marginBottom: '56px' }}>
+                    <SectionLabel>Applied Kits</SectionLabel>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                      {project.gallery.kits.map((img, i) => (
+                        <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
 
-            {project.gallery.components && project.gallery.components.length > 0 && (
-              <div style={{ marginBottom: '56px' }}>
-                <SectionLabel>Component Library</SectionLabel>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
-                  {project.gallery.components.map((img, i) => (
-                    <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Deliverables & Outcomes */}
+            <div style={{ marginBottom: '56px' }}>
+              <SectionLabel>Deliverables &amp; Outcomes</SectionLabel>
+              <BulletList items={project.deliverables} />
+            </div>
 
-            {project.gallery.kits && project.gallery.kits.length > 0 && (
-              <div style={{ marginBottom: '56px' }}>
-                <SectionLabel>Applied Kits</SectionLabel>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-                  {project.gallery.kits.map((img, i) => (
-                    <GalleryThumb key={i} src={img.src} alt={img.alt} caption={img.caption} />
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Key Takeaways */}
+            <div style={{ marginBottom: '56px' }}>
+              <SectionLabel>Key Takeaways</SectionLabel>
+              <BulletList items={project.takeaways} />
+            </div>
           </>
         )}
-
-        {/* Deliverables & Outcomes */}
-        <div style={{ marginBottom: '56px' }}>
-          <SectionLabel>Deliverables &amp; Outcomes</SectionLabel>
-          <BulletList items={project.deliverables} />
-        </div>
-
-        {/* Key Takeaways */}
-        <div style={{ marginBottom: '56px' }}>
-          <SectionLabel>Key Takeaways</SectionLabel>
-          <BulletList items={project.takeaways} />
-        </div>
 
         {/* Artifacts */}
         {project.artifacts.length > 0 && (
