@@ -27,20 +27,26 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Abhishek Kininge — Independent BA & BI Consultant',
   description:
-    'Senior BA & BI Consultant with 15 years across government analytics, BFSI, and manufacturing. Pune, India.',
-  keywords: ['independent consultant', 'business analyst', 'BI consultant', 'Power BI', 'data analytics', 'Pune', 'AI-augmented delivery', 'IDDAC'],
+    'Independent BA & BI Consultant · 15+ years across government analytics (₹855L project), BFSI & manufacturing · Power BI, process improvement, AI-augmented delivery · Pune, India · open to remote.',
+  keywords: [
+    'business analyst', 'BI consultant', 'Power BI consultant India',
+    'business analyst Pune', 'process improvement consultant',
+    'AI-augmented delivery', 'BA consultant remote', 'data analytics consultant',
+    'requirements elicitation', 'Power BI dashboard', 'independent consultant',
+  ],
   openGraph: {
     title: 'Abhishek Kininge — Independent BA & BI Consultant',
-    description: 'Senior BA & BI Consultant with 15 years across government analytics, BFSI, and manufacturing. Pune, India.',
+    description:
+      'Independent BA & BI Consultant · 15+ years across government analytics (₹855L project), BFSI & manufacturing · Power BI, process improvement, AI-augmented delivery · Pune, India · open to remote.',
     url: 'https://abhishekak.site',
     siteName: 'abhishekak.site',
-    locale: 'en_IN',
+    locale: 'en',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abhishek Kininge — Independent Consultant',
-    description: 'BA · BI · AI · 15+ years · Pune, India',
+    title: 'Abhishek Kininge — BA & BI Consultant',
+    description: 'BA · BI · AI-augmented delivery · 15+ years · Pune, India · open to remote',
   },
   metadataBase: new URL('https://abhishekak.site'),
   robots: { index: true, follow: true },

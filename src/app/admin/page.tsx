@@ -2,8 +2,8 @@ export default function AdminPage() {
   const mono: React.CSSProperties = { fontFamily: 'var(--font-jetbrains)' }
 
   const pipelines = [
-    { name: 'JIH Healthcare', desc: 'Lead Generation Pipeline' },
-    { name: 'Ajinkya Technologies', desc: 'Business Dev Pipeline' },
+    { name: 'Pipeline A', desc: 'Lead Generation Pipeline' },
+    { name: 'Pipeline B', desc: 'Business Dev Pipeline' },
   ]
 
   return (

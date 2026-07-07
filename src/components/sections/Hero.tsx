@@ -83,6 +83,7 @@ export default function Hero() {
     tl.fromTo('.hero-dot',        { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.5)' }, '-=0.1')
     tl.fromTo('.hero-role',       { opacity: 0, x: -16 },  { opacity: 1, x: 0, duration: 0.5 }, '-=0.3')
     tl.fromTo('.hero-pills',      { opacity: 0, y: 8 },    { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
+    tl.fromTo('.hero-tagline',    { opacity: 0, y: 8 },    { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
     tl.fromTo('.hero-desc',       { opacity: 0, y: 12 },   { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
     tl.fromTo('.hero-ctas',       { opacity: 0, y: 12 },   { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
     tl.fromTo('.scroll-indicator',{ opacity: 0 },           { opacity: 1, duration: 0.4 }, '-=0.1')
@@ -113,13 +114,20 @@ export default function Hero() {
         </div>
 
         {/* Domain pills */}
-        <div className="hero-pills" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '14px', marginBottom: '20px', flexWrap: 'wrap', opacity: 0 }}>
+        <div className="hero-pills" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '14px', marginBottom: '12px', flexWrap: 'wrap', opacity: 0 }}>
           <span style={pillText}>Business Analysis</span>
           <span style={dot}>•</span>
           <span style={pillText}>Business Intelligence</span>
           <span style={dot}>•</span>
           <span style={pillText}>Process Improvement</span>
+          <span style={dot}>•</span>
+          <span style={{ ...pillText, color: 'rgba(255,90,0,0.55)' }}>AI-Augmented Delivery</span>
         </div>
+
+        {/* Brand tagline */}
+        <p className="hero-tagline" style={{ ...mono, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,90,0,0.50)', textTransform: 'uppercase', marginBottom: '20px', opacity: 0 }}>
+          Structured Diagnosis for Business, Systems &amp; AI
+        </p>
 
         {/* Description */}
         <p className="hero-desc" style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', maxWidth: '420px', lineHeight: 1.7, marginBottom: '36px', opacity: 0 }}>
@@ -131,24 +139,45 @@ export default function Hero() {
         {/* CTAs */}
         <div className="hero-ctas" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', opacity: 0 }}>
           <a
-            href="#work"
+            href="#work-projects"
             data-cursor="hover"
-            onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}
+            onClick={(e) => { e.preventDefault(); document.getElementById('work-projects')?.scrollIntoView({ behavior: 'smooth' }) }}
             style={{ background: 'var(--accent)', color: '#fff', padding: '12px 24px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#d44d00' }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)' }}
           >
-            View engagements →
+            View Case Studies →
           </a>
           <a
             href="/CV/Abhishek_CV_BA.pdf"
             download
             data-cursor="hover"
-            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 24px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
+            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
             onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
             onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
           >
-            Download CV
+            BA CV ↓
+          </a>
+          <a
+            href="/CV/Abhishek_CV_BI.pdf"
+            download
+            data-cursor="hover"
+            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
+            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
+            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
+          >
+            BI CV ↓
+          </a>
+          <a
+            href="https://www.linkedin.com/in/abhishekkininge/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="hover"
+            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
+            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
+            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
+          >
+            LinkedIn ↗
           </a>
         </div>
       </div>

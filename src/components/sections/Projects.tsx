@@ -7,65 +7,67 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const CARDS = [
+  // ── Case Studies (completed) ─────────────────────────────────────────────
   {
-    num: '01', slug: 'library-management-portal',
-    type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',
-    name: 'Library Management Portal', descriptor: 'BA',
-    glowColor: 'rgba(242,193,46,0.13)',
-  },
-  {
-    num: '02', slug: 'procurement-management-portal',
-    type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',
-    name: 'Procurement Management Portal', descriptor: 'BA',
-    glowColor: 'rgba(242,193,46,0.13)',
-  },
-  {
-    num: '03', slug: 'maven-aw-dashboard',
-    type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',
-    name: 'Maven AW Power BI Dashboard', descriptor: 'BI',
-    glowColor: 'rgba(107,68,212,0.13)',
-  },
-  {
-    num: '04', slug: 'finbridge-los',
-    type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',
-    name: 'FinBridge LOS', descriptor: 'BA · BFSI',
-    glowColor: 'rgba(242,193,46,0.13)',
-  },
-  {
-    num: '05', slug: 'brintons-runner-carpet',
+    num: '01', slug: 'brintons-runner-carpet',
     type: 'CASE STUDY', domain: 'MANUFACTURING · QA',
     name: 'Brintons — Process Failure & Improvement', descriptor: 'BA · PROCESS',
     glowColor: 'rgba(56,189,248,0.13)',
   },
   {
-    num: '06', slug: 'brintons-leave-encashment',
+    num: '02', slug: 'brintons-leave-encashment',
     type: 'CASE STUDY', domain: 'MANUFACTURING · COST',
     name: 'Brintons — Leave Encashment & Cost Optimisation', descriptor: 'BA · PROCESS',
     glowColor: 'rgba(56,189,248,0.13)',
   },
   {
-    num: '07', slug: 'finance-analytics-dashboard',
+    num: '03', slug: 'finance-analytics-dashboard',
     type: 'CASE STUDY', domain: 'BFSI · FINTECH',
     name: 'Finance Analytics & Dashboard', descriptor: 'BA · BI',
     glowColor: 'rgba(107,68,212,0.13)',
   },
   {
-    num: '08', slug: 'iddac',
+    num: '04', slug: 'iddac',
     type: 'CASE STUDY', domain: 'GOVERNMENT · ANALYTICS',
     name: 'IDDAC — Govt. Analytics Platform', descriptor: 'BA · BI',
     glowColor: 'rgba(242,193,46,0.13)',
   },
   {
-    num: '09', slug: 'ak-brand-os',
+    num: '05', slug: 'ak-brand-os',
     type: 'CASE STUDY', domain: 'DESIGN SYSTEMS · AI ENGINEERING',
     name: 'AK Brand OS — Design System', descriptor: 'DESIGN · AI',
     glowColor: 'rgba(255,90,0,0.13)',
   },
   {
-    num: '10', slug: 'abhishekak-site',
+    num: '06', slug: 'abhishekak-site',
     type: 'CASE STUDY', domain: 'AI · WEB DELIVERY',
     name: 'abhishekak.site — AI-Assisted Portfolio Build', descriptor: 'PM · AI DELIVERY',
     glowColor: 'rgba(255,90,0,0.13)',
+  },
+  // ── Portfolio Projects (in progress) ─────────────────────────────────────
+  {
+    num: '07', slug: 'library-management-portal',
+    type: 'PORTFOLIO PROJECT', domain: 'LIBRARY SYSTEMS',
+    name: 'Library Management Portal', descriptor: 'BA',
+    glowColor: 'rgba(242,193,46,0.13)',
+  },
+  {
+    num: '08', slug: 'procurement-management-portal',
+    type: 'PORTFOLIO PROJECT', domain: 'PROCUREMENT OPS',
+    name: 'Procurement Management Portal', descriptor: 'BA',
+    glowColor: 'rgba(242,193,46,0.13)',
+  },
+  {
+    num: '09', slug: 'maven-aw-dashboard',
+    type: 'PORTFOLIO PROJECT', domain: 'SALES & RETAIL ANALYTICS',
+    name: 'Maven AW Power BI Dashboard', descriptor: 'BI',
+    glowColor: 'rgba(107,68,212,0.13)',
+  },
+  {
+    num: '10', slug: 'finbridge-los',
+    type: 'PORTFOLIO PROJECT', domain: 'BFSI · LENDING',
+    name: 'FinBridge LOS', descriptor: 'BA · BFSI',
+    glowColor: 'rgba(242,193,46,0.13)',
   },
 ]
 
