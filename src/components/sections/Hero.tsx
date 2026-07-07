@@ -99,9 +99,9 @@ export default function Hero() {
         .fromTo('.hero-ctas',     { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.9')
         .fromTo('.scroll-indicator', { opacity: 0 },     { opacity: 1, duration: 0.4 }, '-=0.2')
 
-      // Idle: orange dot pulse + card float
-      gsap.to('.hero-dot', { scale: 0.82, opacity: 0.55, duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.2 })
-      gsap.to('.hero-card', { y: -6, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 })
+      // Idle: orange dot pulse + card float (kept visible/continuous so the section never sits static)
+      gsap.to('.hero-dot', { scale: 0.78, opacity: 0.5, duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.8 })
+      gsap.to('.hero-card', { y: -10, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.6 })
 
       // Card 3D cursor-tilt
       const card = cardRef.current
@@ -152,17 +152,18 @@ export default function Hero() {
     padding: '11px 18px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px',
     textDecoration: 'none', transition: 'border-color 0.2s ease, color 0.2s ease', display: 'inline-block',
   }
-  const cardLabel: React.CSSProperties = { ...mono, fontSize: '8px', letterSpacing: '1px', color: 'rgba(10,10,10,0.65)', textTransform: 'uppercase' }
+  const cardLabel: React.CSSProperties = { ...mono, fontSize: '8px', letterSpacing: '1px', color: '#F2F0EB', textTransform: 'uppercase' }
+  const barcodePattern = 'repeating-linear-gradient(90deg,#0A0A0A 0px 2px, transparent 2px 3px, #0A0A0A 3px 4px, transparent 4px 7px, #0A0A0A 7px 11px, transparent 11px 12px, #0A0A0A 12px 13px, transparent 13px 14px, #0A0A0A 14px 17px, transparent 17px 19px, #0A0A0A 19px 20px, transparent 20px 24px)'
 
   return (
     <section id="hero" ref={sectionRef} style={{ position: 'relative', width: '100%', minHeight: '100svh', overflow: 'hidden', background: 'var(--bg)' }}>
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 
       {/* Main grid */}
-      <div className="hero-grid" style={{ position: 'relative', zIndex: 1, minHeight: '100svh', maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 260px', gap: 'clamp(24px,4vw,56px)', alignItems: 'center', padding: 'clamp(90px,12vh,120px) clamp(24px,5vw,60px)', boxSizing: 'border-box' }}>
+      <div className="hero-grid" style={{ position: 'relative', zIndex: 1, minHeight: '100svh', maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 420px', gap: 'clamp(24px,4vw,56px)', alignItems: 'center', padding: 'clamp(90px,12vh,120px) clamp(24px,5vw,60px)', boxSizing: 'border-box' }}>
 
         {/* Left column */}
-        <div className="hero-left">
+        <div className="hero-left" style={{ textAlign: 'left' }}>
           <div className="hero-eyebrow" style={{ ...mono, fontSize: '10px', letterSpacing: '2.5px', color: 'rgba(255,90,0,0.65)', textTransform: 'uppercase', marginBottom: '20px', opacity: 0 }}>
             Independent BA &amp; BI Consultant
           </div>
@@ -212,32 +213,32 @@ export default function Hero() {
 
         {/* Right column — PROFILE card */}
         <div className="hero-card-wrap" style={{ display: 'flex', justifyContent: 'center' }}>
-          <div ref={cardRef} className="hero-card" style={{ width: '100%', maxWidth: '260px', height: '340px', borderRadius: '4px', overflow: 'hidden', display: 'flex', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', opacity: 0, willChange: 'transform' }}>
-            {/* White spine */}
-            <div style={{ width: '30px', background: '#F2F0EB', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <span style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', fontFamily: 'var(--font-anton)', fontSize: '11px', letterSpacing: '2px', color: '#0A0A0A', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+          <div ref={cardRef} className="hero-card" style={{ width: '100%', maxWidth: '416px', aspectRatio: '13 / 17', borderRadius: '4px', overflow: 'hidden', display: 'flex', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', opacity: 0, willChange: 'transform' }}>
+            {/* Gray spine */}
+            <div style={{ width: '48px', background: '#4B4B4B', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', fontFamily: 'var(--font-anton)', fontSize: '17px', letterSpacing: '3px', color: '#F2F0EB', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                 PROFILE / BA·BI / AK-2026
               </span>
             </div>
             {/* Orange body */}
-            <div style={{ flex: 1, background: 'var(--accent)', padding: '20px 18px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, background: 'var(--accent)', padding: '32px 29px', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={cardLabel}>PROFILE</span>
                 <span style={cardLabel}>NO. AK/01</span>
               </div>
-              <div style={{ margin: '16px 0', display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: '4px', fontSize: '11px', lineHeight: 1 }}>
+              <div style={{ margin: '26px 0', display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: '6px', fontSize: '18px', lineHeight: 1 }}>
                 {[1, 1, 1, 0, 0, 1, 0].map((on, i) => (
                   <span key={i} className="card-dot" style={{ color: on ? '#0A0A0A' : 'rgba(10,10,10,0.3)' }}>•</span>
                 ))}
               </div>
-              <div className="card-num" style={{ fontFamily: 'var(--font-anton)', fontSize: '42px', lineHeight: 0.85, color: '#0A0A0A', letterSpacing: '-1px', textTransform: 'uppercase' }}>
+              <div className="card-num" style={{ fontFamily: 'var(--font-anton)', fontSize: '67px', lineHeight: 0.85, color: '#F2F0EB', letterSpacing: '-1.5px', textTransform: 'uppercase' }}>
                 BA·BI<br />AI
               </div>
-              <div style={{ ...mono, fontSize: '8px', lineHeight: 1.55, color: 'rgba(10,10,10,0.72)', textTransform: 'uppercase', marginTop: '12px', marginBottom: 'auto' }}>
+              <div style={{ ...mono, fontSize: '13px', lineHeight: 1.55, color: 'rgba(242,240,235,0.85)', textTransform: 'uppercase', marginTop: '19px', marginBottom: 'auto' }}>
                 15+ yrs · govt, BFSI &amp; manufacturing. Power BI, process, AI-augmented.
               </div>
-              <div className="card-bc" style={{ height: '24px', background: 'repeating-linear-gradient(90deg,#0A0A0A 0 1.5px,transparent 1.5px 3px,#0A0A0A 3px 4px,transparent 4px 6px)' }} />
-              <div style={{ ...mono, fontSize: '7px', letterSpacing: '1px', color: 'rgba(10,10,10,0.6)', marginTop: '5px' }}>6 02354 58190 — AK</div>
+              <div className="card-bc" style={{ height: '38px', background: barcodePattern, backgroundSize: '38px 100%' }} />
+              <div style={{ ...mono, fontSize: '11px', letterSpacing: '1.5px', color: 'rgba(10,10,10,0.6)', marginTop: '8px' }}>6 02354 58190 — AK</div>
             </div>
           </div>
         </div>
@@ -257,7 +258,7 @@ export default function Hero() {
             align-items: start !important;
           }
           .hero-card-wrap { justify-content: flex-start !important; }
-          .hero-card { max-width: 240px !important; }
+          .hero-card { max-width: min(384px, 88vw) !important; }
         }
       `}</style>
     </section>
