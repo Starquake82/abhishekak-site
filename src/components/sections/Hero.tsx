@@ -1,8 +1,10 @@
 'use client'
 import { useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { usePreloader } from '@/components/PreloaderContext'
-import RotatingText from '@/components/RotatingText'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const PC_DESKTOP = 90
 const PC_MOBILE  = 55
@@ -14,23 +16,13 @@ const REPEL_F    = 0.55
 
 interface Particle { x: number; y: number; vx: number; vy: number; r: number }
 
-function SplitChars({ text, className }: { text: string; className?: string }) {
-  return (
-    <span className={className} style={{ display: 'block', overflow: 'hidden', lineHeight: 1.05 }}>
-      {text.split('').map((char, i) => (
-        <span key={i} className="char" style={{ display: 'inline-block', opacity: 0 }}>
-          {char === ' ' ? ' ' : char}
-        </span>
-      ))}
-    </span>
-  )
-}
-
 export default function Hero() {
   const canvasRef    = useRef<HTMLCanvasElement>(null)
   const mouseRef     = useRef({ x: -9999, y: -9999 })
   const particlesRef = useRef<Particle[]>([])
   const animRef      = useRef<number>(0)
+  const sectionRef   = useRef<HTMLElement>(null)
+  const cardRef      = useRef<HTMLDivElement>(null)
   const { isComplete } = usePreloader()
 
   const initParticles = useCallback((w: number, h: number) => {
@@ -42,6 +34,7 @@ export default function Hero() {
     particlesRef.current = list
   }, [])
 
+  // ── Particle canvas ─────────────────────────────────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -75,118 +68,198 @@ export default function Hero() {
     return () => { cancelAnimationFrame(animRef.current); window.removeEventListener('mousemove', onMouseMove); window.removeEventListener('resize', resize) }
   }, [initParticles])
 
+  // ── Entrance choreography + interactions ────────────────────────────────────
   useEffect(() => {
     if (!isComplete) return
-    const tl = gsap.timeline({ delay: 0.1 })
-    tl.fromTo('.name-1 .char',    { opacity: 0, y: 50 },   { opacity: 1, y: 0, duration: 0.7, stagger: 0.03, ease: 'power3.out' })
-    tl.fromTo('.name-2 .char',    { opacity: 0, y: 50 },   { opacity: 1, y: 0, duration: 0.7, stagger: 0.03, ease: 'power3.out' }, '-=0.5')
-    tl.fromTo('.hero-dot',        { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.5)' }, '-=0.1')
-    tl.fromTo('.hero-role',       { opacity: 0, x: -16 },  { opacity: 1, x: 0, duration: 0.5 }, '-=0.3')
-    tl.fromTo('.hero-pills',      { opacity: 0, y: 8 },    { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-    tl.fromTo('.hero-tagline',    { opacity: 0, y: 8 },    { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-    tl.fromTo('.hero-desc',       { opacity: 0, y: 12 },   { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
-    tl.fromTo('.hero-ctas',       { opacity: 0, y: 12 },   { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
-    tl.fromTo('.scroll-indicator',{ opacity: 0 },           { opacity: 1, duration: 0.4 }, '-=0.1')
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const section = sectionRef.current
+    if (!section) return
+
+    const ctx = gsap.context(() => {
+      if (reduce) {
+        // Reduced motion: single quick fade of the final state
+        gsap.set(['.hero-line span', '.hero-dot', '.card-num', '.card-bc'], { clearProps: 'all' })
+        gsap.fromTo(
+          ['.hero-eyebrow', '.hero-line span', '.hero-tagline', '.hero-ctas', '.hero-card', '.scroll-indicator'],
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5, ease: 'power1.out' }
+        )
+        return
+      }
+
+      const tl = gsap.timeline({ delay: 0.1 })
+      tl.fromTo('.hero-eyebrow',  { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 })
+        .fromTo('.hero-line span',{ yPercent: 112 },     { yPercent: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out' }, '-=0.2')
+        .fromTo('.hero-dot',      { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }, '-=0.35')
+        .fromTo('.hero-tagline',  { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.4')
+        .fromTo('.hero-card',     { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' }, '-=1.0')
+        .fromTo('.card-dot',      { opacity: 0 },        { opacity: 1, duration: 0.3, stagger: 0.04 }, '-=0.5')
+        .fromTo('.card-num',      { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'power3.out' }, '-=0.3')
+        .fromTo('.card-bc',       { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.7, ease: 'power2.out' }, '-=0.4')
+        .fromTo('.hero-ctas',     { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.9')
+        .fromTo('.scroll-indicator', { opacity: 0 },     { opacity: 1, duration: 0.4 }, '-=0.2')
+
+      // Idle: orange dot pulse + card float
+      gsap.to('.hero-dot', { scale: 0.82, opacity: 0.55, duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.2 })
+      gsap.to('.hero-card', { y: -6, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 })
+
+      // Card 3D cursor-tilt
+      const card = cardRef.current
+      if (card) {
+        const rotX = gsap.quickTo(card, 'rotationX', { duration: 0.5, ease: 'power2.out' })
+        const rotY = gsap.quickTo(card, 'rotationY', { duration: 0.5, ease: 'power2.out' })
+        const onMove = (e: MouseEvent) => {
+          const r = section.getBoundingClientRect()
+          const cx = (e.clientX - r.left) / r.width - 0.5
+          const cy = (e.clientY - r.top) / r.height - 0.5
+          rotY(cx * 8); rotX(-cy * 8)
+        }
+        const onLeave = () => { rotX(0); rotY(0) }
+        section.addEventListener('mousemove', onMove)
+        section.addEventListener('mouseleave', onLeave)
+        gsap.set(card, { transformPerspective: 800, transformOrigin: 'center' })
+      }
+
+      // Magnetic CTA buttons
+      const magnets: Array<() => void> = []
+      section.querySelectorAll<HTMLElement>('.magnetic').forEach((el) => {
+        const mX = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3.out' })
+        const mY = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' })
+        const onMove = (e: MouseEvent) => {
+          const r = el.getBoundingClientRect()
+          mX((e.clientX - (r.left + r.width / 2)) * 0.35)
+          mY((e.clientY - (r.top + r.height / 2)) * 0.35)
+        }
+        const onLeave = () => { mX(0); mY(0) }
+        el.addEventListener('mousemove', onMove)
+        el.addEventListener('mouseleave', onLeave)
+        magnets.push(() => { el.removeEventListener('mousemove', onMove); el.removeEventListener('mouseleave', onLeave) })
+      })
+
+      // Scroll parallax — text and card drift at different rates
+      gsap.to('.hero-left', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: true } })
+      gsap.to('.hero-card-wrap', { yPercent: 22, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: true } })
+
+      return () => { magnets.forEach((fn) => fn()) }
+    }, section)
+
+    return () => ctx.revert()
   }, [isComplete])
 
   const mono = { fontFamily: 'var(--font-jetbrains)' } as const
-  const pillText: React.CSSProperties = { ...mono, fontSize: '10px', letterSpacing: '1.2px', color: 'rgba(242,240,235,0.40)', textTransform: 'uppercase' }
-  const dot: React.CSSProperties = { color: '#FF5A00', fontSize: '8px', lineHeight: 1, flexShrink: 0 }
+  const outlineBtn: React.CSSProperties = {
+    background: 'transparent', border: '1px solid rgba(255,255,255,0.14)', color: 'var(--muted)',
+    padding: '11px 18px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px',
+    textDecoration: 'none', transition: 'border-color 0.2s ease, color 0.2s ease', display: 'inline-block',
+  }
+  const cardLabel: React.CSSProperties = { ...mono, fontSize: '8px', letterSpacing: '1px', color: 'rgba(10,10,10,0.65)', textTransform: 'uppercase' }
 
   return (
-    <section id="hero" style={{ position: 'relative', width: '100%', height: '100svh', overflow: 'hidden', background: 'var(--bg)' }}>
+    <section id="hero" ref={sectionRef} style={{ position: 'relative', width: '100%', minHeight: '100svh', overflow: 'hidden', background: 'var(--bg)' }}>
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(24px,5vw,60px)', paddingTop: '100px', paddingBottom: '100px' }}>
+      {/* Main grid */}
+      <div className="hero-grid" style={{ position: 'relative', zIndex: 1, minHeight: '100svh', maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 260px', gap: 'clamp(24px,4vw,56px)', alignItems: 'center', padding: 'clamp(90px,12vh,120px) clamp(24px,5vw,60px)', boxSizing: 'border-box' }}>
 
-        {/* Name */}
-        <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(36px,7vw,88px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.0, overflowWrap: 'break-word', overflow: 'visible' }}>
-          <SplitChars text="Abhishek" className="name-1" />
-          <span style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <SplitChars text="Anil Kininge" className="name-2" />
-            <span className="hero-dot" style={{ width: 'clamp(8px,1vw,12px)', height: 'clamp(8px,1vw,12px)', borderRadius: '50%', background: 'var(--accent)', display: 'inline-block', flexShrink: 0, opacity: 0 }} />
-          </span>
+        {/* Left column */}
+        <div className="hero-left">
+          <div className="hero-eyebrow" style={{ ...mono, fontSize: '10px', letterSpacing: '2.5px', color: 'rgba(255,90,0,0.65)', textTransform: 'uppercase', marginBottom: '20px', opacity: 0 }}>
+            Independent BA &amp; BI Consultant
+          </div>
+
+          <h1 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,7vw,84px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.0, margin: 0 }}>
+            <span className="hero-line" style={{ display: 'block', overflow: 'hidden' }}>
+              <span style={{ display: 'block' }}>Abhishek</span>
+            </span>
+            <span className="hero-line" style={{ display: 'block', overflow: 'hidden' }}>
+              <span style={{ display: 'block' }}>Anil Kininge<span className="hero-dot" style={{ color: 'var(--accent)', display: 'inline-block' }}>.</span></span>
+            </span>
+          </h1>
+
+          <div className="hero-tagline" style={{ ...mono, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,90,0,0.5)', textTransform: 'uppercase', margin: '22px 0 32px', opacity: 0 }}>
+            Structured Diagnosis for Business, Systems &amp; AI
+          </div>
+
+          <div className="hero-ctas" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', opacity: 0 }}>
+            <a
+              href="#work-projects"
+              data-cursor="hover"
+              className="magnetic"
+              onClick={(e) => { e.preventDefault(); document.getElementById('work-projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+              style={{ background: 'var(--accent)', color: '#fff', padding: '11px 22px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'background 0.2s ease', display: 'inline-block' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#d44d00' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)' }}
+            >
+              View Case Studies →
+            </a>
+            <a href="/CV/Abhishek_CV_BA.pdf" download data-cursor="hover" className="magnetic" style={outlineBtn}
+              onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
+              onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.14)'; el.style.color = 'var(--muted)' }}>
+              BA CV ↓
+            </a>
+            <a href="/CV/Abhishek_CV_BI.pdf" download data-cursor="hover" className="magnetic" style={outlineBtn}
+              onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
+              onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.14)'; el.style.color = 'var(--muted)' }}>
+              BI CV ↓
+            </a>
+            <a href="https://www.linkedin.com/in/abhishekkininge/" target="_blank" rel="noopener noreferrer" data-cursor="hover" className="magnetic" style={outlineBtn}
+              onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
+              onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.14)'; el.style.color = 'var(--muted)' }}>
+              LinkedIn ↗
+            </a>
+          </div>
         </div>
 
-        {/* Rotating role */}
-        <div className="hero-role" style={{ ...mono, fontSize: '11px', letterSpacing: '1px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '20px', opacity: 0 }}>
-          <RotatingText style={{ ...mono, fontSize: '11px', letterSpacing: '1px', color: 'var(--muted)', textTransform: 'uppercase' }} />
-        </div>
-
-        {/* Domain pills */}
-        <div className="hero-pills" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '14px', marginBottom: '12px', flexWrap: 'wrap', opacity: 0 }}>
-          <span style={pillText}>Business Analysis</span>
-          <span style={dot}>•</span>
-          <span style={pillText}>Business Intelligence</span>
-          <span style={dot}>•</span>
-          <span style={pillText}>Process Improvement</span>
-          <span style={dot}>•</span>
-          <span style={{ ...pillText, color: 'rgba(255,90,0,0.55)' }}>AI-Augmented Delivery</span>
-        </div>
-
-        {/* Brand tagline */}
-        <p className="hero-tagline" style={{ ...mono, fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,90,0,0.50)', textTransform: 'uppercase', marginBottom: '20px', opacity: 0 }}>
-          Structured Diagnosis for Business, Systems &amp; AI
-        </p>
-
-        {/* Description */}
-        <p className="hero-desc" style={{ fontFamily: 'var(--font-geist)', fontSize: '15px', color: 'var(--muted)', maxWidth: '420px', lineHeight: 1.7, marginBottom: '36px', opacity: 0 }}>
-          Network of structured decisions —<br />
-          diagnosing what&rsquo;s actually wrong<br />
-          and building what actually works.
-        </p>
-
-        {/* CTAs */}
-        <div className="hero-ctas" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', opacity: 0 }}>
-          <a
-            href="#work-projects"
-            data-cursor="hover"
-            onClick={(e) => { e.preventDefault(); document.getElementById('work-projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-            style={{ background: 'var(--accent)', color: '#fff', padding: '12px 24px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#d44d00' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--accent)' }}
-          >
-            View Case Studies →
-          </a>
-          <a
-            href="/CV/Abhishek_CV_BA.pdf"
-            download
-            data-cursor="hover"
-            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
-            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
-            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
-          >
-            BA CV ↓
-          </a>
-          <a
-            href="/CV/Abhishek_CV_BI.pdf"
-            download
-            data-cursor="hover"
-            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
-            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
-            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
-          >
-            BI CV ↓
-          </a>
-          <a
-            href="https://www.linkedin.com/in/abhishekkininge/"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="hover"
-            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted)', padding: '12px 20px', borderRadius: 0, ...mono, fontSize: '12px', letterSpacing: '0.5px', textDecoration: 'none', transition: 'all 0.2s ease', display: 'inline-block' }}
-            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,90,0,0.4)'; el.style.color = 'var(--text)' }}
-            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.12)'; el.style.color = 'var(--muted)' }}
-          >
-            LinkedIn ↗
-          </a>
+        {/* Right column — PROFILE card */}
+        <div className="hero-card-wrap" style={{ display: 'flex', justifyContent: 'center' }}>
+          <div ref={cardRef} className="hero-card" style={{ width: '100%', maxWidth: '260px', height: '340px', borderRadius: '4px', overflow: 'hidden', display: 'flex', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', opacity: 0, willChange: 'transform' }}>
+            {/* White spine */}
+            <div style={{ width: '30px', background: '#F2F0EB', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', fontFamily: 'var(--font-anton)', fontSize: '11px', letterSpacing: '2px', color: '#0A0A0A', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+                PROFILE / BA·BI / AK-2026
+              </span>
+            </div>
+            {/* Orange body */}
+            <div style={{ flex: 1, background: 'var(--accent)', padding: '20px 18px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={cardLabel}>PROFILE</span>
+                <span style={cardLabel}>NO. AK/01</span>
+              </div>
+              <div style={{ margin: '16px 0', display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: '4px', fontSize: '11px', lineHeight: 1 }}>
+                {[1, 1, 1, 0, 0, 1, 0].map((on, i) => (
+                  <span key={i} className="card-dot" style={{ color: on ? '#0A0A0A' : 'rgba(10,10,10,0.3)' }}>•</span>
+                ))}
+              </div>
+              <div className="card-num" style={{ fontFamily: 'var(--font-anton)', fontSize: '42px', lineHeight: 0.85, color: '#0A0A0A', letterSpacing: '-1px', textTransform: 'uppercase' }}>
+                BA·BI<br />AI
+              </div>
+              <div style={{ ...mono, fontSize: '8px', lineHeight: 1.55, color: 'rgba(10,10,10,0.72)', textTransform: 'uppercase', marginTop: '12px', marginBottom: 'auto' }}>
+                15+ yrs · govt, BFSI &amp; manufacturing. Power BI, process, AI-augmented.
+              </div>
+              <div className="card-bc" style={{ height: '24px', background: 'repeating-linear-gradient(90deg,#0A0A0A 0 1.5px,transparent 1.5px 3px,#0A0A0A 3px 4px,transparent 4px 6px)' }} />
+              <div style={{ ...mono, fontSize: '7px', letterSpacing: '1px', color: 'rgba(10,10,10,0.6)', marginTop: '5px' }}>6 02354 58190 — AK</div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="scroll-indicator" style={{ position: 'absolute', bottom: '80px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', opacity: 0, zIndex: 1 }}>
+      <div className="scroll-indicator" style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', opacity: 0, zIndex: 2 }}>
         <div className="scroll-line" style={{ width: '2px', height: '40px', background: 'var(--accent)', transformOrigin: 'top' }} />
         <span style={{ ...mono, fontSize: '9px', letterSpacing: '1.5px', color: 'var(--subtle)', textTransform: 'uppercase' }}>SCROLL</span>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            align-items: start !important;
+          }
+          .hero-card-wrap { justify-content: flex-start !important; }
+          .hero-card { max-width: 240px !important; }
+        }
+      `}</style>
     </section>
   )
 }

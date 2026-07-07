@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Geist, JetBrains_Mono } from 'next/font/google'
+import { Fraunces, Geist, JetBrains_Mono, Anton } from 'next/font/google'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
 import Cursor from '@/components/Cursor'
@@ -21,6 +21,13 @@ const geist = Geist({
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains',
   subsets: ['latin'],
+  display: 'swap',
+})
+
+const anton = Anton({
+  variable: '--font-anton',
+  subsets: ['latin'],
+  weight: '400',
   display: 'swap',
 })
 
@@ -58,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${geist.variable} ${jetbrainsMono.variable}`}
+      className={`${fraunces.variable} ${geist.variable} ${jetbrainsMono.variable} ${anton.variable}`}
     >
       <body>
         <PreloaderProvider>
