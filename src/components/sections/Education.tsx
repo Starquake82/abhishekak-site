@@ -33,7 +33,7 @@ export default function Education() {
     <section
       id="education"
       ref={sectionRef}
-      style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
+      style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ ...mono, fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '48px' }}>

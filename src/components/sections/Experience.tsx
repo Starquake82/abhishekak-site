@@ -11,6 +11,7 @@ const CARD_PAD = `${NAV_H + 16}px 32px 32px`
 const CARDS = [
   {
     logo:           null,
+    glowColor:      'rgba(255,90,0,0.14)',
     companyPrimary: 'Independent Consulting',
     companySub:     'Self-directed · Feb 2021 – Present',
     role:           'Independent Analyst & Consultant | Business, Data & Markets',
@@ -56,6 +57,7 @@ const CARDS = [
   },
   {
     logo:           '/Logos/sppu.png',
+    glowColor:      'rgba(242,193,46,0.16)',
     companyPrimary: 'Savitribai Phule Pune University',
     companySub:     'Tribal Development Dept., Govt. of Maharashtra',
     role:           'Sr. Project Consultant',
@@ -110,6 +112,7 @@ const CARDS = [
   },
   {
     logo:           '/Logos/opine-group.png',
+    glowColor:      'rgba(45,90,160,0.20)',
     companyPrimary: 'Opine Group',
     companySub:     'Deployed at Sarvatra Technologies (BFSI/Fintech)',
     role:           'Business Intelligence Analyst',
@@ -160,6 +163,7 @@ const CARDS = [
   },
   {
     logo:           '/Logos/texcarp.png',
+    glowColor:      'rgba(230,126,34,0.16)',
     companyPrimary: 'TexCarp Consulting',
     companySub:     'Part-time · UK Engagement',
     role:           'Consultant',
@@ -193,6 +197,7 @@ const CARDS = [
   },
   {
     logo:           '/Logos/mahalaxmi.png',
+    glowColor:      'rgba(76,175,80,0.16)',
     companyPrimary: 'Mahalaxmi Co-Op Yarn Processors',
     companySub:     'Garment Division',
     role:           'Business & Operations Manager',
@@ -232,6 +237,7 @@ const CARDS = [
   },
   {
     logo:           '/Logos/brintons.png',
+    glowColor:      'rgba(56,189,248,0.14)',
     companyPrimary: 'Brintons Carpets',
     companySub:     'India Design/Service Centre',
     role:           'Process Improvement Leader',
@@ -305,22 +311,25 @@ function CardContent({ card, onNextCard }: { card: typeof CARDS[number]; onNextC
           boxSizing:     'border-box',
           display:       'flex',
           flexDirection: 'column',
+          cursor:        expanded ? 'default' : 'pointer',
         }}
+        data-cursor={expanded ? undefined : 'hover'}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={() => { if (!expanded) setExpanded(true) }}
       >
-        {/* Hover glow — constrained to content wrapper */}
+        {/* Hover glow — tinted per company, constrained to content wrapper */}
         <div style={{
           position:      'absolute',
           inset:          0,
           zIndex:         0,
           pointerEvents: 'none',
-          background:    'radial-gradient(ellipse 200% 200% at 50% 30%, rgba(255,248,225,0.07) 0%, rgba(255,248,225,0.03) 40%, transparent 70%)',
+          background:    `radial-gradient(ellipse 200% 200% at 50% 30%, ${card.glowColor} 0%, transparent 70%)`,
           opacity:        hovered ? 1 : 0,
           transition:    'opacity 500ms ease',
         }} />
 
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: expanded ? 'flex-start' : 'center' }}>
 
           {/* ── Fixed header block ───────────────────────────── */}
           <div style={{ flexShrink: 0 }}>
@@ -346,7 +355,7 @@ function CardContent({ card, onNextCard }: { card: typeof CARDS[number]; onNextC
           <div
             className="exp-card-scroll"
             style={{
-              flex:               1,
+              flex:               expanded ? 1 : '0 1 auto',
               overflowY:          expanded ? 'auto' : 'hidden',
               overscrollBehavior: 'contain',
               paddingRight:       expanded ? '6px' : 0,
@@ -553,7 +562,7 @@ export default function Experience() {
 
   return (
     <>
-      <section id="work" ref={sectionRef} style={{ background: 'var(--bg)', position: 'relative' }}>
+      <section id="work" ref={sectionRef} style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', position: 'relative' }}>
 
         {/* Mobile-only label */}
         <div

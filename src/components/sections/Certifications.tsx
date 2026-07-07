@@ -253,7 +253,7 @@ export default function Certifications() {
     <section
       id="certs"
       ref={sectionRef}
-      style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) 0', overflow: 'hidden' }}
+      style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', padding: 'clamp(80px,10vw,140px) 0', overflow: 'hidden' }}
     >
       {/* ── Section header ──────────────────────────────────── */}
       <div style={{ padding: '0 clamp(24px,5vw,60px)', maxWidth: '1200px', margin: '0 auto', marginBottom: '72px' }}>

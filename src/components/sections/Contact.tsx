@@ -50,7 +50,7 @@ export default function Contact() {
       <section
         id="contact"
         ref={sectionRef}
-        style={{ background: 'var(--bg)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
+        style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,60px)' }}
       >
         <div style={{ maxWidth: '900px' }}>
           <div style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,8vw,80px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.05, marginBottom: '16px' }}>

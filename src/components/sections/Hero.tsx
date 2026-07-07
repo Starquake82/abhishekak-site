@@ -165,7 +165,7 @@ export default function Hero() {
         {/* Left column */}
         <div className="hero-left" style={{ textAlign: 'left' }}>
           <div className="hero-eyebrow" style={{ ...mono, fontSize: '10px', letterSpacing: '2.5px', color: 'rgba(255,90,0,0.65)', textTransform: 'uppercase', marginBottom: '20px', opacity: 0 }}>
-            Independent BA &amp; BI Consultant
+            Open to Remote · Independent BA &amp; BI Consultant
           </div>
 
           <h1 style={{ fontFamily: 'var(--font-fraunces)', fontSize: 'clamp(44px,7vw,84px)', fontWeight: 400, letterSpacing: '-2px', color: 'var(--text)', lineHeight: 1.0, margin: 0 }}>

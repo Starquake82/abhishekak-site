@@ -4,14 +4,15 @@ import gsap from 'gsap'
 
 const NAV_LINKS = [
   { label: 'HOME',        href: '#hero' },
+  { label: 'ABOUT',       href: '#about' },
   { label: 'WORK',        href: '#work' },
   { label: 'PROJECTS',    href: '#work-projects' },
-  { label: 'ABOUT',       href: '#about' },
   { label: 'CREDENTIALS', href: '#certs' },
+  { label: 'EDUCATION',   href: '#education' },
   { label: 'CONTACT',     href: '#contact' },
 ]
 
-const SECTIONS = ['hero', 'work', 'work-projects', 'about', 'certs', 'contact']
+const SECTIONS = ['hero', 'about', 'work', 'work-projects', 'certs', 'education', 'contact']
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState('')

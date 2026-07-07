@@ -291,6 +291,7 @@ export default function Projects() {
         height:     '100vh',
         overflow:   'hidden',
         background: 'var(--bg)',
+        borderTop:  '1px solid var(--border)',
         display:    'flex',
         position:   'relative',
       }}
