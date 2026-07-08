@@ -349,6 +349,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         )}
 
+        {/* Reference Materials */}
+        {project.referenceArtifacts && project.referenceArtifacts.length > 0 && (
+          <div style={{ marginBottom: '56px' }}>
+            <SectionLabel>Reference Materials</SectionLabel>
+            <p style={{ fontFamily: sans, fontSize: '13px', color: 'rgba(242,240,235,0.45)', marginBottom: '16px', fontStyle: 'italic' }}>
+              Sample documents and templates referenced during requirements research — not authored as part of this project.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {project.referenceArtifacts.map((a, i) => (
+                <PdfArtifact key={i} label={a.label} path={a.path} />
+              ))}
+            </div>
+          </div>
+        )}
+
         <Divider />
 
         <BackLink />

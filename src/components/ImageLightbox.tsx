@@ -16,6 +16,7 @@ export default function ImageLightbox({ path, label, onClose }: { path: string; 
   }, [onClose])
 
   const isImage = /\.(png|jpe?g|gif|webp|svg)$/i.test(path)
+  const isPdf   = /\.pdf$/i.test(path)
 
   return (
     <div
@@ -101,12 +102,14 @@ export default function ImageLightbox({ path, label, onClose }: { path: string; 
         <div style={{ flex: 1, overflow: 'auto', position: 'relative', background: '#1a1a1a' }}>
           {isImage ? (
             <ImageViewer path={path} label={label} />
-          ) : (
+          ) : isPdf ? (
             <embed
               src={path}
               type="application/pdf"
               style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
             />
+          ) : (
+            <NoPreview label={label} />
           )}
         </div>
       </div>
@@ -191,6 +194,32 @@ function ImageViewer({ path, label }: { path: string; label: string }) {
           }}
         />
       </div>
+    </div>
+  )
+}
+
+function NoPreview({ label }: { label: string }) {
+  return (
+    <div style={{
+      display:        'flex',
+      flexDirection:  'column',
+      alignItems:     'center',
+      justifyContent: 'center',
+      height:         '100%',
+      padding:        '24px',
+      textAlign:      'center',
+    }}>
+      <p style={{
+        fontFamily: sans,
+        fontSize:   '15px',
+        fontStyle:  'italic',
+        color:      'rgba(242,240,235,0.45)',
+        margin:     0,
+        maxWidth:   '360px',
+        lineHeight: 1.6,
+      }}>
+        No inline preview available for this file type. Use the Download button above to view {label}.
+      </p>
     </div>
   )
 }
